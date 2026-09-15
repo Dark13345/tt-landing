@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Торговые роботы Trading Time — проверьте на демо-счёте</title>
+<meta name="description" content="Три торговых робота для Forex под разные цели и депозиты. Бесплатная установка на демо-счёт и VPS, решение о реальных деньгах — после теста.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dark13345.github.io/tt-robots/">
+<meta property="og:image" content="https://dark13345.github.io/tt-robots/tt-robots-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://dark13345.github.io/tt-robots/">
+<meta property="og:title" content="Торговые роботы Trading Time — проверьте на демо-счёте">
+<meta property="og:description" content="Три робота для Forex под разные цели и депозиты. Бесплатная установка на демо-счёт и VPS.">
+<meta name="theme-color" content="#06040D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2306040D'/%3E%3Crect x='6' y='17' width='5' height='9' rx='1.2' fill='%239333EA'/%3E%3Crect x='13.5' y='11' width='5' height='15' rx='1.2' fill='%23C46DF8'/%3E%3Crect x='21' y='5' width='5' height='21' rx='1.2' fill='%23F0ABFC'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<style>
+  /* Палитра из постов Trading Time: почти чёрный с фиолетовым отливом,
+     сиреневые заголовки, зелёные проценты, тёмные карточки с тонкой рамкой */
+  :root{
+    --bg:#06040D;
+    --band:#0C0718;
+    --card:#140C26;
+    --ink:#F5F3FA;
+    --ink-2:#B7B0C9;
+    --ink-3:#8A8499;
+    --line:rgba(255,255,255,.09);
+    --line-2:rgba(196,109,248,.34);
+    --accent:#8B3DF0;
+    --accent-hover:#9B55F5;
+    --accent-text:#C9A2FF;
+    --accent-soft:rgba(168,85,247,.16);
+    --btn-grad:linear-gradient(180deg,#9333EA 0%,#7C3AED 100%);
+    --lilac-grad:linear-gradient(180deg,#F5B8FC 0%,#C46DF8 100%);
+    --green:#2EE59D;
+    --risk-low:#2EE59D;
+    --risk-mid:#F5B83D;
+    --risk-high:#FF5C7A;
+
+    /* Шкала размеров: держимся её, не изобретаем по ходу */
+    --fs-xs:.8125rem;   /* 13 */
+    --fs-sm:.9375rem;   /* 15 */
+    --fs-md:1.0625rem;  /* 17 */
+    --fs-lg:1.25rem;    /* 20 */
+    --fs-h1:clamp(1.875rem, 1.1rem + 2.5vw, 3.25rem);
+    --fs-h2:clamp(1.75rem, 1.25rem + 1.6vw, 2.625rem);
+
+    --radius:18px;
+    --gutter:clamp(16px, 4vw, 48px);
+    --max:1240px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size:var(--fs-md);
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+
+  /* ---------- Шапка ---------- */
+  .hdr{position:sticky;top:0;z-index:20;background:rgba(6,4,13,.78);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+  .hdr.scrolled{border-bottom-color:var(--line)}
+  .hdr .wrap{display:flex;align-items:center;gap:24px;min-height:68px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:var(--fs-md);text-decoration:none;white-space:nowrap}
+  .logo-mark{width:28px;height:24px;display:grid;place-items:center}
+  .logo-mark svg{width:28px;height:24px}
+  .nav{display:flex;gap:4px;margin-left:12px}
+  .nav a{font-size:var(--fs-sm);font-weight:600;color:var(--ink-2);text-decoration:none;padding:8px 12px;border-radius:10px;transition:color .15s, background .15s}
+  .nav a:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+  .hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+
+  .lang{display:flex;background:rgba(255,255,255,.06);border-radius:10px;padding:3px}
+  .lang button{font:inherit;font-size:var(--fs-xs);font-weight:700;border:0;background:transparent;color:var(--ink-2);padding:6px 10px;border-radius:8px;cursor:pointer;transition:background .15s,color .15s}
+  .lang button[aria-pressed="true"]{background:rgba(255,255,255,.14);color:var(--ink)}
+  .lang button:hover:not([aria-pressed="true"]){color:var(--ink)}
+
+  /* ---------- Кнопки ---------- */
+  .btn{
+    --h:52px;
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    height:var(--h);padding:0 24px;border-radius:14px;
+    font:inherit;font-size:var(--fs-md);font-weight:700;text-decoration:none;white-space:nowrap;
+    border:1px solid transparent;cursor:pointer;
+    transition:background .18s,color .18s,border-color .18s,transform .18s;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--btn-grad);color:#fff;box-shadow:0 8px 24px -10px rgba(147,51,234,.7)}
+  .btn-primary:hover{background:linear-gradient(180deg,#A04BF0 0%,#8B45F2 100%)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:rgba(255,255,255,.22)}
+  .btn-ghost:hover{border-color:var(--accent-text);background:rgba(168,85,247,.1)}
+  .btn-sm{--h:40px;padding:0 16px;font-size:var(--fs-sm);border-radius:11px}
+  .btn svg{width:18px;height:18px;flex:none}
+  /* Подмена текста снизу вверх при наведении */
+  .btn .roll{display:inline-grid;overflow:hidden;height:1.4em;line-height:1.4em}
+  .btn .roll span{grid-area:1/1;transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+  .btn .roll span+span{transform:translateY(110%)}
+  .btn:hover .roll span:first-child{transform:translateY(-110%)}
+  .btn:hover .roll span+span{transform:translateY(0)}
+
+  /* ---------- Первый экран ---------- */
+  .hero{padding-block:clamp(20px, 3.4vw, 48px) clamp(48px, 7vw, 96px)}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(32px, 5vw, 72px);align-items:center}
+
+  .hero h1{
+    font-family:'Montserrat', 'Manrope', system-ui, sans-serif;
+    font-size:var(--fs-h1);line-height:1.04;letter-spacing:-.01em;font-weight:900;text-transform:uppercase;
+    margin:0 0 22px;text-wrap:balance;
+  }
+  /* Сиреневый переход в заголовке — как «НЕДЕЛИ» и «ЧЕТВЕРГА» в постах */
+  .hero h1 em{font-style:normal;background:var(--lilac-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  /* Слова через дефис не рвём — скрипт оборачивает их в этот класс */
+  .nw{white-space:nowrap}
+  .lead{font-size:var(--fs-lg);line-height:1.5;color:var(--ink-2);margin:0 0 30px;max-width:34em}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
+
+  .facts{list-style:none;margin:0;padding:22px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+  .facts li{display:flex;flex-direction:column;gap:6px;font-size:var(--fs-sm);color:var(--ink-2);line-height:1.4}
+  .facts b{color:var(--ink);font-size:var(--fs-md);font-weight:700}
+
+
+
+  .risk{display:inline-flex;gap:3px}
+  .risk i{width:14px;height:6px;border-radius:3px;background:rgba(255,255,255,.14)}
+  .risk[data-level="1"] i:nth-child(-n+1){background:var(--risk-low)}
+  .risk[data-level="2"] i:nth-child(-n+2){background:var(--risk-mid)}
+  .risk[data-level="3"] i{background:var(--risk-high)}
+
+
+  /* Робот с голограммой терминала: ролик Hailuo 768×1152, петля 8 с, первый кадр = последний.
+     Показываем верхние ~93% кадра: ниже, на 94.8–97.1% высоты, водяной знак «MINIMAX | Hailuo AI». */
+  .hero-visual{position:relative;display:flex;justify-content:center}
+  .hero-visual::before{content:"";position:absolute;inset:4% 0 18% 0;background:radial-gradient(closest-side,rgba(146,64,245,.34),transparent 72%);pointer-events:none}
+  .robot-stage{
+    position:relative;width:min(100%,520px);aspect-ratio:5 / 7;overflow:hidden;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 6%,#000 80%,transparent 100%),linear-gradient(to right,transparent 0,#000 10%,#000 92%,transparent 100%);
+    -webkit-mask-composite:source-in;
+    mask-image:linear-gradient(to bottom,transparent 0,#000 6%,#000 80%,transparent 100%),linear-gradient(to right,transparent 0,#000 10%,#000 92%,transparent 100%);
+    mask-composite:intersect;
+  }
+  .robot-video{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;background:#020103}
+
+  /* ---------- Общее для секций ---------- */
+  html{scroll-behavior:smooth}
+  main > section{scroll-margin-top:var(--hdr-h, 68px)}
+  .sec-head{max-width:44em;margin-bottom:clamp(28px, 4vw, 48px)}
+  .sec-head h2{font-family:'Montserrat', 'Manrope', system-ui, sans-serif;font-size:var(--fs-h2);line-height:1.12;letter-spacing:-.02em;font-weight:800;margin:0 0 12px;text-wrap:balance}
+  .sec-head p{margin:0;color:var(--ink-2);font-size:var(--fs-lg);line-height:1.5}
+
+  /* ---------- Подбор робота ---------- */
+  .pick{background:var(--band);border-block:1px solid var(--line);padding-block:clamp(56px, 7vw, 104px)}
+  .pick-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(24px, 4vw, 64px);align-items:start}
+
+  .q{border:0;margin:0;padding:0 0 28px;min-width:0}
+  .q+.q{padding-top:28px;border-top:1px solid var(--line)}
+  /* float выводит legend из рамки fieldset, иначе линия-разделитель проходит сквозь заголовок */
+  .q legend{float:left;width:100%;display:flex;gap:12px;align-items:baseline;padding:0;margin-bottom:16px;font-size:var(--fs-lg);font-weight:700;line-height:1.3}
+  .q legend+*{clear:both}
+  .q-num{color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:600}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{position:relative;display:flex}
+  .chip input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+  .chip span{
+    flex:1;display:flex;align-items:center;min-height:48px;padding:10px 18px;border-radius:12px;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);
+    font-size:var(--fs-sm);font-weight:600;line-height:1.3;cursor:pointer;
+    transition:background .16s,border-color .16s,color .16s;
+  }
+  .chip span:hover{border-color:var(--line-2);background:rgba(168,85,247,.08)}
+  .chip input:checked+span{background:var(--btn-grad);border-color:#9333EA;color:#fff}
+  .chip input:focus-visible+span{outline:2px solid var(--accent-text);outline-offset:3px}
+
+  .result{position:sticky;top:88px;background:var(--card);border:1px solid var(--line-2);border-radius:24px;padding:clamp(22px, 2.6vw, 32px)}
+
+  .res-empty p{margin:0 0 18px;color:var(--ink-2);font-size:var(--fs-md);line-height:1.5}
+  .progress{display:flex;gap:6px;margin-bottom:10px}
+\1background:rgba(255,255,255,.12);transition:background .2s}
+  .progress i.on{background:var(--lilac-grad)}
+  .progress-label{font-size:var(--fs-xs);color:var(--ink-3)}
+
+  .res-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px}
+  .res-kicker{font-size:var(--fs-xs);color:var(--ink-3);margin:0 0 4px}
+  .res-name{font-family:'Montserrat', 'Manrope', system-ui, sans-serif;font-size:1.75rem;line-height:1.15;font-weight:800;letter-spacing:-.02em;margin:0}
+  .res-yield{text-align:right;flex:none}
+  .res-yield b{display:block;font-family:'Montserrat', 'Manrope', system-ui, sans-serif;color:var(--green);font-size:1.75rem;line-height:1.15;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .res-yield small{font-size:var(--fs-xs);color:var(--ink-3)}
+  .res-style{display:flex;align-items:center;gap:10px;font-size:var(--fs-sm);color:var(--ink-2);margin-bottom:14px}
+  .res-desc{margin:16px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:var(--fs-sm);line-height:1.55;color:var(--ink-2)}
+
+  .reasons{list-style:none;margin:0 0 16px;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:8px}
+  .reasons li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;font-size:var(--fs-sm);line-height:1.5}
+  .reasons svg{width:20px;height:20px;margin-top:1px;color:var(--green)}
+  .res-note{margin:0 0 10px;padding:12px 14px;border-radius:12px;background:var(--accent-soft);font-size:var(--fs-sm);line-height:1.5;color:var(--ink)}
+  .res-note+.res-actions{margin-top:16px}
+
+  .res-actions{display:grid;gap:10px}
+  /* Длинное имя робота: перенос вместо вылезания за карточку (на 360 px уводило страницу вбок) */
+  .res-actions .btn{width:100%;white-space:normal;height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
+  .res-stats{justify-self:center;font-size:var(--fs-sm);font-weight:600;color:var(--ink-2);text-underline-offset:3px;padding:6px}
+  .res-stats:hover{color:var(--accent-text)}
+  .res-disc{margin:14px 0 0;font-size:var(--fs-xs);line-height:1.5;color:var(--ink-3)}
+
+  .res-fade{animation:resIn .35s cubic-bezier(.2,.7,.2,1)}
+  @keyframes resIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* ---------- Роботы ---------- */
+  .robots{padding-block:clamp(56px, 7vw, 104px)}
+  .robot-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px, 1.6vw, 24px);align-items:stretch}
+  .rc{
+    display:flex;flex-direction:column;background:var(--card);border-radius:24px;
+    padding:clamp(22px, 2.4vw, 32px);border:1px solid var(--line);transition:border-color .2s;
+  }
+  .rc:hover{border-color:var(--line-2)}
+  .rc-style{display:flex;align-items:center;gap:10px;font-size:var(--fs-sm);color:var(--ink-2);margin:0 0 14px}
+  .rc h3{font-family:'Montserrat', 'Manrope', system-ui, sans-serif;font-size:1.625rem;line-height:1.15;letter-spacing:-.02em;font-weight:800;margin:0 0 18px}
+  .rc-yield{display:flex;align-items:baseline;gap:10px;padding:14px 0;border-block:1px solid var(--line);margin-bottom:18px}
+  .rc-yield b{font-family:'Montserrat', 'Manrope', system-ui, sans-serif;color:var(--green);font-size:2.5rem;line-height:1;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .rc-yield span{font-size:var(--fs-sm);color:var(--ink-3);line-height:1.3}
+  .rc-for{margin:0 0 16px;font-size:var(--fs-md);font-weight:600;line-height:1.45}
+  .rc-facts{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px}
+  .rc-facts li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;font-size:var(--fs-sm);line-height:1.5;color:var(--ink-2)}
+  .rc-facts svg{width:20px;height:20px;margin-top:1px;color:var(--green)}
+  .rc-actions{margin-top:auto;display:grid;gap:8px}
+  /* Длинное имя робота в узкой карточке: кнопке разрешён перенос, иначе она вылезает за карточку */
+  .rc-actions .btn{width:100%;white-space:normal;height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
+  .rc-stats{justify-self:center;font-size:var(--fs-sm);font-weight:600;color:var(--ink-2);text-underline-offset:3px;padding:6px}
+  .rc-stats:hover{color:var(--accent-text)}
+  .robots-foot{margin:clamp(20px, 2.4vw, 28px) 0 0;max-width:62em;font-size:var(--fs-sm);line-height:1.55;color:var(--ink-3)}
+
+  /* ---------- Как это работает ---------- */
+  .how{background:var(--band);border-block:1px solid var(--line);padding-block:clamp(56px, 7vw, 104px)}
+  .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px, 2.4vw, 36px);counter-reset:step}
+  .step{position:relative;display:flex;flex-direction:column;gap:10px}
+  .step-num{
+    display:grid;place-items:center;width:44px;height:44px;border-radius:50%;
+    background:var(--accent-soft);color:var(--accent-text);border:1px solid var(--line-2);font-weight:800;font-size:var(--fs-sm);font-variant-numeric:tabular-nums;
+    position:relative;z-index:1;margin-bottom:6px;
+  }
+  /* Тонкая линия от номера к номеру, только когда шаги стоят в один ряд */
+  .step:not(:last-child)::after{
+    content:"";position:absolute;top:22px;left:56px;right:calc(-1 * clamp(20px, 2.4vw, 36px) + 12px);
+    height:1px;background:var(--line);
+  }
+  .step h3{margin:0;font-size:var(--fs-lg);line-height:1.3;font-weight:700;text-wrap:balance}
+  .step p{margin:0;font-size:var(--fs-sm);line-height:1.55;color:var(--ink-2)}
+
+  .how-foot{margin-top:clamp(36px, 4.4vw, 56px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(14px, 1.6vw, 24px);align-items:stretch}
+  .terms{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(22px, 2.6vw, 32px)}
+  .terms h3{margin:0 0 18px;font-size:var(--fs-lg);font-weight:800}
+  .terms ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 28px}
+  .terms li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;font-size:var(--fs-sm);line-height:1.5;color:var(--ink-2)}
+  .terms li b{display:block;color:var(--ink);font-size:var(--fs-md);font-weight:700;margin-bottom:2px}
+  .terms svg{width:24px;height:24px;color:var(--accent-text)}
+
+  .how-cta{background:linear-gradient(160deg,#2B1152 0%,#170A2E 100%);border:1px solid rgba(196,109,248,.5);color:#fff;border-radius:24px;padding:clamp(22px, 2.6vw, 32px);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+  .how-cta p{margin:0;font-size:var(--fs-lg);line-height:1.45;font-weight:600;text-wrap:balance}
+  .how-cta-actions{display:grid;gap:10px}
+  .how-cta .btn{width:100%}
+  .btn-light{background:#fff;color:#5B21B6}
+  .btn-light:hover{background:#F3E8FF}
+  .btn-outline-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+  .btn-outline-light:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+  /* ---------- Частые вопросы ---------- */
+  .faq{padding-block:clamp(56px, 7vw, 104px)}
+  .faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px, 5vw, 80px);align-items:start}
+  .faq-side{position:sticky;top:calc(var(--hdr-h, 68px) + 24px)}
+  .faq-side .sec-head{margin-bottom:24px}
+  .faq-list{display:grid;gap:10px}
+  .qa{background:var(--card);border:1px solid var(--line);border-radius:18px}
+  .qa summary{
+    list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 28px;gap:16px;align-items:center;
+    padding:20px 22px;font-size:var(--fs-md);font-weight:700;line-height:1.4;border-radius:18px;
+  }
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary:hover{color:var(--accent-text)}
+  .qa summary:focus-visible{outline:2px solid var(--accent-text);outline-offset:2px}
+  .qa-icon{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.07);display:grid;place-items:center;transition:background .2s,transform .25s}
+  .qa-icon svg{width:14px;height:14px}
+  .qa[open] .qa-icon{transform:rotate(45deg);background:var(--accent-soft);color:var(--accent-text)}
+  .qa-body{padding:0 22px 22px;font-size:var(--fs-sm);line-height:1.6;color:var(--ink-2);max-width:62em}
+  .qa-body p{margin:0}
+  .qa-body p+p{margin-top:10px}
+  .qa-body a{color:var(--accent-text);text-underline-offset:3px}
+
+  /* ---------- Подвал ---------- */
+  .ftr{background:#030208;border-top:1px solid var(--line);color:#B7B0C9;padding-block:clamp(40px, 5vw, 64px) 28px;font-size:var(--fs-sm)}
+  .ftr a{color:#fff;text-decoration:none}
+  .ftr a:hover{text-decoration:underline;text-underline-offset:3px}
+  .ftr-top{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,.7fr));gap:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .ftr .logo{color:#fff;margin-bottom:14px}
+  .ftr-about{margin:0;max-width:30em;line-height:1.55}
+  .ftr h3{margin:0 0 12px;color:#fff;font-size:var(--fs-sm);font-weight:700}
+  .ftr ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .ftr-risk{margin:24px 0 0;font-size:var(--fs-xs);line-height:1.6;color:#8A8499;max-width:80em}
+  .ftr-risk p{margin:0}
+  .ftr-risk p+p{margin-top:8px}
+  .ftr-copy{margin:20px 0 0;font-size:var(--fs-xs);color:#8A8499}
+
+  /* ---------- Планшет ---------- */
+  @media (max-width:1024px){
+    .nav{display:none}
+    .hero .wrap{grid-template-columns:minmax(0,1fr)}
+    .lead{max-width:40em}
+    .robot-stage{width:min(100%,440px)}
+    .pick-grid{grid-template-columns:minmax(0,1fr)}
+    .result{position:static;max-width:640px}
+    /* На планшете три узкие колонки нечитаемы: карточки идут друг под другом, внутри — в две колонки */
+    .robot-cards{grid-template-columns:minmax(0,1fr)}
+    /* Последняя строка гибкая: лишняя высота от длинного списка справа уходит под кнопку, а не в щели между названием и процентом */
+    .rc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto 1fr;column-gap:32px;align-items:start}
+    .rc-style,.rc h3,.rc-yield{grid-column:1}
+    .rc-for,.rc-facts{grid-column:2}
+    .rc-for{grid-row:1 / span 2}
+    .rc-facts{grid-row:3 / span 2}
+    .rc-actions{grid-column:1;grid-row:4;margin-top:0}
+    .rc h3{margin-bottom:14px}
+    .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:32px}
+    .step::after{display:none}
+    .how-foot{grid-template-columns:minmax(0,1fr)}
+    .faq-grid{grid-template-columns:minmax(0,1fr)}
+    .faq-side{position:static}
+    .ftr-top{grid-template-columns:1fr 1fr}
+    .ftr-brand{grid-column:1 / -1}
+  }
+
+  /* ---------- Телефон: своя композиция, а не сжатый десктоп ---------- */
+  @media (max-width:640px){
+    .hdr .wrap{min-height:60px;gap:10px}
+    .logo-text{display:none}
+    .hdr-right .btn-sm .txt-long{display:none}
+    .hero{padding-block:20px 48px}
+    .hero h1{margin-bottom:16px}
+    .lead{font-size:var(--fs-md);margin-bottom:24px}
+    .cta-row{flex-direction:column;margin-bottom:28px}
+    /* На 320 px «Получить робота в Telegram» шире экрана — разрешаем перенос */
+    .cta-row .btn,.faq-side .btn,.how-cta .btn{width:100%;white-space:normal;height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
+    .facts{grid-template-columns:1fr;gap:14px;padding-top:18px}
+    /* Подписи фактов в одну колонку фиксированной ширины, чтобы описания начинались с одной линии */
+    .facts li{display:grid;grid-template-columns:8.5em minmax(0,1fr);gap:12px;align-items:baseline}
+    .facts b{font-size:var(--fs-sm)}
+    .robot-stage{width:min(100%,340px)}
+    .sec-head p{font-size:var(--fs-md)}
+    /* Короткие варианты — по два в ряд, длинные — по одному, чтобы кнопки были ровными */
+    .chips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .chips-wide{grid-template-columns:1fr}
+    .chip span{min-height:52px;padding:10px 14px}
+    .q legend{font-size:var(--fs-md)}
+    .res-name,.res-yield b{font-size:1.5rem}
+    .rc{display:flex;align-items:stretch}
+    .rc h3{font-size:1.5rem}
+    .rc-yield b{font-size:2.125rem}
+    /* Шаги на телефоне — вертикальная лента: номер слева, линия вниз к следующему */
+    .steps{grid-template-columns:1fr;gap:0}
+    .step{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:16px;padding-bottom:26px}
+    .step-num{grid-row:1 / span 2;margin:0}
+    .step h3{font-size:var(--fs-md);padding-top:10px}
+    .step:not(:last-child)::after{display:block;top:52px;bottom:6px;left:22px;right:auto;width:1px;height:auto}
+    .terms ul{grid-template-columns:1fr}
+    .how-cta p{font-size:var(--fs-md)}
+    .qa summary{padding:16px 16px;font-size:var(--fs-sm)}
+    .qa-body{padding:0 16px 18px}
+    .faq-side .btn{width:100%}
+  }
+
+  /* ---------- Самые узкие телефоны (320 px) ---------- */
+  @media (max-width:374px){
+    /* «Автоматизировать» и «Дополнительный» не влезают в половину ширины — варианты в одну колонку */
+    .chips{grid-template-columns:minmax(0,1fr)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Trading Time">
+      <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 28 24"><rect x="0" y="14" width="7" height="10" rx="1.6" fill="#9333EA"/><rect x="10.5" y="7" width="7" height="17" rx="1.6" fill="#C46DF8"/><rect x="21" y="0" width="7" height="24" rx="1.6" fill="#F0ABFC"/></svg></span>
+      <span class="logo-text">Trading Time</span>
+    </a>
+
+    <nav class="nav" aria-label="Разделы">
+      <a href="#pick" data-i18n="nav.pick">Подбор робота</a>
+      <a href="#robots" data-i18n="nav.robots">Роботы</a>
+      <a href="#how" data-i18n="nav.how">Как это работает</a>
+      <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+    </nav>
+
+    <div class="hdr-right">
+      <div class="lang" role="group" aria-label="Язык / Language">
+        <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-primary btn-sm" href="#" data-cta="header">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg>
+        <span class="txt-long" data-i18n="cta.header">Открыть бота</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <h1 data-i18n-html="hero.title">Проверьте торгового робота <em>на демо-счёте</em></h1>
+        <p class="lead" data-i18n="hero.lead">Посмотрите, как торгует робот. Мы бесплатно поставим одного из трёх роботов для Forex на ваш демо-счёт, а о реальном счёте решите после теста.</p>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#pick">
+            <span class="roll"><span data-i18n="cta.pick">Подобрать робота</span><span aria-hidden="true" data-i18n="cta.pick">Подобрать робота</span></span>
+          </a>
+          <a class="btn btn-ghost" href="#" data-cta="hero">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg>
+            <span data-i18n="cta.telegram">Получить робота в Telegram</span>
+          </a>
+        </div>
+
+        <ul class="facts">
+          <li><b data-i18n="fact1.b">Не продаём</b><span data-i18n="fact1.t">Роботов не продаём и не сдаём в аренду</span></li>
+          <li><b data-i18n="fact2.b">VPS бесплатно</b><span data-i18n="fact2.t">Сервер, чтобы робот торговал круглосуточно</span></li>
+          <li><b data-i18n="fact3.b">От $100</b><span data-i18n="fact3.t">Стартовый депозит для самого спокойного робота</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-visual">
+        <div class="robot-stage">
+          <video class="robot-video" muted loop playsinline preload="none" aria-hidden="true"
+                 width="768" height="1152" data-src="tt-robots-robot.mp4"
+                 poster="data:image/webp;base64,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"></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pick" id="pick" aria-labelledby="pick-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="pick-title" data-i18n="pick.title">Подберите робота за 30 секунд</h2>
+        <p data-i18n="pick.sub">Три вопроса, и мы покажем, какой из роботов подходит под вашу сумму и отношение к риску. Выбор ни к чему не обязывает: менеджер обсудит его с вами перед установкой.</p>
+      </div>
+
+      <div class="pick-grid">
+        <form class="pick-form" id="pickForm" onsubmit="return false">
+          <fieldset class="q">
+            <legend><span class="q-num">01</span><span data-i18n="q1.t">Какую сумму готовы вложить на старте?</span></legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="deposit" value="1"><span data-i18n="q1.a1">До $100</span></label>
+              <label class="chip"><input type="radio" name="deposit" value="2"><span data-i18n="q1.a2">$100–500</span></label>
+              <label class="chip"><input type="radio" name="deposit" value="3"><span data-i18n="q1.a3">$500–1 000</span></label>
+              <label class="chip"><input type="radio" name="deposit" value="4"><span data-i18n="q1.a4">От $1 000</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="q">
+            <legend><span class="q-num">02</span><span data-i18n="q2.t">Как вы относитесь к просадкам?</span></legend>
+            <div class="chips chips-wide">
+              <label class="chip"><input type="radio" name="risk" value="low"><span data-i18n="q2.a1">Главное — сохранить деньги</span></label>
+              <label class="chip"><input type="radio" name="risk" value="mid"><span data-i18n="q2.a2">Готов к умеренным колебаниям</span></label>
+              <label class="chip"><input type="radio" name="risk" value="high"><span data-i18n="q2.a3">Готов рисковать ради доходности</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="q">
+            <legend><span class="q-num">03</span><span data-i18n="q3.t">Чего хотите добиться?</span></legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="goal" value="income"><span data-i18n="q3.a1">Дополнительный заработок</span></label>
+              <label class="chip"><input type="radio" name="goal" value="growth"><span data-i18n="q3.a2">Рост капитала</span></label>
+              <label class="chip"><input type="radio" name="goal" value="boost"><span data-i18n="q3.a3">Разогнать депозит</span></label>
+              <label class="chip"><input type="radio" name="goal" value="auto"><span data-i18n="q3.a4">Автоматизировать торговлю</span></label>
+            </div>
+          </fieldset>
+        </form>
+
+        <div class="result" id="pickResult" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="robots" id="robots" aria-labelledby="robots-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="robots-title" data-i18n="robots.title">Три робота под разные задачи</h2>
+        <p data-i18n="robots.sub">Все три торгуют на Forex и бесплатно ставятся на ваш демо-счёт. Разница в том, насколько сильно робот рискует ради доходности.</p>
+      </div>
+
+      <div class="robot-cards">
+          <article class="rc" id="robot-r-smart-machine">
+            <p class="rc-style"><span class="risk" data-level="1" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="rc1.style">Консервативный</span></p>
+            <h3>R-Smart Machine</h3>
+            <div class="rc-yield"><b>~5%</b><span data-i18n-html="rc.avg">в среднем<br>в месяц</span></div>
+            <p class="rc-for" data-i18n="rc1.for">Для тех, кому нужен спокойный долгосрочный доход</p>
+            <ul class="rc-facts">
+              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc1.f1">Торгует на Forex с 2019 года</span></li>
+              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc1.f2">Не гонится за быстрым результатом: ставка на стабильность годами</span></li>
+              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc1.f3">Подходит для диверсификации и долгосрочного инвестирования</span></li>
+            </ul>
+            <div class="rc-actions">
+              <a class="btn btn-ghost" href="#" data-cta="robots" data-robot="r-smart-machine"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="rc1.cta">Получить R-Smart Machine</span></a>
+              <a class="rc-stats" href="https://www.myfxbook.com/members/Trading_Time/r-smart-machine-22/10879148" target="_blank" rel="noopener" data-i18n="rc.stats">Статистика на Myfxbook</a>
+            </div>
+          </article>
+          <article class="rc" id="robot-ea-smart-prime">
+            <p class="rc-style"><span class="risk" data-level="2" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="rc2.style">Стабильный</span></p>
+            <h3>EA Smart Prime</h3>
+            <div class="rc-yield"><b>~8%</b><span data-i18n-html="rc.avg">в среднем<br>в месяц</span></div>
+            <p class="rc-for" data-i18n="rc2.for">Для тех, кто ищет баланс между доходностью и риском</p>
+            <ul class="rc-facts">
+              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc2.f1">Алгоритмы с элементами машинного обучения</span></li>
+              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc2.f2">Больше 5 лет в реальной торговле, перед запуском год тестировался на реальных счетах</span></li>
+              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc2.f3">Точные входы, продуманное управление позицией и встроенная защита капитала</span></li>
+            </ul>
+            <div class="rc-actions">
+              <a class="btn btn-ghost" href="#" data-cta="robots" data-robot="ea-smart-prime"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="rc2.cta">Получить EA Smart Prime</span></a>
+              <a class="rc-stats" href="https://www.myfxbook.com/members/Trading_Time/ea-smart-prime/11250954" target="_blank" rel="noopener" data-i18n="rc.stats">Статистика на Myfxbook</a>
+            </div>
+          </article>
+          <article class="rc" id="robot-profit-hunter">
+            <p class="rc-style"><span class="risk" data-level="3" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="rc3.style">Рискованный</span></p>
+            <h3>Profit Hunter</h3>
+            <div class="rc-yield"><b>~24%</b><span data-i18n-html="rc.avg">в среднем<br>в месяц</span></div>
+            <p class="rc-for" data-i18n="rc3.for">Для тех, кто готов рисковать ради максимального результата</p>
+            <ul class="rc-facts">
+              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc3.f1">Интенсивная торговля на высокую доходность</span></li>
+              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc3.f2">Быстрые реакции на импульсы рынка и точные входы в сделки</span></li>
+              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc3.f3">Рассчитан на депозит от $500</span></li>
+            </ul>
+            <div class="rc-actions">
+              <a class="btn btn-ghost" href="#" data-cta="robots" data-robot="profit-hunter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="rc3.cta">Получить Profit Hunter</span></a>
+              <a class="rc-stats" href="https://www.myfxbook.com/members/Trading_Time/profit-hunter/11767967" target="_blank" rel="noopener" data-i18n="rc.stats">Статистика на Myfxbook</a>
+            </div>
+          </article>
+      </div>
+
+      <p class="robots-foot" data-i18n="robots.foot">Доходность указана как средняя в месяц за прошлые периоды по данным мониторинга и не гарантирует будущих результатов. Всего у нас больше шести роботов под разные инструменты: если ни один из трёх не подходит, менеджер подберёт другого.</p>
+    </div>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="how-title" data-i18n="how.title">Как получить робота</h2>
+        <p data-i18n="how.sub">Четыре шага от кнопки на сайте до робота, который торгует на вашем демо-счёте. Всё общение идёт в Telegram.</p>
+      </div>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num" aria-hidden="true">1</span>
+          <h3 data-i18n="how.s1.t">Ответьте на 6 вопросов в боте</h3>
+          <p data-i18n="how.s1.p">Кнопка откроет Telegram. Бот спросит о целях, опыте и сумме, чтобы подобрать робота. Это займёт около двух минут.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">2</span>
+          <h3 data-i18n="how.s2.t">Откройте демо-счёт у брокера</h3>
+          <p data-i18n="how.s2.p">Бот пришлёт ссылку на регистрацию у брокера, с которым мы работаем, и видеоинструкцию. На демо-счёте реальные деньги не нужны.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">3</span>
+          <h3 data-i18n="how.s3.t">Пришлите номер кабинета</h3>
+          <p data-i18n="how.s3.p">Отправьте номер личного кабинета в чат, цифрами или скриншотом. Менеджер проверит, что счёт создан.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">4</span>
+          <h3 data-i18n="how.s4.t">Получите робота и запустите его</h3>
+          <p data-i18n="how.s4.p">Менеджер пришлёт файл робота и пошаговую инструкцию, поможет с установкой и первым запуском.</p>
+        </li>
+      </ol>
+
+      <div class="how-foot">
+        <div class="terms">
+          <h3 data-i18n="terms.title">На каких условиях</h3>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2"/><path d="M3 21L21 3"/></svg><span><b data-i18n="terms.1.b">Роботов не продаём</b><span data-i18n="terms.1.t">И не сдаём в аренду. Робот для теста достаётся вам бесплатно.</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V10M10 21V10M14 21V10M19 21V10"/><path d="M2 10l10-6 10 6"/></svg><span><b data-i18n="terms.2.b">Работаем через брокера</b><span data-i18n="terms.2.t">По партнёрской программе с брокером, который на рынке больше 20 лет.</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg><span><b data-i18n="terms.3.b">VPS за наш счёт</b><span data-i18n="terms.3.t">Сервер, на котором робот торгует круглосуточно, покупать и арендовать не нужно.</span></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><b data-i18n="terms.4.b">Менеджеры по будням</b><span data-i18n="terms.4.t">С 10:00 до 19:00 по Москве. Ответить на вопросы бота можно в любое время.</span></span></li>
+          </ul>
+        </div>
+
+        <div class="how-cta">
+          <p data-i18n="how.cta.p">Посмотрите, как робот торгует на демо-счёте, и только потом решайте, запускать ли его на реальные деньги.</p>
+          <div class="how-cta-actions">
+            <a class="btn btn-light" href="#" data-cta="how"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="how.cta.main">Начать в Telegram</span></a>
+            <a class="btn btn-outline-light" href="#pick" data-i18n="how.cta.pick">Сначала подобрать робота</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-grid">
+      <div class="faq-side">
+        <div class="sec-head">
+          <h2 id="faq-title" data-i18n="faq.title">Частые вопросы</h2>
+          <p data-i18n="faq.sub">Не нашли ответ? Напишите в бота, менеджер ответит в рабочее время.</p>
+        </div>
+        <a class="btn btn-primary" href="#" data-cta="faq"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="faq.cta">Задать вопрос в Telegram</span></a>
+      </div>
+
+      <div class="faq-list">
+          <details class="qa">
+            <summary><span data-i18n="faq.1.q">Это правда бесплатно?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
+            <div class="qa-body"><p data-i18n="faq.1.a">Да. Робота для теста и VPS, на котором он торгует, вы получаете бесплатно. Мы не продаём роботов и не сдаём их в аренду: мы работаем по партнёрской программе с брокером.</p></div>
+          </details>
+          <details class="qa">
+            <summary><span data-i18n="faq.2.q">Нужно ли вкладывать деньги, чтобы попробовать?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
+            <div class="qa-body"><p data-i18n="faq.2.a">Нет. Робот запускается на демо-счёте, где торговля идёт на виртуальные средства. Открывать реальный счёт или нет, вы решаете сами, когда посмотрите на результаты теста.</p></div>
+          </details>
+          <details class="qa">
+            <summary><span data-i18n="faq.3.q">Зачем присылать номер личного кабинета?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
+            <div class="qa-body"><p data-i18n="faq.3.a">По номеру менеджер проверяет, что счёт у брокера действительно создан. После этого он присылает файл робота и пошаговую инструкцию по установке, настройке и запуску.</p></div>
+          </details>
+          <details class="qa">
+            <summary><span data-i18n="faq.4.q">Нужен ли компьютер?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
+            <div class="qa-body"><p data-i18n="faq.4.a">Робот торгует на VPS, который мы даём бесплатно, так что держать свой компьютер включённым не нужно. В квизе бот спросит, есть ли у вас компьютер или только телефон, и менеджер подскажет, как установить робота в вашем случае.</p></div>
+          </details>
+          <details class="qa">
+            <summary><span data-i18n="faq.5.q">Доходность гарантирована?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
+            <div class="qa-body"><p data-i18n="faq.5.a">Нет. Проценты на сайте — это средняя доходность за прошлые периоды, и она не обещает такого же результата в будущем. Торговля на Forex связана с риском потери средств, особенно у рискованного Profit Hunter. Именно поэтому мы предлагаем начать с демо-счёта.</p></div>
+          </details>
+          <details class="qa">
+            <summary><span data-i18n="faq.6.q">С какой суммой можно начать на реальном счёте?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
+            <div class="qa-body"><p data-i18n="faq.6.a">Наши роботы рассчитаны как на новичков с депозитом от $100, так и на инвесторов с капиталом от $100 000. Profit Hunter рассчитан на депозит от $500. Подходящую сумму под конкретного робота менеджер обсудит с вами после теста.</p></div>
+          </details>
+          <details class="qa">
+            <summary><span data-i18n="faq.7.q">Когда ответит менеджер?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
+            <div class="qa-body"><p data-i18n="faq.7.a">Менеджеры на связи по будням с 10:00 до 19:00 по Москве. Если вы напишете боту вечером или в выходной, он всё равно примет ваши ответы и пришлёт ссылку на регистрацию демо-счёта, а менеджер свяжется с вами в рабочее время.</p></div>
+          </details>
+          <details class="qa">
+            <summary><span data-i18n="faq.8.q">Кто стоит за роботами?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
+            <div class="qa-body"><p data-i18n-html="faq.8.a">Команда трейдеров и программистов с опытом торговли больше 10 лет. У нас больше шести роботов под разные инструменты. Статистика их работы открыта на <a href="https://www.myfxbook.com/members/Trading_Time" target="_blank" rel="noopener">Myfxbook</a>, а новости и результаты мы публикуем в <a href="https://t.me/TTinvestment" target="_blank" rel="noopener">Telegram-канале</a>.</p></div>
+          </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-top">
+      <div class="ftr-brand">
+        <a class="logo" href="#top" aria-label="Trading Time"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 28 24"><rect x="0" y="14" width="7" height="10" rx="1.6" fill="#9333EA"/><rect x="10.5" y="7" width="7" height="17" rx="1.6" fill="#C46DF8"/><rect x="21" y="0" width="7" height="24" rx="1.6" fill="#F0ABFC"/></svg></span><span>Trading Time</span></a>
+        <p class="ftr-about" data-i18n="ftr.about">Торговые роботы для Forex. Бесплатно ставим робота на ваш демо-счёт и даём VPS, чтобы он торговал круглосуточно.</p>
+      </div>
+      <div>
+        <h3 data-i18n="ftr.nav">Разделы</h3>
+        <ul>
+          <li><a href="#pick" data-i18n="nav.pick">Подбор робота</a></li>
+          <li><a href="#robots" data-i18n="nav.robots">Роботы</a></li>
+          <li><a href="#how" data-i18n="nav.how">Как это работает</a></li>
+          <li><a href="#faq" data-i18n="nav.faq">Вопросы</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-i18n="ftr.contacts">Где мы есть</h3>
+        <ul>
+          <li><a href="#" data-cta="footer" data-i18n="ftr.bot">Бот в Telegram</a></li>
+          <li><a href="https://t.me/TTinvestment" target="_blank" rel="noopener" data-i18n="ftr.channel">Telegram-канал</a></li>
+          <li><a href="https://www.myfxbook.com/members/Trading_Time" target="_blank" rel="noopener" data-i18n="ftr.myfxbook">Статистика на Myfxbook</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ftr-risk">
+      <p data-i18n="ftr.risk1">Торговля на Forex и CFD с кредитным плечом связана с высоким риском и может привести к потере вложенных средств. Доходность роботов указана за прошлые периоды и не гарантирует будущих результатов.</p>
+      <p data-i18n="ftr.risk2">Мы не брокер: торговые счета открываются у брокера-партнёра. Материалы сайта не являются индивидуальной инвестиционной рекомендацией.</p>
+    </div>
+    <p class="ftr-copy">© 2026 Trading Time</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ---------- Переводы ---------- */
+  var I18N = {
+    en: {
+      'nav.pick': 'Find a robot',
+      'nav.robots': 'Robots',
+      'nav.how': 'How it works',
+      'nav.faq': 'FAQ',
+      'cta.header': 'Open the bot',
+      'hero.title': 'Test a trading robot <em>on a demo account</em>',
+      'hero.lead': 'See how the robot trades. We set up one of our three Forex robots on your demo account for free, and you decide about a live account after the test.',
+      'cta.pick': 'Find my robot',
+      'cta.telegram': 'Get a robot in Telegram',
+      'fact1.b': 'Not for sale',
+      'fact1.t': 'We don’t sell or rent out our robots',
+      'fact2.b': 'Free VPS',
+      'fact2.t': 'A server so the robot can trade around the clock',
+      'fact3.b': 'From $100',
+      'fact3.t': 'Starting deposit for the most conservative robot',
+      'pick.title': 'Find your robot in 30 seconds',
+      'pick.sub': 'Answer three questions and we\u2019ll show which robot fits your budget and attitude to risk. No commitment: a manager will discuss the choice with you before setup.',
+      'q1.t': 'How much are you ready to start with?',
+      'q1.a1': 'Up to $100', 'q1.a2': '$100\u2013500', 'q1.a3': '$500\u20131,000', 'q1.a4': 'From $1,000',
+      'q2.t': 'How do you feel about drawdowns?',
+      'q2.a1': 'Keeping my money safe comes first',
+      'q2.a2': 'I\u2019m fine with moderate swings',
+      'q2.a3': 'I\u2019ll take risks for higher returns',
+      'q3.t': 'What do you want to achieve?',
+      'q3.a1': 'Extra income', 'q3.a2': 'Capital growth', 'q3.a3': 'Boost my deposit', 'q3.a4': 'Automate my trading',
+      'robots.title': 'Three robots for different goals',
+      'robots.sub': 'All three trade Forex and are set up on your demo account for free. The difference is how much risk each robot takes for returns.',
+      'rc.avg': 'monthly<br>average',
+      'rc.stats': 'Statistics on Myfxbook',
+      'rc1.style': 'Conservative',
+      'rc1.for': 'For those who want steady long-term income',
+      'rc1.f1': 'Trading on Forex since 2019',
+      'rc1.f2': 'Doesn’t chase quick wins: built for stability over years',
+      'rc1.f3': 'Suitable for diversification and long-term investing',
+      'rc1.cta': 'Get R-Smart Machine',
+      'rc2.style': 'Stable',
+      'rc2.for': 'For those looking for a balance between return and risk',
+      'rc2.f1': 'Algorithms with machine-learning elements',
+      'rc2.f2': 'Over 5 years of live trading, tested on real accounts for a year before release',
+      'rc2.f3': 'Precise entries, well-designed position management and built-in capital protection',
+      'rc2.cta': 'Get EA Smart Prime',
+      'rc3.style': 'Risky',
+      'rc3.for': 'For those ready to take risks for maximum results',
+      'rc3.f1': 'Intensive high-yield trading',
+      'rc3.f2': 'Fast reactions to market impulses and precise trade entries',
+      'rc3.f3': 'Designed for deposits from $500',
+      'rc3.cta': 'Get Profit Hunter',
+      'robots.foot': 'Returns are shown as the monthly average for past periods according to monitoring and do not guarantee future results. We have more than six robots for different instruments in total: if none of these three suits you, a manager will pick another one.',
+      'how.title': 'How to get a robot',
+      'how.sub': 'Four steps from the button on this page to a robot trading on your demo account. All communication happens in Telegram.',
+      'how.s1.t': 'Answer 6 questions in the bot',
+      'how.s1.p': 'The button opens Telegram. The bot asks about your goals, experience and budget to match a robot. It takes about two minutes.',
+      'how.s2.t': 'Open a demo account with the broker',
+      'how.s2.p': 'The bot sends a sign-up link for the broker we work with and a video guide. A demo account needs no real money.',
+      'how.s3.t': 'Send your account number',
+      'how.s3.p': 'Send your personal account number to the chat, as digits or a screenshot. A manager will check that the account is created.',
+      'how.s4.t': 'Get the robot and launch it',
+      'how.s4.p': 'A manager sends the robot file and step-by-step instructions, and helps with setup and the first launch.',
+      'terms.title': 'Terms',
+      'terms.1.b': 'Robots are not for sale',
+      'terms.1.t': 'We don’t rent them out either. Getting a robot for a test is free.',
+      'terms.2.b': 'We work through a broker',
+      'terms.2.t': 'Under a partner program with a broker that has been on the market for over 20 years.',
+      'terms.3.b': 'VPS on us',
+      'terms.3.t': 'The server the robot trades on around the clock: nothing to buy or rent.',
+      'terms.4.b': 'Managers on weekdays',
+      'terms.4.t': '10:00 to 19:00 Moscow time. You can answer the bot’s questions at any time.',
+      'how.cta.p': 'Watch how the robot trades on a demo account, and only then decide whether to run it with real money.',
+      'how.cta.main': 'Start in Telegram',
+      'how.cta.pick': 'Find a robot first',
+      'faq.title': 'FAQ',
+      'faq.sub': 'Didn’t find an answer? Message the bot and a manager will reply during business hours.',
+      'faq.cta': 'Ask in Telegram',
+      'faq.1.q': 'Is it really free?',
+      'faq.1.a': 'Yes. You get the robot for testing and the VPS it trades on for free. We don’t sell or rent out our robots: we work under a partner program with a broker.',
+      'faq.2.q': 'Do I need to invest money to try it?',
+      'faq.2.a': 'No. The robot runs on a demo account that trades virtual funds. Whether to open a live account is your call once you’ve seen the test results.',
+      'faq.3.q': 'Why do you need my account number?',
+      'faq.3.a': 'The manager uses it to check that your account with the broker has actually been created. Then they send you the robot file and step-by-step instructions for setup and launch.',
+      'faq.4.q': 'Do I need a computer?',
+      'faq.4.a': 'The robot trades on a VPS we provide for free, so you don’t need to keep your own computer on. In the quiz the bot will ask whether you have a computer or only a phone, and the manager will explain how to install the robot in your case.',
+      'faq.5.q': 'Are returns guaranteed?',
+      'faq.5.a': 'No. The percentages on this site are average returns for past periods and don’t promise the same results in the future. Forex trading involves the risk of losing money, especially with the risky Profit Hunter. That’s exactly why we suggest starting with a demo account.',
+      'faq.6.q': 'What amount can I start with on a live account?',
+      'faq.6.a': 'Our robots are built both for beginners with deposits from $100 and for investors with capital from $100,000. Profit Hunter is designed for deposits from $500. The manager will discuss the right amount for a specific robot with you after the test.',
+      'faq.7.q': 'When will a manager reply?',
+      'faq.7.a': 'Managers are available on weekdays from 10:00 to 19:00 Moscow time. If you message the bot in the evening or on a weekend, it will still take your answers and send the demo account sign-up link, and a manager will contact you during business hours.',
+      'faq.8.q': 'Who is behind the robots?',
+      'faq.8.a': 'A team of traders and programmers with over 10 years of trading experience. We have more than six robots for different instruments. Their statistics are public on <a href="https://www.myfxbook.com/members/Trading_Time" target="_blank" rel="noopener">Myfxbook</a>, and we post news and results in our <a href="https://t.me/TTinvestment" target="_blank" rel="noopener">Telegram channel</a>.',
+      'ftr.about': 'Forex trading robots. We set up a robot on your demo account for free and provide a VPS so it can trade around the clock.',
+      'ftr.nav': 'Sections',
+      'ftr.contacts': 'Find us',
+      'ftr.bot': 'Telegram bot',
+      'ftr.channel': 'Telegram channel',
+      'ftr.myfxbook': 'Statistics on Myfxbook',
+      'ftr.risk1': 'Trading Forex and CFDs with leverage carries a high level of risk and may result in the loss of invested funds. Robot returns are shown for past periods and do not guarantee future results.',
+      'ftr.risk2': 'We are not a broker: trading accounts are opened with a partner broker. The content of this site is not individual investment advice.'
+    }
+  };
+  var META = {
+    ru: { title: document.title, htmlLang: 'ru' },
+    en: { title: 'Trading Time robots — test on a demo account', htmlLang: 'en' }
+  };
+
+  /* Русский текст берём прямо из разметки, чтобы не держать его в двух местах */
+  var RU = {};
+  document.querySelectorAll('[data-i18n]').forEach(function (el) { RU[el.dataset.i18n] = el.textContent; });
+  document.querySelectorAll('[data-i18n-html]').forEach(function (el) { RU[el.dataset.i18nHtml] = el.innerHTML; });
+  I18N.ru = RU;
+
+  var current = 'ru';
+
+  function applyLang(lang) {
+    if (!I18N[lang]) lang = 'ru';
+    current = lang;
+    var dict = I18N[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var v = dict[el.dataset.i18n]; if (v != null) el.textContent = v;
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var v = dict[el.dataset.i18nHtml]; if (v != null) el.innerHTML = v;
+    });
+    document.documentElement.lang = META[lang].htmlLang;
+    document.title = META[lang].title;
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+    });
+    try { localStorage.setItem('tt_lang', lang); } catch (e) {}
+    renderPick(false);
+    updateCtaLinks();
+    glueHyphens(document.body);
+  }
+
+  /* ---------- Ссылки в бота через прокси Salebot ----------
+     Прокси-ссылка записывает все параметры в переменные клиента.
+     Пробрасываем рекламные метки, с которыми человек пришёл на сайт,
+     и добавляем, с какой кнопки он ушёл и на каком языке читал сайт. */
+  var PROXY = 'https://s.salebot.pro/cbce8ee271ee445a4f09cee0573b5e05_1';
+  var PASS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','yclid'];
+  var incoming = new URLSearchParams(location.search);
+
+  function buildBotLink(place, robot) {
+    var p = new URLSearchParams();
+    PASS.forEach(function (k) { var v = incoming.get(k); if (v) p.set(k, v); });
+    if (!p.has('utm_source')) p.set('utm_source', 'site');
+    if (!p.has('utm_medium')) p.set('utm_medium', 'landing');
+    p.set('site_button', place);
+    p.set('site_lang', current);
+    if (robot) p.set('site_robot', robot);
+    if (place === 'pick') {
+      if (ANS.deposit) p.set('site_deposit', ANS.deposit);
+      if (ANS.risk) p.set('site_risk', ANS.risk);
+      if (ANS.goal) p.set('site_goal', ANS.goal);
+    }
+    return PROXY + '?' + p.toString();
+  }
+
+  function updateCtaLinks() {
+    document.querySelectorAll('[data-cta]').forEach(function (a) {
+      a.href = buildBotLink(a.dataset.cta, a.dataset.robot);
+    });
+  }
+
+  /* ---------- Слова через дефис не рвём ----------
+     Браузер переносит слова по дефису: «демо-» на одной строке, «счёт» на другой,
+     «брокера-» / «партнёра», «step-» / «by-step».
+     Неразрывного дефиса в кириллических наборах шрифта нет, поэтому оборачиваем
+     слово в span с запретом переноса. Вызывается после каждой смены текста. */
+  var GLUE = /[A-Za-zА-Яа-яЁё0-9]+(?:-[A-Za-zА-Яа-яЁё0-9]+)+/g;
+  function glueHyphens(root) {
+    if (!root) return;
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentNode;
+        if (!p || /^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName) || (p.classList && p.classList.contains('nw'))) return NodeFilter.FILTER_REJECT;
+        GLUE.lastIndex = 0;
+        return GLUE.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      }
+    });
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function (node) {
+      var text = node.nodeValue, frag = document.createDocumentFragment(), last = 0, m;
+      GLUE.lastIndex = 0;
+      while ((m = GLUE.exec(text))) {
+        if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+        var span = document.createElement('span');
+        span.className = 'nw';
+        span.textContent = m[0];
+        frag.appendChild(span);
+        last = m.index + m[0].length;
+      }
+      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
+  /* ---------- Подбор робота ----------
+     Правила простые и объяснимые посетителю:
+     сохранить деньги → R-Smart Machine, умеренный риск → EA Smart Prime,
+     готов рисковать → Profit Hunter, но только при сумме от $500 (так сказано в боте). */
+  var ANS = { deposit: null, risk: null, goal: null };
+
+  var ROBOTS = {
+    'r-smart-machine': {
+      name: 'R-Smart Machine', level: 1, yieldTxt: '~5%',
+      url: 'https://www.myfxbook.com/members/Trading_Time/r-smart-machine-22/10879148',
+      ru: { style: 'Консервативный', desc: 'Торгует на Forex с 2019 года. Рассчитан на спокойный долгосрочный доход, подходит для диверсификации.' },
+      en: { style: 'Conservative', desc: 'Trading on Forex since 2019. Built for steady long-term income and suitable for diversification.' }
+    },
+    'ea-smart-prime': {
+      name: 'EA Smart Prime', level: 2, yieldTxt: '~8%',
+      url: 'https://www.myfxbook.com/members/Trading_Time/ea-smart-prime/11250954',
+      ru: { style: 'Стабильный', desc: 'Алгоритмы с элементами машинного обучения, больше 5 лет в реальной торговле. Перед запуском год тестировался на реальных счетах, есть встроенная защита капитала.' },
+      en: { style: 'Stable', desc: 'Algorithms with machine-learning elements and over 5 years of live trading. Tested on real accounts for a year before release, with built-in capital protection.' }
+    },
+    'profit-hunter': {
+      name: 'Profit Hunter', level: 3, yieldTxt: '~24%',
+      url: 'https://www.myfxbook.com/members/Trading_Time/profit-hunter/11767967',
+      ru: { style: 'Рискованный', desc: 'Интенсивная торговля на высокую доходность: быстрые реакции на импульсы рынка и точные входы. Рассчитан на депозит от $500.' },
+      en: { style: 'Risky', desc: 'Intensive high-yield trading: fast reactions to market impulses and precise entries. Designed for deposits from $500.' }
+    }
+  };
+
+  var TXT = {
+    ru: {
+      emptyText: 'Ответьте на три вопроса, и здесь появится робот, который вам подходит.',
+      left: function (n) { return n === 1 ? 'Остался 1 вопрос' : 'Осталось ' + n + ' вопроса'; },
+      kicker: 'Вам подходит',
+      perMonth: 'в месяц',
+      cta: function (name) { return 'Получить ' + name; },
+      stats: 'Статистика на Myfxbook',
+      disc: 'Средняя доходность в прошлом. Прошлые результаты не гарантируют будущих, торговля на Forex связана с риском потери средств.',
+      risk: {
+        low: 'Вам важнее сохранить деньги, а у этого робота самый низкий риск из трёх.',
+        mid: 'Средний риск из трёх: доходность выше, чем у консервативного робота, а просадки мягче, чем у Profit Hunter.',
+        high: 'Вы готовы рисковать ради результата, а это самый доходный и самый рискованный робот из трёх.'
+      },
+      goal: {
+        income: 'Для дополнительного заработка: робот торгует сам, пока вы заняты своими делами.',
+        growth: 'Для роста капитала: робот рассчитан на работу месяцами, а не на один рывок.',
+        growthHigh: 'Для роста капитала: депозит растёт быстрее, но и просадки глубже.',
+        boost: 'Для разгона депозита: Profit Hunter создан именно под эту задачу.',
+        auto: 'Для автоматической торговли: робот сам открывает и закрывает сделки на VPS, который мы даём бесплатно.'
+      },
+      noteSmallDeposit: 'Profit Hunter рассчитан на депозит от $500. С вашей суммой разумнее начать с EA Smart Prime, а перейти на Profit Hunter можно позже.',
+      noteBoostCareful: 'Разогнать депозит без высокого риска не получится. Раз вам важна сохранность денег, предлагаем робота спокойнее.',
+      noteDemo: 'Тест на демо-счёте бесплатный, сумма пока ни на что не влияет.'
+    },
+    en: {
+      emptyText: 'Answer three questions and the robot that fits you will appear here.',
+      left: function (n) { return n === 1 ? '1 question left' : n + ' questions left'; },
+      kicker: 'Your match',
+      perMonth: 'per month',
+      cta: function (name) { return 'Get ' + name; },
+      stats: 'Statistics on Myfxbook',
+      disc: 'Average past returns. Past performance does not guarantee future results; Forex trading involves the risk of losing money.',
+      risk: {
+        low: 'Keeping your money safe comes first, and this robot has the lowest risk of the three.',
+        mid: 'The middle ground of the three: higher returns than the conservative robot, softer drawdowns than Profit Hunter.',
+        high: 'You’re ready to take risks for results, and this is the highest-yield and riskiest robot of the three.'
+      },
+      goal: {
+        income: 'For extra income: the robot trades on its own while you go about your day.',
+        growth: 'For capital growth: the robot is built to work for months, not for a single spurt.',
+        growthHigh: 'For capital growth: the deposit grows faster, but drawdowns are deeper.',
+        boost: 'For boosting a deposit: Profit Hunter is built exactly for this.',
+        auto: 'For automated trading: the robot opens and closes trades on a VPS we provide for free.'
+      },
+      noteSmallDeposit: 'Profit Hunter is designed for deposits from $500. With your amount it makes sense to start with EA Smart Prime and move to Profit Hunter later.',
+      noteBoostCareful: 'You can’t boost a deposit without high risk. Since keeping your money safe matters to you, we suggest a calmer robot.',
+      noteDemo: 'The demo test is free, so the amount doesn’t matter yet.'
+    }
+  };
+
+  var CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg>';
+  var TG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg>';
+
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  function choose() {
+    var d = Number(ANS.deposit), t = TXT[current], notes = [], reasons = [], id;
+    if (ANS.risk === 'low') id = 'r-smart-machine';
+    else if (ANS.risk === 'mid') id = 'ea-smart-prime';
+    else if (d >= 3) id = 'profit-hunter';
+    else { id = 'ea-smart-prime'; notes.push(t.noteSmallDeposit); }
+
+    reasons.push(ANS.risk === 'high' && id === 'ea-smart-prime' ? t.risk.mid : t.risk[ANS.risk]);
+
+    if (ANS.goal === 'boost') {
+      if (id === 'profit-hunter') reasons.push(t.goal.boost);
+      else if (ANS.risk === 'low') notes.push(t.noteBoostCareful);
+    } else if (ANS.goal === 'growth') {
+      reasons.push(id === 'profit-hunter' ? t.goal.growthHigh : t.goal.growth);
+    } else {
+      reasons.push(t.goal[ANS.goal]);
+    }
+
+    if (d === 1) notes.push(t.noteDemo);
+    return { id: id, reasons: reasons, notes: notes };
+  }
+
+  var resultEl = document.getElementById('pickResult');
+
+  function renderPick(animate) {
+    if (!resultEl) return;
+    var t = TXT[current];
+    var answered = ['deposit', 'risk', 'goal'].filter(function (k) { return ANS[k]; }).length;
+
+    if (answered < 3) {
+      var bars = '';
+      for (var i = 0; i < 3; i++) bars += '<i' + (i < answered ? ' class="on"' : '') + '></i>';
+      resultEl.innerHTML = '<div class="res-empty"><p>' + esc(t.emptyText) + '</p>' +
+        '<div class="progress" aria-hidden="true">' + bars + '</div>' +
+        '<span class="progress-label">' + esc(t.left(3 - answered)) + '</span></div>';
+      return;
+    }
+
+    var c = choose(), r = ROBOTS[c.id], loc = r[current];
+    resultEl.innerHTML =
+      '<div class="' + (animate ? 'res-fade' : '') + '">' +
+        '<div class="res-head">' +
+          '<div><p class="res-kicker">' + esc(t.kicker) + '</p><h3 class="res-name">' + esc(r.name) + '</h3></div>' +
+          '<div class="res-yield"><b>' + esc(r.yieldTxt) + '</b><small>' + esc(t.perMonth) + '</small></div>' +
+        '</div>' +
+        '<div class="res-style"><span class="risk" data-level="' + r.level + '" aria-hidden="true"><i></i><i></i><i></i></span>' + esc(loc.style) + '</div>' +
+        '<ul class="reasons">' + c.reasons.map(function (x) { return '<li>' + CHECK + '<span>' + esc(x) + '</span></li>'; }).join('') + '</ul>' +
+        c.notes.map(function (x) { return '<p class="res-note">' + esc(x) + '</p>'; }).join('') +
+        '<div class="res-actions">' +
+          '<a class="btn btn-primary" href="#" data-cta="pick" data-robot="' + c.id + '">' + TG + '<span>' + esc(t.cta(r.name)) + '</span></a>' +
+          '<a class="res-stats" href="' + r.url + '" target="_blank" rel="noopener">' + esc(t.stats) + '</a>' +
+        '</div>' +
+        '<p class="res-desc">' + esc(loc.desc) + '</p>' +
+        '<p class="res-disc">' + esc(t.disc) + '</p>' +
+      '</div>';
+    updateCtaLinks();
+    glueHyphens(resultEl);
+  }
+
+  document.querySelectorAll('#pickForm input[type="radio"]').forEach(function (inp) {
+    inp.addEventListener('change', function () {
+      var wasComplete = ANS.deposit && ANS.risk && ANS.goal;
+      ANS[inp.name] = inp.value;
+      renderPick(true);
+      /* На телефоне результат ниже вопросов — после последнего ответа показываем его */
+      if (!wasComplete && ANS.deposit && ANS.risk && ANS.goal && window.matchMedia('(max-width:1024px)').matches) {
+        var rect = resultEl.getBoundingClientRect();
+        if (rect.top > window.innerHeight - 120) resultEl.scrollIntoView({ block: 'start' });
+      }
+    });
+  });
+
+  /* ---------- Переключатель языка ---------- */
+  document.querySelectorAll('.lang button').forEach(function (b) {
+    b.addEventListener('click', function () { applyLang(b.dataset.lang); });
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem('tt_lang'); } catch (e) {}
+  var fromUrl = incoming.get('lang');
+  /* По умолчанию русский: основная аудитория читает по-русски даже с узбекским
+     или казахским языком браузера. Английский — только для англоязычного браузера. */
+  applyLang(fromUrl || saved || ((navigator.language || '').toLowerCase().indexOf('en') === 0 ? 'en' : 'ru'));
+
+  /* ---------- Ролик робота ----------
+     Видео грузится, только когда не мешает: нет экономии трафика и медленной сети,
+     система не просит уменьшить анимацию. Иначе остаётся первый кадр-заставка.
+     За пределами экрана ролик ставится на паузу, чтобы не грузить телефон. */
+  (function () {
+    var v = document.querySelector('.robot-video');
+    if (!v) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var conn = navigator.connection || {};
+    var slow = conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '');
+    if (reduce || slow) return;
+
+    var started = false;
+    function play() {
+      v.muted = true;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () { /* автозапуск запрещён — остаётся заставка */ });
+    }
+    function start() {
+      if (started) return;
+      started = true;
+      v.src = v.dataset.src;
+      v.preload = 'auto';
+      play();
+    }
+    v.addEventListener('error', function () {
+      /* файл не загрузился — возвращаем заставку */
+      v.removeAttribute('src');
+      v.load();
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { if (!started) start(); else if (v.paused) play(); }
+          else if (started && !v.paused) v.pause();
+        });
+      }, { threshold: 0.15 }).observe(v);
+    } else {
+      start();
+    }
+  })();
+
+  /* ---------- Тонкая линия под шапкой после прокрутки ---------- */
+  var hdr = document.getElementById('hdr');
+  function onScroll() { hdr.classList.toggle('scrolled', window.scrollY > 4); }
+  function setHdrH() { document.documentElement.style.setProperty('--hdr-h', hdr.offsetHeight + 'px'); }
+  window.addEventListener('resize', setHdrH);
+  setHdrH();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
