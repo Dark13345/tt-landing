@@ -236,6 +236,8 @@
   .res-actions .btn{width:100%;white-space:normal;height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
   .res-stats{justify-self:center;font-size:var(--fs-sm);font-weight:600;color:var(--ink-2);text-underline-offset:3px;padding:6px}
   .res-stats:hover{color:var(--accent-text)}
+  .res-desc-top{margin:10px 0 16px;padding-top:0;border-top:0}
+  .reasons b{color:var(--ink);font-weight:700}
   .res-disc{margin:14px 0 0;font-size:var(--fs-xs);line-height:1.5;color:var(--ink-3)}
 
   .res-fade{animation:resIn .35s cubic-bezier(.2,.7,.2,1)}
@@ -513,31 +515,29 @@
       <div class="pick-grid">
         <form class="pick-form" id="pickForm" onsubmit="return false">
           <fieldset class="q">
-            <legend><span class="q-num">01</span><span data-i18n="q1.t">Какую сумму готовы вложить на старте?</span></legend>
+            <legend><span class="q-num">01</span><span data-i18n="q1.t">Какой у вас опыт работы с похожими инструментами?</span></legend>
             <div class="chips">
-              <label class="chip"><input type="radio" name="deposit" value="1"><span data-i18n="q1.a1">До $100</span></label>
-              <label class="chip"><input type="radio" name="deposit" value="2"><span data-i18n="q1.a2">$100–500</span></label>
-              <label class="chip"><input type="radio" name="deposit" value="3"><span data-i18n="q1.a3">$500–1 000</span></label>
-              <label class="chip"><input type="radio" name="deposit" value="4"><span data-i18n="q1.a4">От $1 000</span></label>
+              <label class="chip"><input type="radio" name="exp" value="1"><span data-i18n="q1.a1">Только знакомлюсь</span></label>
+              <label class="chip"><input type="radio" name="exp" value="2"><span data-i18n="q1.a2">Есть базовый опыт</span></label>
+              <label class="chip"><input type="radio" name="exp" value="3"><span data-i18n="q1.a3">Уверенно пользуюсь</span></label>
+              <label class="chip"><input type="radio" name="exp" value="4"><span data-i18n="q1.a4">Продвинутый уровень</span></label>
             </div>
           </fieldset>
 
           <fieldset class="q">
-            <legend><span class="q-num">02</span><span data-i18n="q2.t">Как вы относитесь к просадкам?</span></legend>
+            <legend><span class="q-num">02</span><span data-i18n="q2.t">Насколько для вас важна стабильность работы?</span></legend>
             <div class="chips chips-wide">
-              <label class="chip"><input type="radio" name="risk" value="low"><span data-i18n="q2.a1">Главное — сохранить деньги</span></label>
-              <label class="chip"><input type="radio" name="risk" value="mid"><span data-i18n="q2.a2">Готов к умеренным колебаниям</span></label>
-              <label class="chip"><input type="radio" name="risk" value="high"><span data-i18n="q2.a3">Готов рисковать ради доходности</span></label>
+              <label class="chip"><input type="radio" name="stability" value="max"><span data-i18n="q2.a1">Максимальная стабильность</span></label>
+              <label class="chip"><input type="radio" name="stability" value="moderate"><span data-i18n="q2.a2">Умеренные колебания допустимы</span></label>
             </div>
           </fieldset>
 
           <fieldset class="q">
-            <legend><span class="q-num">03</span><span data-i18n="q3.t">Чего хотите добиться?</span></legend>
+            <legend><span class="q-num">03</span><span data-i18n="q3.t">Что для вас важно в работе с алгоритмом?</span></legend>
             <div class="chips">
-              <label class="chip"><input type="radio" name="goal" value="income"><span data-i18n="q3.a1">Дополнительный заработок</span></label>
-              <label class="chip"><input type="radio" name="goal" value="growth"><span data-i18n="q3.a2">Рост капитала</span></label>
-              <label class="chip"><input type="radio" name="goal" value="boost"><span data-i18n="q3.a3">Разогнать депозит</span></label>
-              <label class="chip"><input type="radio" name="goal" value="auto"><span data-i18n="q3.a4">Автоматизировать торговлю</span></label>
+              <label class="chip"><input type="radio" name="goal" value="automation"><span data-i18n="q3.a1">Автоматизация процессов</span></label>
+              <label class="chip"><input type="radio" name="goal" value="logic"><span data-i18n="q3.a2">Понять логику работы</span></label>
+              <label class="chip"><input type="radio" name="goal" value="interface"><span data-i18n="q3.a3">Оценить удобство интерфейса</span></label>
             </div>
           </fieldset>
         </form>
@@ -687,14 +687,13 @@
       'fact2.t': 'A server that keeps the demo version running around the clock',
       'pick.title': 'Find your demo version in 30 seconds',
       'pick.sub': 'Three questions, and we’ll show which demo version fits your goals. No commitment: a manager will discuss the choice with you before launch.',
-      'q1.t': 'How much are you ready to start with?',
-      'q1.a1': 'Up to $100', 'q1.a2': '$100\u2013500', 'q1.a3': '$500\u20131,000', 'q1.a4': 'From $1,000',
-      'q2.t': 'How do you feel about drawdowns?',
-      'q2.a1': 'Keeping my money safe comes first',
-      'q2.a2': 'I\u2019m fine with moderate swings',
-      'q2.a3': 'I\u2019ll take risks for higher returns',
-      'q3.t': 'What do you want to achieve?',
-      'q3.a1': 'Extra income', 'q3.a2': 'Capital growth', 'q3.a3': 'Boost my deposit', 'q3.a4': 'Automate my trading',
+      'q1.t': 'How much experience do you have with similar tools?',
+      'q1.a1': 'Just getting started', 'q1.a2': 'Some basic experience', 'q1.a3': 'Confident user', 'q1.a4': 'Advanced level',
+      'q2.t': 'How important is stable operation to you?',
+      'q2.a1': 'Maximum stability',
+      'q2.a2': 'Moderate fluctuations are acceptable',
+      'q3.t': 'What matters to you when working with the algorithm?',
+      'q3.a1': 'Process automation', 'q3.a2': 'Understand how it works', 'q3.a3': 'Evaluate how convenient the interface is',
       'how.title': 'How to get access to the demo version',
       'how.sub': 'Four steps from the button on this page to launching the demo version. All communication happens in Telegram.',
       'how.s1.t': 'Answer 6 questions in the bot',
@@ -785,8 +784,8 @@
     p.set('site_lang', current);
     if (robot) p.set('site_robot', robot);
     if (place === 'pick') {
-      if (ANS.deposit) p.set('site_deposit', ANS.deposit);
-      if (ANS.risk) p.set('site_risk', ANS.risk);
+      if (ANS.exp) p.set('site_experience', ANS.exp);
+      if (ANS.stability) p.set('site_stability', ANS.stability);
       if (ANS.goal) p.set('site_goal', ANS.goal);
     }
     return PROXY + '?' + p.toString();
@@ -832,81 +831,32 @@
     });
   }
 
-  /* ---------- Подбор робота ----------
-     Правила простые и объяснимые посетителю:
-     сохранить деньги → R-Smart Machine, умеренный риск → EA Smart Prime,
-     готов рисковать → Profit Hunter, но только при сумме от $500 (так сказано в боте). */
-  var ANS = { deposit: null, risk: null, goal: null };
-
-  var ROBOTS = {
-    'r-smart-machine': {
-      name: 'R-Smart Machine', level: 1, yieldTxt: '~5%',
-      url: 'https://www.myfxbook.com/members/Trading_Time/r-smart-machine-22/10879148',
-      ru: { style: 'Консервативный', desc: 'Торгует на Forex с 2019 года. Рассчитан на спокойный долгосрочный доход, подходит для диверсификации.' },
-      en: { style: 'Conservative', desc: 'Trading on Forex since 2019. Built for steady long-term income and suitable for diversification.' }
-    },
-    'ea-smart-prime': {
-      name: 'EA Smart Prime', level: 2, yieldTxt: '~8%',
-      url: 'https://www.myfxbook.com/members/Trading_Time/ea-smart-prime/11250954',
-      ru: { style: 'Стабильный', desc: 'Алгоритмы с элементами машинного обучения, больше 5 лет в реальной торговле. Перед запуском год тестировался на реальных счетах, есть встроенная защита капитала.' },
-      en: { style: 'Stable', desc: 'Algorithms with machine-learning elements and over 5 years of live trading. Tested on real accounts for a year before release, with built-in capital protection.' }
-    },
-    'profit-hunter': {
-      name: 'Profit Hunter', level: 3, yieldTxt: '~24%',
-      url: 'https://www.myfxbook.com/members/Trading_Time/profit-hunter/11767967',
-      ru: { style: 'Рискованный', desc: 'Интенсивная торговля на высокую доходность: быстрые реакции на импульсы рынка и точные входы. Рассчитан на депозит от $500.' },
-      en: { style: 'Risky', desc: 'Intensive high-yield trading: fast reactions to market impulses and precise entries. Designed for deposits from $500.' }
-    }
-  };
+  /* ---------- Подбор демо-версии ----------
+     После трёх ответов карточка не называет конкретных роботов и не показывает цифр:
+     повторяет выбранные ответы и ведёт в бота, где менеджер подберёт демо-версию.
+     Ответы уходят в бота переменными site_experience, site_stability, site_goal. */
+  var ANS = { exp: null, stability: null, goal: null };
 
   var TXT = {
     ru: {
       emptyText: 'Ответьте на три вопроса — и здесь появится подходящая демо-версия.',
       left: function (n) { return n === 1 ? 'Остался 1 вопрос' : 'Осталось ' + n + ' вопроса'; },
-      kicker: 'Вам подходит',
-      perMonth: 'в месяц',
-      cta: function (name) { return 'Получить ' + name; },
-      stats: 'Статистика на Myfxbook',
-      disc: 'Средняя доходность в прошлом. Прошлые результаты не гарантируют будущих, торговля на Forex связана с риском потери средств.',
-      risk: {
-        low: 'Вам важнее сохранить деньги, а у этого робота самый низкий риск из трёх.',
-        mid: 'Средний риск из трёх: доходность выше, чем у консервативного робота, а просадки мягче, чем у Profit Hunter.',
-        high: 'Вы готовы рисковать ради результата, а это самый доходный и самый рискованный робот из трёх.'
-      },
-      goal: {
-        income: 'Для дополнительного заработка: робот торгует сам, пока вы заняты своими делами.',
-        growth: 'Для роста капитала: робот рассчитан на работу месяцами, а не на один рывок.',
-        growthHigh: 'Для роста капитала: депозит растёт быстрее, но и просадки глубже.',
-        boost: 'Для разгона депозита: Profit Hunter создан именно под эту задачу.',
-        auto: 'Для автоматической торговли: робот сам открывает и закрывает сделки на VPS, который мы даём бесплатно.'
-      },
-      noteSmallDeposit: 'Profit Hunter рассчитан на депозит от $500. С вашей суммой разумнее начать с EA Smart Prime, а перейти на Profit Hunter можно позже.',
-      noteBoostCareful: 'Разогнать депозит без высокого риска не получится. Раз вам важна сохранность денег, предлагаем робота спокойнее.',
-      noteDemo: 'Тест на демо-счёте бесплатный, сумма пока ни на что не влияет.'
+      kicker: 'Готово',
+      title: 'Демо-версия под ваши задачи',
+      desc: 'Менеджер поможет подобрать подходящую под ваши задачи демо-версию и покажет, как она работает.',
+      labels: { exp: 'Опыт', stability: 'Стабильность', goal: 'Важно' },
+      cta: 'Получить доступ в Telegram',
+      note: 'Выбор ни к чему не обязывает: менеджер обсудит его с вами перед запуском.'
     },
     en: {
       emptyText: 'Answer three questions and the right demo version will appear here.',
       left: function (n) { return n === 1 ? '1 question left' : n + ' questions left'; },
-      kicker: 'Your match',
-      perMonth: 'per month',
-      cta: function (name) { return 'Get ' + name; },
-      stats: 'Statistics on Myfxbook',
-      disc: 'Average past returns. Past performance does not guarantee future results; Forex trading involves the risk of losing money.',
-      risk: {
-        low: 'Keeping your money safe comes first, and this robot has the lowest risk of the three.',
-        mid: 'The middle ground of the three: higher returns than the conservative robot, softer drawdowns than Profit Hunter.',
-        high: 'You’re ready to take risks for results, and this is the highest-yield and riskiest robot of the three.'
-      },
-      goal: {
-        income: 'For extra income: the robot trades on its own while you go about your day.',
-        growth: 'For capital growth: the robot is built to work for months, not for a single spurt.',
-        growthHigh: 'For capital growth: the deposit grows faster, but drawdowns are deeper.',
-        boost: 'For boosting a deposit: Profit Hunter is built exactly for this.',
-        auto: 'For automated trading: the robot opens and closes trades on a VPS we provide for free.'
-      },
-      noteSmallDeposit: 'Profit Hunter is designed for deposits from $500. With your amount it makes sense to start with EA Smart Prime and move to Profit Hunter later.',
-      noteBoostCareful: 'You can’t boost a deposit without high risk. Since keeping your money safe matters to you, we suggest a calmer robot.',
-      noteDemo: 'The demo test is free, so the amount doesn’t matter yet.'
+      kicker: 'All set',
+      title: 'A demo version for your goals',
+      desc: 'A manager will help you pick the demo version that fits your goals and show you how it works.',
+      labels: { exp: 'Experience', stability: 'Stability', goal: 'What matters' },
+      cta: 'Get access in Telegram',
+      note: 'No commitment: a manager will discuss the choice with you before launch.'
     }
   };
 
@@ -915,26 +865,10 @@
 
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
-  function choose() {
-    var d = Number(ANS.deposit), t = TXT[current], notes = [], reasons = [], id;
-    if (ANS.risk === 'low') id = 'r-smart-machine';
-    else if (ANS.risk === 'mid') id = 'ea-smart-prime';
-    else if (d >= 3) id = 'profit-hunter';
-    else { id = 'ea-smart-prime'; notes.push(t.noteSmallDeposit); }
-
-    reasons.push(ANS.risk === 'high' && id === 'ea-smart-prime' ? t.risk.mid : t.risk[ANS.risk]);
-
-    if (ANS.goal === 'boost') {
-      if (id === 'profit-hunter') reasons.push(t.goal.boost);
-      else if (ANS.risk === 'low') notes.push(t.noteBoostCareful);
-    } else if (ANS.goal === 'growth') {
-      reasons.push(id === 'profit-hunter' ? t.goal.growthHigh : t.goal.growth);
-    } else {
-      reasons.push(t.goal[ANS.goal]);
-    }
-
-    if (d === 1) notes.push(t.noteDemo);
-    return { id: id, reasons: reasons, notes: notes };
+  /* подпись выбранного варианта берём прямо со страницы — она уже на нужном языке */
+  function chosenLabel(name) {
+    var inp = document.querySelector('#pickForm input[name="' + name + '"]:checked');
+    return inp ? inp.nextElementSibling.textContent : '';
   }
 
   var resultEl = document.getElementById('pickResult');
@@ -942,7 +876,8 @@
   function renderPick(animate) {
     if (!resultEl) return;
     var t = TXT[current];
-    var answered = ['deposit', 'risk', 'goal'].filter(function (k) { return ANS[k]; }).length;
+    var keys = ['exp', 'stability', 'goal'];
+    var answered = keys.filter(function (k) { return ANS[k]; }).length;
 
     if (answered < 3) {
       var bars = '';
@@ -950,25 +885,22 @@
       resultEl.innerHTML = '<div class="res-empty"><p>' + esc(t.emptyText) + '</p>' +
         '<div class="progress" aria-hidden="true">' + bars + '</div>' +
         '<span class="progress-label">' + esc(t.left(3 - answered)) + '</span></div>';
+      glueHyphens(resultEl);
       return;
     }
 
-    var c = choose(), r = ROBOTS[c.id], loc = r[current];
     resultEl.innerHTML =
       '<div class="' + (animate ? 'res-fade' : '') + '">' +
-        '<div class="res-head">' +
-          '<div><p class="res-kicker">' + esc(t.kicker) + '</p><h3 class="res-name">' + esc(r.name) + '</h3></div>' +
-          '<div class="res-yield"><b>' + esc(r.yieldTxt) + '</b><small>' + esc(t.perMonth) + '</small></div>' +
-        '</div>' +
-        '<div class="res-style"><span class="risk" data-level="' + r.level + '" aria-hidden="true"><i></i><i></i><i></i></span>' + esc(loc.style) + '</div>' +
-        '<ul class="reasons">' + c.reasons.map(function (x) { return '<li>' + CHECK + '<span>' + esc(x) + '</span></li>'; }).join('') + '</ul>' +
-        c.notes.map(function (x) { return '<p class="res-note">' + esc(x) + '</p>'; }).join('') +
+        '<p class="res-kicker">' + esc(t.kicker) + '</p>' +
+        '<h3 class="res-name">' + esc(t.title) + '</h3>' +
+        '<p class="res-desc res-desc-top">' + esc(t.desc) + '</p>' +
+        '<ul class="reasons">' + keys.map(function (k) {
+          return '<li>' + CHECK + '<span><b>' + esc(t.labels[k]) + ':</b> ' + esc(chosenLabel(k)) + '</span></li>';
+        }).join('') + '</ul>' +
         '<div class="res-actions">' +
-          '<a class="btn btn-primary" href="#" data-cta="pick" data-robot="' + c.id + '">' + TG + '<span>' + esc(t.cta(r.name)) + '</span></a>' +
-          '<a class="res-stats" href="' + r.url + '" target="_blank" rel="noopener">' + esc(t.stats) + '</a>' +
+          '<a class="btn btn-primary" href="#" data-cta="pick">' + TG + '<span>' + esc(t.cta) + '</span></a>' +
         '</div>' +
-        '<p class="res-desc">' + esc(loc.desc) + '</p>' +
-        '<p class="res-disc">' + esc(t.disc) + '</p>' +
+        '<p class="res-disc">' + esc(t.note) + '</p>' +
       '</div>';
     updateCtaLinks();
     glueHyphens(resultEl);
@@ -976,11 +908,11 @@
 
   document.querySelectorAll('#pickForm input[type="radio"]').forEach(function (inp) {
     inp.addEventListener('change', function () {
-      var wasComplete = ANS.deposit && ANS.risk && ANS.goal;
+      var wasComplete = ANS.exp && ANS.stability && ANS.goal;
       ANS[inp.name] = inp.value;
       renderPick(true);
       /* На телефоне результат ниже вопросов — после последнего ответа показываем его */
-      if (!wasComplete && ANS.deposit && ANS.risk && ANS.goal && window.matchMedia('(max-width:1024px)').matches) {
+      if (!wasComplete && ANS.exp && ANS.stability && ANS.goal && window.matchMedia('(max-width:1024px)').matches) {
         var rect = resultEl.getBoundingClientRect();
         if (rect.top > window.innerHeight - 120) resultEl.scrollIntoView({ block: 'start' });
       }
