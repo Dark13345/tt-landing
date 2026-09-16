@@ -184,7 +184,8 @@
   .sec-head p{margin:0;color:var(--ink-2);font-size:var(--fs-lg);line-height:1.5}
 
   /* ---------- Подбор робота ---------- */
-  .pick{background:var(--band);border-block:1px solid var(--line);padding-block:clamp(56px, 7vw, 104px)}
+  /* Полосы секций без рамок: цвет плавно перетекает из фона страницы и обратно */
+  .pick{background:linear-gradient(180deg,var(--bg) 0,var(--band) 14%,var(--band) 86%,var(--bg) 100%);padding-block:clamp(56px, 7vw, 104px)}
   .pick-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(24px, 4vw, 64px);align-items:start}
 
   .q{border:0;margin:0;padding:0 0 28px;min-width:0}
@@ -265,7 +266,7 @@
   .robots-foot{margin:clamp(20px, 2.4vw, 28px) 0 0;max-width:62em;font-size:var(--fs-sm);line-height:1.55;color:var(--ink-3)}
 
   /* ---------- Как это работает ---------- */
-  .how{background:var(--band);border-block:1px solid var(--line);padding-block:clamp(56px, 7vw, 104px)}
+  .how{background:linear-gradient(180deg,var(--bg) 0,var(--band) 14%,var(--band) 86%,var(--bg) 100%);padding-block:clamp(56px, 7vw, 104px)}
   .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px, 2.4vw, 36px);counter-reset:step}
   .step{position:relative;display:flex;flex-direction:column;gap:10px}
   .step-num{
@@ -321,7 +322,7 @@
   .qa-body a{color:var(--accent-text);text-underline-offset:3px}
 
   /* ---------- Подвал ---------- */
-  .ftr{background:#030208;border-top:1px solid var(--line);color:#B7B0C9;padding-block:clamp(40px, 5vw, 64px) 28px;font-size:var(--fs-sm)}
+  .ftr{background:linear-gradient(180deg,var(--bg) 0,#030208 22%,#030208 100%);color:#B7B0C9;padding-block:clamp(40px, 5vw, 64px) 28px;font-size:var(--fs-sm)}
   .ftr a{color:#fff;text-decoration:none}
   .ftr a:hover{text-decoration:underline;text-underline-offset:3px}
   .ftr-top{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,.7fr));gap:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.12)}
