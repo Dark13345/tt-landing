@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Торговые роботы Trading Time — проверьте на демо-счёте</title>
-<meta name="description" content="Три торговых робота для Forex под разные цели и депозиты. Бесплатная установка на демо-счёт и VPS, решение о реальных деньгах — после теста.">
+<title>Trading Time — демо-версия алгоритма</title>
+<meta name="description" content="Посмотрите, как работает наш демо-алгоритм. Мы бесплатно предоставим доступ к тестовой версии, чтобы вы оценили логику его работы.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dark13345.github.io/tt-landing/">
 <meta property="og:image" content="https://dark13345.github.io/tt-landing/tt-robots-og.jpg">
@@ -12,8 +12,8 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://dark13345.github.io/tt-landing/">
-<meta property="og:title" content="Торговые роботы Trading Time — проверьте на демо-счёте">
-<meta property="og:description" content="Три робота для Forex под разные цели и депозиты. Бесплатная установка на демо-счёт и VPS.">
+<meta property="og:title" content="Trading Time — демо-версия алгоритма">
+<meta property="og:description" content="Посмотрите, как работает наш демо-алгоритм. Мы бесплатно предоставим доступ к тестовой версии, чтобы вы оценили логику его работы.">
 <meta name="theme-color" content="#06040D">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2306040D'/%3E%3Crect x='6' y='17' width='5' height='9' rx='1.2' fill='%239333EA'/%3E%3Crect x='13.5' y='11' width='5' height='15' rx='1.2' fill='%23C46DF8'/%3E%3Crect x='21' y='5' width='5' height='21' rx='1.2' fill='%23F0ABFC'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,7 +126,7 @@
 
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
 
-  .facts{list-style:none;margin:0;padding:22px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+  .facts{list-style:none;margin:0;padding:22px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
   .facts li{display:flex;flex-direction:column;gap:6px;font-size:var(--fs-sm);color:var(--ink-2);line-height:1.4}
   .facts b{color:var(--ink);font-size:var(--fs-md);font-weight:700}
 
@@ -282,7 +282,7 @@
   .step h3{margin:0;font-size:var(--fs-lg);line-height:1.3;font-weight:700;text-wrap:balance}
   .step p{margin:0;font-size:var(--fs-sm);line-height:1.55;color:var(--ink-2)}
 
-  .how-foot{margin-top:clamp(36px, 4.4vw, 56px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(14px, 1.6vw, 24px);align-items:stretch}
+  .how-foot{margin-top:clamp(36px, 4.4vw, 56px)}
   .terms{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(22px, 2.6vw, 32px)}
   .terms h3{margin:0 0 18px;font-size:var(--fs-lg);font-weight:800}
   .terms ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 28px}
@@ -290,9 +290,9 @@
   .terms li b{display:block;color:var(--ink);font-size:var(--fs-md);font-weight:700;margin-bottom:2px}
   .terms svg{width:24px;height:24px;color:var(--accent-text)}
 
-  .how-cta{background:linear-gradient(160deg,#2B1152 0%,#170A2E 100%);border:1px solid rgba(196,109,248,.5);color:#fff;border-radius:24px;padding:clamp(22px, 2.6vw, 32px);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
-  .how-cta p{margin:0;font-size:var(--fs-lg);line-height:1.45;font-weight:600;text-wrap:balance}
-  .how-cta-actions{display:grid;gap:10px}
+  .how-cta{background:linear-gradient(160deg,#2B1152 0%,#170A2E 100%);border:1px solid rgba(196,109,248,.5);color:#fff;border-radius:24px;padding:clamp(22px, 2.6vw, 32px);display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:clamp(20px, 3vw, 48px)}
+  .how-cta p{margin:0;flex:1;max-width:36em;font-size:var(--fs-lg);line-height:1.45;font-weight:600;text-wrap:balance}
+  .how-cta-actions{display:grid;gap:10px;flex:none;width:min(100%,340px)}
   .how-cta .btn{width:100%}
   .btn-light{background:#fff;color:#5B21B6}
   .btn-light:hover{background:#F3E8FF}
@@ -357,7 +357,8 @@
     .rc h3{margin-bottom:14px}
     .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:32px}
     .step::after{display:none}
-    .how-foot{grid-template-columns:minmax(0,1fr)}
+    .how-cta{flex-direction:column;align-items:stretch}
+    .how-cta-actions{width:100%}
     .faq-grid{grid-template-columns:minmax(0,1fr)}
     .faq-side{position:static}
     .ftr-top{grid-template-columns:1fr 1fr}
@@ -377,7 +378,7 @@
     .cta-row .btn,.faq-side .btn,.how-cta .btn{width:100%;white-space:normal;height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
     .facts{grid-template-columns:1fr;gap:14px;padding-top:18px}
     /* Подписи фактов в одну колонку фиксированной ширины, чтобы описания начинались с одной линии */
-    .facts li{display:grid;grid-template-columns:8.5em minmax(0,1fr);gap:12px;align-items:baseline}
+    .facts li{display:grid;grid-template-columns:9.5em minmax(0,1fr);gap:12px;align-items:baseline}
     .facts b{font-size:var(--fs-sm)}
     .robot-stage{width:min(100%,340px)}
     .sec-head p{font-size:var(--fs-md)}
@@ -429,7 +430,6 @@
 
     <nav class="nav" aria-label="Разделы">
       <a href="#pick" data-i18n="nav.pick">Подбор робота</a>
-      <a href="#robots" data-i18n="nav.robots">Роботы</a>
       <a href="#how" data-i18n="nav.how">Как это работает</a>
       <a href="#faq" data-i18n="nav.faq">Вопросы</a>
     </nav>
@@ -451,8 +451,8 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-text">
-        <h1 data-i18n-html="hero.title">Проверьте торгового робота <em>на демо-счёте</em></h1>
-        <p class="lead" data-i18n="hero.lead">Посмотрите, как торгует робот. Мы бесплатно поставим одного из трёх роботов для Forex на ваш демо-счёт, а о реальном счёте решите после теста.</p>
+        <h1 data-i18n-html="hero.title">Познакомьтесь с <em>демо-версией нашего алгоритма</em></h1>
+        <p class="lead" data-i18n="hero.lead">Посмотрите, как работает наш демо-алгоритм. Мы бесплатно предоставим доступ к тестовой версии, чтобы вы оценили логику его работы.</p>
 
         <div class="cta-row">
           <a class="btn btn-primary" href="#pick">
@@ -465,9 +465,8 @@
         </div>
 
         <ul class="facts">
-          <li><b data-i18n="fact1.b">Не продаём</b><span data-i18n="fact1.t">Роботов не продаём и не сдаём в аренду</span></li>
-          <li><b data-i18n="fact2.b">VPS бесплатно</b><span data-i18n="fact2.t">Сервер, чтобы робот торговал круглосуточно</span></li>
-          <li><b data-i18n="fact3.b">От $100</b><span data-i18n="fact3.t">Стартовый депозит для самого спокойного робота</span></li>
+          <li><b data-i18n="fact1.b">Не продаём</b><span data-i18n="fact1.t">Демо-доступ не продаём и не сдаём в аренду</span></li>
+          <li><b data-i18n="fact2.b">Тестовый сервер бесплатно</b><span data-i18n="fact2.t">Сервер, на котором демо-версия работает круглосуточно</span></li>
         </ul>
       </div>
 
@@ -507,8 +506,8 @@
   <section class="pick" id="pick" aria-labelledby="pick-title">
     <div class="wrap">
       <div class="sec-head">
-        <h2 id="pick-title" data-i18n="pick.title">Подберите робота за 30 секунд</h2>
-        <p data-i18n="pick.sub">Три вопроса, и мы покажем, какой из роботов подходит под вашу сумму и отношение к риску. Выбор ни к чему не обязывает: менеджер обсудит его с вами перед установкой.</p>
+        <h2 id="pick-title" data-i18n="pick.title">Подберите демо-версию за 30 секунд</h2>
+        <p data-i18n="pick.sub">Три вопроса — и мы покажем, какая демо-версия подходит под ваши задачи. Выбор ни к чему не обязывает: менеджер обсудит его с вами перед запуском.</p>
       </div>
 
       <div class="pick-grid">
@@ -548,105 +547,38 @@
     </div>
   </section>
 
-  <section class="robots" id="robots" aria-labelledby="robots-title">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2 id="robots-title" data-i18n="robots.title">Три робота под разные задачи</h2>
-        <p data-i18n="robots.sub">Все три торгуют на Forex и бесплатно ставятся на ваш демо-счёт. Разница в том, насколько сильно робот рискует ради доходности.</p>
-      </div>
-
-      <div class="robot-cards">
-          <article class="rc" id="robot-r-smart-machine">
-            <p class="rc-style"><span class="risk" data-level="1" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="rc1.style">Консервативный</span></p>
-            <h3>R-Smart Machine</h3>
-            <div class="rc-yield"><b>~5%</b><span data-i18n-html="rc.avg">в среднем<br>в месяц</span></div>
-            <p class="rc-for" data-i18n="rc1.for">Для тех, кому нужен спокойный долгосрочный доход</p>
-            <ul class="rc-facts">
-              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc1.f1">Торгует на Forex с 2019 года</span></li>
-              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc1.f2">Не гонится за быстрым результатом: ставка на стабильность годами</span></li>
-              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc1.f3">Подходит для диверсификации и долгосрочного инвестирования</span></li>
-            </ul>
-            <div class="rc-actions">
-              <a class="btn btn-ghost" href="#" data-cta="robots" data-robot="r-smart-machine"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="rc1.cta">Получить R-Smart Machine</span></a>
-              <a class="rc-stats" href="https://www.myfxbook.com/members/Trading_Time/r-smart-machine-22/10879148" target="_blank" rel="noopener" data-i18n="rc.stats">Статистика на Myfxbook</a>
-            </div>
-          </article>
-          <article class="rc" id="robot-ea-smart-prime">
-            <p class="rc-style"><span class="risk" data-level="2" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="rc2.style">Стабильный</span></p>
-            <h3>EA Smart Prime</h3>
-            <div class="rc-yield"><b>~8%</b><span data-i18n-html="rc.avg">в среднем<br>в месяц</span></div>
-            <p class="rc-for" data-i18n="rc2.for">Для тех, кто ищет баланс между доходностью и риском</p>
-            <ul class="rc-facts">
-              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc2.f1">Алгоритмы с элементами машинного обучения</span></li>
-              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc2.f2">Больше 5 лет в реальной торговле, перед запуском год тестировался на реальных счетах</span></li>
-              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc2.f3">Точные входы, продуманное управление позицией и встроенная защита капитала</span></li>
-            </ul>
-            <div class="rc-actions">
-              <a class="btn btn-ghost" href="#" data-cta="robots" data-robot="ea-smart-prime"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="rc2.cta">Получить EA Smart Prime</span></a>
-              <a class="rc-stats" href="https://www.myfxbook.com/members/Trading_Time/ea-smart-prime/11250954" target="_blank" rel="noopener" data-i18n="rc.stats">Статистика на Myfxbook</a>
-            </div>
-          </article>
-          <article class="rc" id="robot-profit-hunter">
-            <p class="rc-style"><span class="risk" data-level="3" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="rc3.style">Рискованный</span></p>
-            <h3>Profit Hunter</h3>
-            <div class="rc-yield"><b>~24%</b><span data-i18n-html="rc.avg">в среднем<br>в месяц</span></div>
-            <p class="rc-for" data-i18n="rc3.for">Для тех, кто готов рисковать ради максимального результата</p>
-            <ul class="rc-facts">
-              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc3.f1">Интенсивная торговля на высокую доходность</span></li>
-              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc3.f2">Быстрые реакции на импульсы рынка и точные входы в сделки</span></li>
-              <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg><span data-i18n="rc3.f3">Рассчитан на депозит от $500</span></li>
-            </ul>
-            <div class="rc-actions">
-              <a class="btn btn-ghost" href="#" data-cta="robots" data-robot="profit-hunter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="rc3.cta">Получить Profit Hunter</span></a>
-              <a class="rc-stats" href="https://www.myfxbook.com/members/Trading_Time/profit-hunter/11767967" target="_blank" rel="noopener" data-i18n="rc.stats">Статистика на Myfxbook</a>
-            </div>
-          </article>
-      </div>
-
-      <p class="robots-foot" data-i18n="robots.foot">Доходность указана как средняя в месяц за прошлые периоды по данным мониторинга и не гарантирует будущих результатов. Всего у нас больше шести роботов под разные инструменты: если ни один из трёх не подходит, менеджер подберёт другого.</p>
-    </div>
-  </section>
 
   <section class="how" id="how" aria-labelledby="how-title">
     <div class="wrap">
       <div class="sec-head">
-        <h2 id="how-title" data-i18n="how.title">Как получить робота</h2>
-        <p data-i18n="how.sub">Четыре шага от кнопки на сайте до робота, который торгует на вашем демо-счёте. Всё общение идёт в Telegram.</p>
+        <h2 id="how-title" data-i18n="how.title">Как получить доступ к демо-версии</h2>
+        <p data-i18n="how.sub">Четыре шага от кнопки на сайте до запуска демо-версии. Всё общение идёт в Telegram.</p>
       </div>
 
       <ol class="steps">
         <li class="step">
           <span class="step-num" aria-hidden="true">1</span>
           <h3 data-i18n="how.s1.t">Ответьте на 6 вопросов в боте</h3>
-          <p data-i18n="how.s1.p">Кнопка откроет Telegram. Бот спросит о целях, опыте и сумме, чтобы подобрать робота. Это займёт около двух минут.</p>
+          <p data-i18n="how.s1.p">Кнопка откроет Telegram. Бот спросит о целях и опыте, чтобы подобрать демо-версию. Это займёт около двух минут.</p>
         </li>
         <li class="step">
           <span class="step-num" aria-hidden="true">2</span>
-          <h3 data-i18n="how.s2.t">Откройте демо-счёт у брокера</h3>
-          <p data-i18n="how.s2.p">Бот пришлёт ссылку на регистрацию у брокера, с которым мы работаем, и видеоинструкцию. На демо-счёте реальные деньги не нужны.</p>
+          <h3 data-i18n="how.s2.t">Зарегистрируйтесь в тестовой среде</h3>
+          <p data-i18n="how.s2.p">Бот пришлёт ссылку на регистрацию и видеоинструкцию. Реальные деньги для теста не нужны.</p>
         </li>
         <li class="step">
           <span class="step-num" aria-hidden="true">3</span>
-          <h3 data-i18n="how.s3.t">Пришлите номер кабинета</h3>
-          <p data-i18n="how.s3.p">Отправьте номер личного кабинета в чат, цифрами или скриншотом. Менеджер проверит, что счёт создан.</p>
+          <h3 data-i18n="how.s3.t">Пришлите номер аккаунта</h3>
+          <p data-i18n="how.s3.p">Отправьте номер тестового аккаунта в чат, цифрами или скриншотом. Менеджер проверит, что аккаунт создан.</p>
         </li>
         <li class="step">
           <span class="step-num" aria-hidden="true">4</span>
-          <h3 data-i18n="how.s4.t">Получите робота и запустите его</h3>
-          <p data-i18n="how.s4.p">Менеджер пришлёт файл робота и пошаговую инструкцию, поможет с установкой и первым запуском.</p>
+          <h3 data-i18n="how.s4.t">Получите доступ и запустите демо-версию</h3>
+          <p data-i18n="how.s4.p">Менеджер пришлёт файл и пошаговую инструкцию, поможет с установкой и первым запуском.</p>
         </li>
       </ol>
 
       <div class="how-foot">
-        <div class="terms">
-          <h3 data-i18n="terms.title">На каких условиях</h3>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2"/><path d="M3 21L21 3"/></svg><span><b data-i18n="terms.1.b">Роботов не продаём</b><span data-i18n="terms.1.t">И не сдаём в аренду. Робот для теста достаётся вам бесплатно.</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V10M10 21V10M14 21V10M19 21V10"/><path d="M2 10l10-6 10 6"/></svg><span><b data-i18n="terms.2.b">Работаем через брокера</b><span data-i18n="terms.2.t">По партнёрской программе с брокером, который на рынке больше 20 лет.</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg><span><b data-i18n="terms.3.b">VPS за наш счёт</b><span data-i18n="terms.3.t">Сервер, на котором робот торгует круглосуточно, покупать и арендовать не нужно.</span></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><b data-i18n="terms.4.b">Менеджеры по будням</b><span data-i18n="terms.4.t">С 10:00 до 19:00 по Москве. Ответить на вопросы бота можно в любое время.</span></span></li>
-          </ul>
-        </div>
 
         <div class="how-cta">
           <p data-i18n="how.cta.p">Посмотрите, как робот торгует на демо-счёте, и только потом решайте, запускать ли его на реальные деньги.</p>
@@ -718,7 +650,6 @@
         <h3 data-i18n="ftr.nav">Разделы</h3>
         <ul>
           <li><a href="#pick" data-i18n="nav.pick">Подбор робота</a></li>
-          <li><a href="#robots" data-i18n="nav.robots">Роботы</a></li>
           <li><a href="#how" data-i18n="nav.how">Как это работает</a></li>
           <li><a href="#faq" data-i18n="nav.faq">Вопросы</a></li>
         </ul>
@@ -750,23 +681,20 @@
   var I18N = {
     en: {
       'nav.pick': 'Find a robot',
-      'nav.robots': 'Robots',
       'nav.how': 'How it works',
       'nav.faq': 'FAQ',
       'cta.header': 'Open the bot',
-      'hero.title': 'Test a trading robot <em>on a demo account</em>',
+      'hero.title': 'Meet <em>the demo version of our algorithm</em>',
       'robot.play': 'Play or pause the robot animation',
-      'hero.lead': 'See how the robot trades. We set up one of our three Forex robots on your demo account for free, and you decide about a live account after the test.',
+      'hero.lead': 'See how our demo algorithm works. We provide free access to the test version so you can evaluate the logic behind it.',
       'cta.pick': 'Find my robot',
       'cta.telegram': 'Get a robot in Telegram',
       'fact1.b': 'Not for sale',
-      'fact1.t': 'We don’t sell or rent out our robots',
-      'fact2.b': 'Free VPS',
-      'fact2.t': 'A server so the robot can trade around the clock',
-      'fact3.b': 'From $100',
-      'fact3.t': 'Starting deposit for the most conservative robot',
-      'pick.title': 'Find your robot in 30 seconds',
-      'pick.sub': 'Answer three questions and we\u2019ll show which robot fits your budget and attitude to risk. No commitment: a manager will discuss the choice with you before setup.',
+      'fact1.t': 'We don’t sell or rent out demo access',
+      'fact2.b': 'Free test server',
+      'fact2.t': 'A server that keeps the demo version running around the clock',
+      'pick.title': 'Find your demo version in 30 seconds',
+      'pick.sub': 'Three questions, and we’ll show which demo version fits your goals. No commitment: a manager will discuss the choice with you before launch.',
       'q1.t': 'How much are you ready to start with?',
       'q1.a1': 'Up to $100', 'q1.a2': '$100\u2013500', 'q1.a3': '$500\u20131,000', 'q1.a4': 'From $1,000',
       'q2.t': 'How do you feel about drawdowns?',
@@ -775,48 +703,16 @@
       'q2.a3': 'I\u2019ll take risks for higher returns',
       'q3.t': 'What do you want to achieve?',
       'q3.a1': 'Extra income', 'q3.a2': 'Capital growth', 'q3.a3': 'Boost my deposit', 'q3.a4': 'Automate my trading',
-      'robots.title': 'Three robots for different goals',
-      'robots.sub': 'All three trade Forex and are set up on your demo account for free. The difference is how much risk each robot takes for returns.',
-      'rc.avg': 'monthly<br>average',
-      'rc.stats': 'Statistics on Myfxbook',
-      'rc1.style': 'Conservative',
-      'rc1.for': 'For those who want steady long-term income',
-      'rc1.f1': 'Trading on Forex since 2019',
-      'rc1.f2': 'Doesn’t chase quick wins: built for stability over years',
-      'rc1.f3': 'Suitable for diversification and long-term investing',
-      'rc1.cta': 'Get R-Smart Machine',
-      'rc2.style': 'Stable',
-      'rc2.for': 'For those looking for a balance between return and risk',
-      'rc2.f1': 'Algorithms with machine-learning elements',
-      'rc2.f2': 'Over 5 years of live trading, tested on real accounts for a year before release',
-      'rc2.f3': 'Precise entries, well-designed position management and built-in capital protection',
-      'rc2.cta': 'Get EA Smart Prime',
-      'rc3.style': 'Risky',
-      'rc3.for': 'For those ready to take risks for maximum results',
-      'rc3.f1': 'Intensive high-yield trading',
-      'rc3.f2': 'Fast reactions to market impulses and precise trade entries',
-      'rc3.f3': 'Designed for deposits from $500',
-      'rc3.cta': 'Get Profit Hunter',
-      'robots.foot': 'Returns are shown as the monthly average for past periods according to monitoring and do not guarantee future results. We have more than six robots for different instruments in total: if none of these three suits you, a manager will pick another one.',
-      'how.title': 'How to get a robot',
-      'how.sub': 'Four steps from the button on this page to a robot trading on your demo account. All communication happens in Telegram.',
+      'how.title': 'How to get access to the demo version',
+      'how.sub': 'Four steps from the button on this page to launching the demo version. All communication happens in Telegram.',
       'how.s1.t': 'Answer 6 questions in the bot',
-      'how.s1.p': 'The button opens Telegram. The bot asks about your goals, experience and budget to match a robot. It takes about two minutes.',
-      'how.s2.t': 'Open a demo account with the broker',
-      'how.s2.p': 'The bot sends a sign-up link for the broker we work with and a video guide. A demo account needs no real money.',
+      'how.s1.p': 'The button opens Telegram. The bot asks about your goals and experience to match a demo version. It takes about two minutes.',
+      'how.s2.t': 'Sign up in the test environment',
+      'how.s2.p': 'The bot sends a sign-up link and a video guide. No real money is needed for the test.',
       'how.s3.t': 'Send your account number',
-      'how.s3.p': 'Send your personal account number to the chat, as digits or a screenshot. A manager will check that the account is created.',
-      'how.s4.t': 'Get the robot and launch it',
-      'how.s4.p': 'A manager sends the robot file and step-by-step instructions, and helps with setup and the first launch.',
-      'terms.title': 'Terms',
-      'terms.1.b': 'Robots are not for sale',
-      'terms.1.t': 'We don’t rent them out either. Getting a robot for a test is free.',
-      'terms.2.b': 'We work through a broker',
-      'terms.2.t': 'Under a partner program with a broker that has been on the market for over 20 years.',
-      'terms.3.b': 'VPS on us',
-      'terms.3.t': 'The server the robot trades on around the clock: nothing to buy or rent.',
-      'terms.4.b': 'Managers on weekdays',
-      'terms.4.t': '10:00 to 19:00 Moscow time. You can answer the bot’s questions at any time.',
+      'how.s3.p': 'Send your test account number to the chat, as digits or a screenshot. A manager will check that the account is created.',
+      'how.s4.t': 'Get access and launch the demo version',
+      'how.s4.p': 'A manager sends the file and step-by-step instructions, and helps with setup and the first launch.',
       'how.cta.p': 'Watch how the robot trades on a demo account, and only then decide whether to run it with real money.',
       'how.cta.main': 'Start in Telegram',
       'how.cta.pick': 'Find a robot first',
@@ -852,7 +748,7 @@
   };
   var META = {
     ru: { title: document.title, htmlLang: 'ru' },
-    en: { title: 'Trading Time robots — test on a demo account', htmlLang: 'en' }
+    en: { title: 'Trading Time — algorithm demo', htmlLang: 'en' }
   };
 
   /* Русский текст берём прямо из разметки, чтобы не держать его в двух местах */
@@ -977,7 +873,7 @@
 
   var TXT = {
     ru: {
-      emptyText: 'Ответьте на три вопроса, и здесь появится робот, который вам подходит.',
+      emptyText: 'Ответьте на три вопроса — и здесь появится подходящая демо-версия.',
       left: function (n) { return n === 1 ? 'Остался 1 вопрос' : 'Осталось ' + n + ' вопроса'; },
       kicker: 'Вам подходит',
       perMonth: 'в месяц',
@@ -1001,7 +897,7 @@
       noteDemo: 'Тест на демо-счёте бесплатный, сумма пока ни на что не влияет.'
     },
     en: {
-      emptyText: 'Answer three questions and the robot that fits you will appear here.',
+      emptyText: 'Answer three questions and the right demo version will appear here.',
       left: function (n) { return n === 1 ? '1 question left' : n + ' questions left'; },
       kicker: 'Your match',
       perMonth: 'per month',
