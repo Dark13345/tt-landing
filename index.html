@@ -1,1026 +1,651 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trading Time — демо-версия алгоритма</title>
-<meta name="description" content="Посмотрите, как работает наш демо-алгоритм. Мы бесплатно предоставим доступ к тестовой версии, чтобы вы оценили логику его работы.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://dark13345.github.io/tt-landing/">
-<meta property="og:image" content="https://dark13345.github.io/tt-landing/tt-robots-og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://dark13345.github.io/tt-landing/">
-<meta property="og:title" content="Trading Time — демо-версия алгоритма">
-<meta property="og:description" content="Посмотрите, как работает наш демо-алгоритм. Мы бесплатно предоставим доступ к тестовой версии, чтобы вы оценили логику его работы.">
-<meta name="theme-color" content="#06040D">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2306040D'/%3E%3Crect x='6' y='17' width='5' height='9' rx='1.2' fill='%239333EA'/%3E%3Crect x='13.5' y='11' width='5' height='15' rx='1.2' fill='%23C46DF8'/%3E%3Crect x='21' y='5' width='5' height='21' rx='1.2' fill='%23F0ABFC'/%3E%3C/svg%3E">
+<meta name="robots" content="noindex, nofollow">
+<title>Тарифы Elirox и наши серверы</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-  /* Палитра из постов Trading Time: почти чёрный с фиолетовым отливом,
-     сиреневые заголовки, зелёные проценты, тёмные карточки с тонкой рамкой */
-  :root{
-    --bg:#06040D;
-    --band:#0C0718;
-    --card:#140C26;
-    --ink:#F5F3FA;
-    --ink-2:#B7B0C9;
-    --ink-3:#8A8499;
-    --line:rgba(255,255,255,.09);
-    --line-2:rgba(196,109,248,.34);
-    --accent:#8B3DF0;
-    --accent-hover:#9B55F5;
-    --accent-text:#C9A2FF;
-    --accent-soft:rgba(168,85,247,.16);
-    --btn-grad:linear-gradient(180deg,#9333EA 0%,#7C3AED 100%);
-    --lilac-grad:linear-gradient(180deg,#F5B8FC 0%,#C46DF8 100%);
-    --green:#2EE59D;
-    --risk-low:#2EE59D;
-    --risk-mid:#F5B83D;
-    --risk-high:#FF5C7A;
-
-    /* Шкала размеров: держимся её, не изобретаем по ходу */
-    --fs-xs:.8125rem;   /* 13 */
-    --fs-sm:.9375rem;   /* 15 */
-    --fs-md:1.0625rem;  /* 17 */
-    --fs-lg:1.25rem;    /* 20 */
-    --fs-h1:clamp(1.875rem, 1.1rem + 2.5vw, 3.25rem);
-    --fs-h2:clamp(1.75rem, 1.25rem + 1.6vw, 2.625rem);
-
-    --radius:18px;
-    --gutter:clamp(16px, 4vw, 48px);
-    --max:1240px;
+/* Документ-расчёт: узкая колонка текста, таблицы на всю ширину колонки, метки источника у каждого факта */
+:root {
+  --bg: #f4f6f5;
+  --paper: #ffffff;
+  --ink: #17201f;
+  --muted: #5c6866;
+  --line: #d9e0de;
+  --accent: #0d6b66;
+  --accent-soft: #e1efed;
+  --warn: #8a5a00;
+  --warn-soft: #f7ecd6;
+  --chk: #1f6b2f;
+  --chk-soft: #e2f0e4;
+  --src: #3d4f8a;
+  --src-soft: #e6e9f5;
+  --pro: #5b3a9e;
+  --pro-soft: #efe9fa;
+  --pro-line: #cdbdf0;
+  --api: #1d5a9e;
+  --api-soft: #e6eef8;
+  --api-line: #b9cfea;
+  --grid: #3f6212;
+  --grid-soft: #eef4e2;
+  --grid-line: #c8dba5;
+  --res: #9a4d0b;
+  --res-soft: #fbefe3;
+  --res-line: #efcca9;
+  --buy: #1f7a4d;
+  --sell: #b4372c;
+  --own: #a3245f;
+  --own-soft: #fbeaf2;
+  --own-line: #efbfd4;
+  --five: #0e7490;
+  --five-soft: #e2f3f7;
+  --five-line: #aad8e3;
+  --f-display: "Unbounded", "Golos Text", system-ui, sans-serif;
+  --f-body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111716; --paper: #182120; --ink: #e5ecea; --muted: #9aa8a5; --line: #2c3836;
+    --accent: #5cc4bb; --accent-soft: #173431; --warn: #e3b25a; --warn-soft: #3a2e17;
+    --chk: #7fd18f; --chk-soft: #1b3320; --src: #a4b2ec; --src-soft: #232a45;
+    --pro: #c6aef5; --pro-soft: #241c38; --pro-line: #45366b;
+    --api: #8fbdf0; --api-soft: #15253a; --api-line: #2d4a6e;
+    --grid: #b5d67a; --grid-soft: #1d2814; --grid-line: #3b5124;
+    --res: #f0a868; --res-soft: #2e2014; --res-line: #5a3d22;
+    --buy: #5fcf95; --sell: #f08a80;
+    --own: #f29bc3; --own-soft: #2f1622; --own-line: #5c2a42;
+    --five: #6cc9de; --five-soft: #10262d; --five-line: #24505c; color-scheme: dark;
   }
-
-  *,*::before,*::after{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    font-size:var(--fs-md);
-    line-height:1.55;
-    overflow-x:hidden;
-  }
-  a{color:inherit}
-  .wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
-
-  /* ---------- Шапка ---------- */
-  .hdr{position:sticky;top:0;z-index:20;background:rgba(6,4,13,.78);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
-  .hdr.scrolled{border-bottom-color:var(--line)}
-  .hdr .wrap{display:flex;align-items:center;gap:24px;min-height:68px}
-  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:var(--fs-md);text-decoration:none;white-space:nowrap}
-  .logo-mark{width:28px;height:24px;display:grid;place-items:center}
-  .logo-mark svg{width:28px;height:24px}
-  .nav{display:flex;gap:4px;margin-left:12px}
-  .nav a{font-size:var(--fs-sm);font-weight:600;color:var(--ink-2);text-decoration:none;padding:8px 12px;border-radius:10px;transition:color .15s, background .15s}
-  .nav a:hover{color:var(--ink);background:rgba(255,255,255,.06)}
-  .hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
-
-  .lang{display:flex;background:rgba(255,255,255,.06);border-radius:10px;padding:3px}
-  .lang button{font:inherit;font-size:var(--fs-xs);font-weight:700;border:0;background:transparent;color:var(--ink-2);padding:6px 10px;border-radius:8px;cursor:pointer;transition:background .15s,color .15s}
-  .lang button[aria-pressed="true"]{background:rgba(255,255,255,.14);color:var(--ink)}
-  .lang button:hover:not([aria-pressed="true"]){color:var(--ink)}
-
-  /* ---------- Кнопки ---------- */
-  .btn{
-    --h:52px;
-    display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    height:var(--h);padding:0 24px;border-radius:14px;
-    font:inherit;font-size:var(--fs-md);font-weight:700;text-decoration:none;white-space:nowrap;
-    border:1px solid transparent;cursor:pointer;
-    transition:background .18s,color .18s,border-color .18s,transform .18s;
-  }
-  .btn:active{transform:translateY(1px)}
-  .btn-primary{background:var(--btn-grad);color:#fff;box-shadow:0 8px 24px -10px rgba(147,51,234,.7)}
-  .btn-primary:hover{background:linear-gradient(180deg,#A04BF0 0%,#8B45F2 100%)}
-  .btn-ghost{background:transparent;color:var(--ink);border-color:rgba(255,255,255,.22)}
-  .btn-ghost:hover{border-color:var(--accent-text);background:rgba(168,85,247,.1)}
-  .btn-sm{--h:40px;padding:0 16px;font-size:var(--fs-sm);border-radius:11px}
-  .btn svg{width:18px;height:18px;flex:none}
-  /* Подмена текста снизу вверх при наведении */
-  .btn .roll{display:inline-grid;overflow:hidden;height:1.4em;line-height:1.4em}
-  .btn .roll span{grid-area:1/1;transition:transform .28s cubic-bezier(.2,.7,.2,1)}
-  .btn .roll span+span{transform:translateY(110%)}
-  .btn:hover .roll span:first-child{transform:translateY(-110%)}
-  .btn:hover .roll span+span{transform:translateY(0)}
-
-  /* ---------- Первый экран ---------- */
-  .hero{padding-block:clamp(20px, 3.4vw, 48px) clamp(24px, 3.4vw, 48px)}
-  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(32px, 5vw, 72px);align-items:center}
-
-  .hero h1{
-    font-family:'Montserrat', 'Manrope', system-ui, sans-serif;
-    font-size:var(--fs-h1);line-height:1.04;letter-spacing:-.01em;font-weight:900;text-transform:uppercase;
-    margin:0 0 22px;text-wrap:balance;
-  }
-  /* Сиреневый переход в заголовке — как «НЕДЕЛИ» и «ЧЕТВЕРГА» в постах */
-  .hero h1 em{font-style:normal;background:var(--lilac-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  /* Слова через дефис не рвём — скрипт оборачивает их в этот класс */
-  .nw{white-space:nowrap}
-  .lead{font-size:var(--fs-lg);line-height:1.5;color:var(--ink-2);margin:0 0 30px;max-width:34em}
-
-  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
-
-  .facts{list-style:none;margin:0;padding:22px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-  .facts li{display:flex;flex-direction:column;gap:6px;font-size:var(--fs-sm);color:var(--ink-2);line-height:1.4}
-  .facts b{color:var(--ink);font-size:var(--fs-md);font-weight:700}
-
-
-
-  .risk{display:inline-flex;gap:3px}
-  .risk i{width:14px;height:6px;border-radius:3px;background:rgba(255,255,255,.14)}
-  .risk[data-level="1"] i:nth-child(-n+1){background:var(--risk-low)}
-  .risk[data-level="2"] i:nth-child(-n+2){background:var(--risk-mid)}
-  .risk[data-level="3"] i{background:var(--risk-high)}
-
-
-  /* Робот с голограммой терминала: ролик Hailuo 768×1152, петля 8 с, первый кадр = последний.
-     Показываем верхние ~93% кадра: ниже, на 94.8–97.1% высоты, водяной знак «MINIMAX | Hailuo AI». */
-  .hero-visual{position:relative;display:flex;justify-content:center}
-  .hero-visual::before{content:"";position:absolute;inset:4% 0 18% 0;background:radial-gradient(closest-side,rgba(146,64,245,.34),transparent 72%);pointer-events:none}
-  .robot-stage{
-    position:relative;width:min(100%,520px);aspect-ratio:5 / 7;overflow:hidden;
-    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 6%,#000 80%,transparent 100%),linear-gradient(to right,transparent 0,#000 10%,#000 92%,transparent 100%);
-    -webkit-mask-composite:source-in;
-    mask-image:linear-gradient(to bottom,transparent 0,#000 6%,#000 80%,transparent 100%),linear-gradient(to right,transparent 0,#000 10%,#000 92%,transparent 100%);
-    mask-composite:intersect;
-  }
-  .robot-video{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;background:#020103}
-  /* Кнопка появляется, только если браузер запретил автозапуск (энергосбережение iPhone,
-     браузер внутри Telegram, «уменьшить движение» в настройках телефона) */
-  .robot-play{
-    position:absolute;left:50%;bottom:26%;transform:translateX(-50%);z-index:2;
-    width:64px;height:64px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
-    color:#fff;background:rgba(20,12,38,.62);border:1px solid rgba(196,109,248,.6);
-    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-    box-shadow:0 0 0 0 rgba(168,85,247,.5);animation:playPulse 2.2s ease-out infinite;
-    transition:background .2s,transform .2s;
-  }
-  .robot-play[hidden]{display:none}
-  .robot-play svg{width:26px;height:26px;margin-left:3px}
-  .robot-play .i-pause{display:none;margin-left:0}
-  /* Пока ролик играет, кнопка показывает «пауза» и не мигает */
-  .robot-play.is-playing{animation:none;background:rgba(20,12,38,.4);border-color:rgba(196,109,248,.3);opacity:.34;width:46px;height:46px}
-  .robot-play.is-playing svg{width:18px;height:18px}
-  .robot-play.is-playing:hover,.robot-play.is-playing:focus-visible{opacity:1}
-  .robot-play.is-playing .i-play{display:none}
-  .robot-play.is-playing .i-pause{display:block}
-  .robot-play:hover{background:rgba(147,51,234,.75)}
-  .robot-play:active{transform:translateX(-50%) scale(.96)}
-  .robot-play:focus-visible{outline:2px solid var(--accent-text);outline-offset:3px}
-  @keyframes playPulse{0%{box-shadow:0 0 0 0 rgba(168,85,247,.5)}70%{box-shadow:0 0 0 16px rgba(168,85,247,0)}100%{box-shadow:0 0 0 0 rgba(168,85,247,0)}}
-  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-  /* ---------- Общее для секций ---------- */
-  html{scroll-behavior:smooth}
-  main > section{scroll-margin-top:var(--hdr-h, 68px)}
-  .sec-head{max-width:44em;margin-bottom:clamp(20px, 2.6vw, 36px)}
-  .sec-head h2{font-family:'Montserrat', 'Manrope', system-ui, sans-serif;font-size:var(--fs-h2);line-height:1.12;letter-spacing:-.02em;font-weight:800;margin:0 0 12px;text-wrap:balance}
-  .sec-head p{margin:0;color:var(--ink-2);font-size:var(--fs-lg);line-height:1.5}
-
-  /* ---------- Подбор робота ---------- */
-  /* Полосы секций без рамок: цвет плавно перетекает из фона страницы и обратно */
-  .pick{background:linear-gradient(180deg,var(--bg) 0,var(--band) 14%,var(--band) 86%,var(--bg) 100%);padding-block:clamp(32px, 3.6vw, 56px)}
-  .pick-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(24px, 4vw, 64px);align-items:start}
-
-  .q{border:0;margin:0;padding:0 0 28px;min-width:0}
-  .q+.q{padding-top:28px;border-top:1px solid var(--line)}
-  /* float выводит legend из рамки fieldset, иначе линия-разделитель проходит сквозь заголовок */
-  .q legend{float:left;width:100%;display:flex;gap:12px;align-items:baseline;padding:0;margin-bottom:16px;font-size:var(--fs-lg);font-weight:700;line-height:1.3}
-  .q legend+*{clear:both}
-  .q-num{color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:600}
-
-  .chips{display:flex;flex-wrap:wrap;gap:10px}
-  .chip{position:relative;display:flex}
-  .chip input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
-  .chip span{
-    flex:1;display:flex;align-items:center;min-height:48px;padding:10px 18px;border-radius:12px;
-    border:1px solid var(--line);background:rgba(255,255,255,.03);
-    font-size:var(--fs-sm);font-weight:600;line-height:1.3;cursor:pointer;
-    transition:background .16s,border-color .16s,color .16s;
-  }
-  .chip span:hover{border-color:var(--line-2);background:rgba(168,85,247,.08)}
-  .chip input:checked+span{background:var(--btn-grad);border-color:#9333EA;color:#fff}
-  .chip input:focus-visible+span{outline:2px solid var(--accent-text);outline-offset:3px}
-
-  .result{position:sticky;top:88px;background:var(--card);border:1px solid var(--line-2);border-radius:24px;padding:clamp(22px, 2.6vw, 32px)}
-
-  .res-empty p{margin:0 0 18px;color:var(--ink-2);font-size:var(--fs-md);line-height:1.5}
-  .progress{display:flex;gap:6px;margin-bottom:10px}
-\1background:rgba(255,255,255,.12);transition:background .2s}
-  .progress i.on{background:var(--lilac-grad)}
-  .progress-label{font-size:var(--fs-xs);color:var(--ink-3)}
-
-  .res-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px}
-  .res-kicker{font-size:var(--fs-xs);color:var(--ink-3);margin:0 0 4px}
-  .res-name{font-family:'Montserrat', 'Manrope', system-ui, sans-serif;font-size:1.75rem;line-height:1.15;font-weight:800;letter-spacing:-.02em;margin:0}
-  .res-yield{text-align:right;flex:none}
-  .res-yield b{display:block;font-family:'Montserrat', 'Manrope', system-ui, sans-serif;color:var(--green);font-size:1.75rem;line-height:1.15;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .res-yield small{font-size:var(--fs-xs);color:var(--ink-3)}
-  .res-style{display:flex;align-items:center;gap:10px;font-size:var(--fs-sm);color:var(--ink-2);margin-bottom:14px}
-  .res-desc{margin:16px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:var(--fs-sm);line-height:1.55;color:var(--ink-2)}
-
-  .reasons{list-style:none;margin:0 0 16px;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:8px}
-  .reasons li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;font-size:var(--fs-sm);line-height:1.5}
-  .reasons svg{width:20px;height:20px;margin-top:1px;color:var(--green)}
-  .res-note{margin:0 0 10px;padding:12px 14px;border-radius:12px;background:var(--accent-soft);font-size:var(--fs-sm);line-height:1.5;color:var(--ink)}
-  .res-note+.res-actions{margin-top:16px}
-
-  .res-actions{display:grid;gap:10px}
-  /* Длинное имя робота: перенос вместо вылезания за карточку (на 360 px уводило страницу вбок) */
-  .res-actions .btn{width:100%;white-space:normal;height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
-  .res-stats{justify-self:center;font-size:var(--fs-sm);font-weight:600;color:var(--ink-2);text-underline-offset:3px;padding:6px}
-  .res-stats:hover{color:var(--accent-text)}
-  .res-desc-top{margin:10px 0 16px;padding-top:0;border-top:0}
-  .reasons b{color:var(--ink);font-weight:700}
-  .res-disc{margin:14px 0 0;font-size:var(--fs-xs);line-height:1.5;color:var(--ink-3)}
-
-  .res-fade{animation:resIn .35s cubic-bezier(.2,.7,.2,1)}
-  @keyframes resIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
-  /* ---------- Роботы ---------- */
-  .robots{padding-block:clamp(56px, 7vw, 104px)}
-  .robot-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px, 1.6vw, 24px);align-items:stretch}
-  .rc{
-    display:flex;flex-direction:column;background:var(--card);border-radius:24px;
-    padding:clamp(22px, 2.4vw, 32px);border:1px solid var(--line);transition:border-color .2s;
-  }
-  .rc:hover{border-color:var(--line-2)}
-  .rc-style{display:flex;align-items:center;gap:10px;font-size:var(--fs-sm);color:var(--ink-2);margin:0 0 14px}
-  .rc h3{font-family:'Montserrat', 'Manrope', system-ui, sans-serif;font-size:1.625rem;line-height:1.15;letter-spacing:-.02em;font-weight:800;margin:0 0 18px}
-  .rc-yield{display:flex;align-items:baseline;gap:10px;padding:14px 0;border-block:1px solid var(--line);margin-bottom:18px}
-  .rc-yield b{font-family:'Montserrat', 'Manrope', system-ui, sans-serif;color:var(--green);font-size:2.5rem;line-height:1;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-  .rc-yield span{font-size:var(--fs-sm);color:var(--ink-3);line-height:1.3}
-  .rc-for{margin:0 0 16px;font-size:var(--fs-md);font-weight:600;line-height:1.45}
-  .rc-facts{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px}
-  .rc-facts li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;font-size:var(--fs-sm);line-height:1.5;color:var(--ink-2)}
-  .rc-facts svg{width:20px;height:20px;margin-top:1px;color:var(--green)}
-  .rc-actions{margin-top:auto;display:grid;gap:8px}
-  /* Длинное имя робота в узкой карточке: кнопке разрешён перенос, иначе она вылезает за карточку */
-  .rc-actions .btn{width:100%;white-space:normal;height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
-  .rc-stats{justify-self:center;font-size:var(--fs-sm);font-weight:600;color:var(--ink-2);text-underline-offset:3px;padding:6px}
-  .rc-stats:hover{color:var(--accent-text)}
-  .robots-foot{margin:clamp(20px, 2.4vw, 28px) 0 0;max-width:62em;font-size:var(--fs-sm);line-height:1.55;color:var(--ink-3)}
-
-  /* ---------- Как это работает ---------- */
-  .how{background:linear-gradient(180deg,var(--bg) 0,var(--band) 14%,var(--band) 86%,var(--bg) 100%);padding-block:clamp(32px, 3.6vw, 56px)}
-  .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px, 2.4vw, 36px);counter-reset:step}
-  .step{position:relative;display:flex;flex-direction:column;gap:10px}
-  .step-num{
-    display:grid;place-items:center;width:44px;height:44px;border-radius:50%;
-    background:var(--accent-soft);color:var(--accent-text);border:1px solid var(--line-2);font-weight:800;font-size:var(--fs-sm);font-variant-numeric:tabular-nums;
-    position:relative;z-index:1;margin-bottom:6px;
-  }
-  /* Тонкая линия от номера к номеру, только когда шаги стоят в один ряд */
-  .step:not(:last-child)::after{
-    content:"";position:absolute;top:22px;left:56px;right:calc(-1 * clamp(20px, 2.4vw, 36px) + 12px);
-    height:1px;background:var(--line);
-  }
-  .step h3{margin:0;font-size:var(--fs-lg);line-height:1.3;font-weight:700;text-wrap:balance}
-  .step p{margin:0;font-size:var(--fs-sm);line-height:1.55;color:var(--ink-2)}
-
-  .how-foot{margin-top:clamp(24px, 3vw, 40px)}
-  .terms{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(22px, 2.6vw, 32px)}
-  .terms h3{margin:0 0 18px;font-size:var(--fs-lg);font-weight:800}
-  .terms ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 28px}
-  .terms li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;font-size:var(--fs-sm);line-height:1.5;color:var(--ink-2)}
-  .terms li b{display:block;color:var(--ink);font-size:var(--fs-md);font-weight:700;margin-bottom:2px}
-  .terms svg{width:24px;height:24px;color:var(--accent-text)}
-
-  .how-cta{background:linear-gradient(160deg,#2B1152 0%,#170A2E 100%);border:1px solid rgba(196,109,248,.5);color:#fff;border-radius:24px;padding:clamp(22px, 2.6vw, 32px);display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:clamp(20px, 3vw, 48px)}
-  .how-cta p{margin:0;flex:1;max-width:36em;font-size:var(--fs-lg);line-height:1.45;font-weight:600;text-wrap:balance}
-  .how-cta-actions{display:grid;gap:10px;flex:none;width:min(100%,340px)}
-  .how-cta .btn{width:100%}
-  .btn-light{background:#fff;color:#5B21B6}
-  .btn-light:hover{background:#F3E8FF}
-  .btn-outline-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
-  .btn-outline-light:hover{border-color:#fff;background:rgba(255,255,255,.08)}
-
-  /* ---------- Частые вопросы ---------- */
-  .faq{padding-block:clamp(32px, 3.6vw, 56px)}
-  .faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px, 5vw, 80px);align-items:start}
-  .faq-side{position:sticky;top:calc(var(--hdr-h, 68px) + 24px)}
-  .faq-side .sec-head{margin-bottom:24px}
-  .faq-list{display:grid;gap:10px}
-  .qa{background:var(--card);border:1px solid var(--line);border-radius:18px}
-  .qa summary{
-    list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 28px;gap:16px;align-items:center;
-    padding:20px 22px;font-size:var(--fs-md);font-weight:700;line-height:1.4;border-radius:18px;
-  }
-  .qa summary::-webkit-details-marker{display:none}
-  .qa summary:hover{color:var(--accent-text)}
-  .qa summary:focus-visible{outline:2px solid var(--accent-text);outline-offset:2px}
-  .qa-icon{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.07);display:grid;place-items:center;transition:background .2s,transform .25s}
-  .qa-icon svg{width:14px;height:14px}
-  .qa[open] .qa-icon{transform:rotate(45deg);background:var(--accent-soft);color:var(--accent-text)}
-  .qa-body{padding:0 22px 22px;font-size:var(--fs-sm);line-height:1.6;color:var(--ink-2);max-width:62em}
-  .qa-body p{margin:0}
-  .qa-body p+p{margin-top:10px}
-  .qa-body a{color:var(--accent-text);text-underline-offset:3px}
-
-  /* ---------- Подвал ---------- */
-  .ftr{background:linear-gradient(180deg,var(--bg) 0,#030208 22%,#030208 100%);color:#B7B0C9;padding-block:clamp(28px, 3.6vw, 48px) 28px;font-size:var(--fs-sm)}
-  .ftr a{color:#fff;text-decoration:none}
-  .ftr a:hover{text-decoration:underline;text-underline-offset:3px}
-  .ftr-top{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,.7fr));gap:32px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.12)}
-  .ftr .logo{color:#fff;margin-bottom:14px}
-  .ftr-about{margin:0;max-width:30em;line-height:1.55}
-  .ftr h3{margin:0 0 12px;color:#fff;font-size:var(--fs-sm);font-weight:700}
-  .ftr ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-  .ftr-risk{margin:24px 0 0;font-size:var(--fs-xs);line-height:1.6;color:#8A8499;max-width:80em}
-  .ftr-risk p{margin:0}
-  .ftr-risk p+p{margin-top:8px}
-  .ftr-copy{margin:20px 0 0;font-size:var(--fs-xs);color:#8A8499;display:flex;flex-wrap:wrap;gap:6px 20px}
-  .ftr-copy a{color:#B7B0C9;text-decoration:underline;text-underline-offset:3px}
-  .ftr-copy a:hover{color:#fff}
-
-  /* ---------- Планшет ---------- */
-  @media (max-width:1024px){
-    .nav{display:none}
-    .hero .wrap{grid-template-columns:minmax(0,1fr)}
-    .lead{max-width:40em}
-    .robot-stage{width:min(100%,440px)}
-    .pick-grid{grid-template-columns:minmax(0,1fr)}
-    .result{position:static;max-width:640px}
-    /* На планшете три узкие колонки нечитаемы: карточки идут друг под другом, внутри — в две колонки */
-    .robot-cards{grid-template-columns:minmax(0,1fr)}
-    /* Последняя строка гибкая: лишняя высота от длинного списка справа уходит под кнопку, а не в щели между названием и процентом */
-    .rc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto 1fr;column-gap:32px;align-items:start}
-    .rc-style,.rc h3,.rc-yield{grid-column:1}
-    .rc-for,.rc-facts{grid-column:2}
-    .rc-for{grid-row:1 / span 2}
-    .rc-facts{grid-row:3 / span 2}
-    .rc-actions{grid-column:1;grid-row:4;margin-top:0}
-    .rc h3{margin-bottom:14px}
-    .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:32px}
-    .step::after{display:none}
-    .how-cta{flex-direction:column;align-items:stretch}
-    .how-cta-actions{width:100%}
-    .faq-grid{grid-template-columns:minmax(0,1fr)}
-    .faq-side{position:static}
-    .ftr-top{grid-template-columns:1fr 1fr}
-    .ftr-brand{grid-column:1 / -1}
-  }
-
-  /* ---------- Телефон: своя композиция, а не сжатый десктоп ---------- */
-  @media (max-width:640px){
-    .hdr .wrap{min-height:60px;gap:10px}
-    .logo-text{display:none}
-    .hdr-right .btn-sm .txt-long{display:none}
-    .hero{padding-block:20px 24px}
-    .hero h1{margin-bottom:16px}
-    .lead{font-size:var(--fs-md);margin-bottom:24px}
-    .cta-row{flex-direction:column;margin-bottom:28px}
-    /* На 320 px «Получить робота в Telegram» шире экрана — разрешаем перенос */
-    .cta-row .btn,.faq-side .btn,.how-cta .btn{width:100%;white-space:normal;height:auto;min-height:52px;padding:12px 16px;text-align:center;line-height:1.3}
-    .facts{grid-template-columns:1fr;gap:14px;padding-top:18px}
-    /* Подписи фактов в одну колонку фиксированной ширины, чтобы описания начинались с одной линии */
-    .facts li{display:grid;grid-template-columns:9.5em minmax(0,1fr);gap:12px;align-items:baseline}
-    .facts b{font-size:var(--fs-sm)}
-    .robot-stage{width:min(100%,340px)}
-    .sec-head p{font-size:var(--fs-md)}
-    /* Короткие варианты — по два в ряд, длинные — по одному, чтобы кнопки были ровными */
-    .chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-    .chips-wide{grid-template-columns:1fr}
-    .chip span{min-height:52px;padding:10px 14px}
-    .q legend{font-size:var(--fs-md)}
-    .res-name,.res-yield b{font-size:1.5rem}
-    .rc{display:flex;align-items:stretch}
-    .rc h3{font-size:1.5rem}
-    .rc-yield b{font-size:2.125rem}
-    /* Шаги на телефоне — вертикальная лента: номер слева, линия вниз к следующему */
-    .steps{grid-template-columns:1fr;gap:0}
-    .step{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:16px;padding-bottom:26px}
-    .step-num{grid-row:1 / span 2;margin:0}
-    .step h3{font-size:var(--fs-md);padding-top:10px}
-    .step:not(:last-child)::after{display:block;top:52px;bottom:6px;left:22px;right:auto;width:1px;height:auto}
-    .terms ul{grid-template-columns:1fr}
-    .how-cta p{font-size:var(--fs-md)}
-    .qa summary{padding:16px 16px;font-size:var(--fs-sm)}
-    .qa-body{padding:0 16px 18px}
-    .faq-side .btn{width:100%}
-    /* Юридический текст в подвале на телефоне мельче: он длинный и не должен перетягивать внимание */
-    .ftr-risk{font-size:11px;line-height:1.5;margin-top:20px}
-    .ftr-risk p+p{margin-top:6px}
-    .ftr-copy{font-size:11px;margin-top:16px}
-  }
-
-  /* ---------- Самые узкие телефоны (320 px) ---------- */
-  @media (max-width:374px){
-    /* «Автоматизировать» и «Дополнительный» не влезают в половину ширины — варианты в одну колонку */
-    .chips{grid-template-columns:minmax(0,1fr)}
-  }
-
-  @media (prefers-reduced-motion:reduce){
-    *{transition:none!important;scroll-behavior:auto!important}
-  }
+}
+:root[data-theme="dark"] {
+  --bg: #111716; --paper: #182120; --ink: #e5ecea; --muted: #9aa8a5; --line: #2c3836;
+  --accent: #5cc4bb; --accent-soft: #173431; --warn: #e3b25a; --warn-soft: #3a2e17;
+  --chk: #7fd18f; --chk-soft: #1b3320; --src: #a4b2ec; --src-soft: #232a45;
+  --pro: #c6aef5; --pro-soft: #241c38; --pro-line: #45366b;
+  --api: #8fbdf0; --api-soft: #15253a; --api-line: #2d4a6e;
+  --grid: #b5d67a; --grid-soft: #1d2814; --grid-line: #3b5124;
+  --res: #f0a868; --res-soft: #2e2014; --res-line: #5a3d22;
+  --buy: #5fcf95; --sell: #f08a80;
+  --own: #f29bc3; --own-soft: #2f1622; --own-line: #5c2a42;
+  --five: #6cc9de; --five-soft: #10262d; --five-line: #24505c; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 920px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 64px; display: grid; gap: 40px; }
+header { display: grid; gap: 12px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(26px, 4.4vw, 38px); line-height: 1.15; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--f-display); font-weight: 500; font-size: 21px; line-height: 1.25; margin: 0; text-wrap: balance; }
+h3 { font-size: 17px; margin: 0; }
+p { margin: 0; max-width: 68ch; }
+.lead { font-size: 18px; color: var(--muted); max-width: 64ch; }
+section { display: grid; gap: 16px; min-width: 0; }
+.answer { background: var(--accent-soft); border-radius: 10px; padding: 22px 24px; display: grid; gap: 14px; }
+.answer .big { font-family: var(--f-display); font-size: clamp(22px, 3.6vw, 30px); color: var(--accent); line-height: 1.2; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.kpi { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.kpi .v { font-family: var(--f-mono); font-size: 22px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.kpi .k { font-size: 13px; color: var(--muted); }
+.tablebox { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); font-weight: 600; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td.n, th.n { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.pick td { background: var(--accent-soft); }
+tr.pick td:first-child { font-weight: 600; }
+.no { color: var(--muted); }
+ul.notes { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 72ch; }
+.tag { display: inline-block; font-size: 11.5px; font-weight: 600; letter-spacing: .02em; padding: 1px 8px; border-radius: 999px; white-space: nowrap; vertical-align: 1px; margin-left: 4px; }
+.t-chk { color: var(--chk); background: var(--chk-soft); }
+.t-src { color: var(--src); background: var(--src-soft); }
+.t-est { color: var(--warn); background: var(--warn-soft); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 14px; color: var(--muted); }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+.formula { font-family: var(--f-mono); font-size: 14px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; line-height: 1.7; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.box { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pro { background: var(--pro-soft); border: 1px solid var(--pro-line); border-radius: 12px; padding: 24px; }
+.pro h2, .pro .eyebrow { color: var(--pro); }
+.pro .tablebox { border-color: var(--pro-line); }
+.pro tr.pick td { background: var(--pro-soft); }
+.pro .kpi { border-color: var(--pro-line); }
+.pro .kpi .v { color: var(--pro); }
+.api { background: var(--api-soft); border: 1px solid var(--api-line); border-radius: 12px; padding: 24px; }
+.api h2, .api .eyebrow, .api h3 { color: var(--api); }
+.api .tablebox, .api .box { border-color: var(--api-line); }
+ol.steps { margin: 0; padding-left: 22px; display: grid; gap: 10px; max-width: 72ch; }
+ol.steps li::marker { color: var(--api); font-weight: 700; }
+.vs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.vs .box p { color: var(--muted); }
+.gridsec { background: var(--grid-soft); border: 1px solid var(--grid-line); border-radius: 12px; padding: 24px; }
+.gridsec h2, .gridsec .eyebrow, .gridsec h3 { color: var(--grid); }
+.gridsec .tablebox, .gridsec .box { border-color: var(--grid-line); }
+.gridsec ol.steps li::marker { color: var(--grid); }
+.ressec { background: var(--res-soft); border: 1px solid var(--res-line); border-radius: 12px; padding: 24px; }
+.ressec h2, .ressec .eyebrow, .ressec h3 { color: var(--res); }
+.ressec .tablebox, .ressec .box { border-color: var(--res-line); }
+.diagram { background: var(--paper); border: 1px solid var(--grid-line); border-radius: 8px; padding: 12px; overflow-x: auto; }
+.diagram svg { display: block; width: 100%; min-width: 520px; height: auto; }
+.diagram text { font-family: var(--f-mono); font-size: 12px; fill: var(--ink); }
+.diagram .mut { fill: var(--muted); }
+.diagram .ls { stroke: var(--sell); stroke-width: 2; }
+.diagram .lb { stroke: var(--buy); stroke-width: 2; }
+.diagram .lc { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.diagram .ts { fill: var(--sell); }
+.diagram .tb { fill: var(--buy); }
+.diagram .arr { stroke: var(--grid); stroke-width: 1.5; fill: none; }
+.diagram .arrh { fill: var(--grid); }
+.own { background: var(--own-soft); border: 1px solid var(--own-line); border-radius: 12px; padding: 24px; }
+.own h2, .own .eyebrow, .own h3 { color: var(--own); }
+.own .tablebox, .own .box, .own .kpi { border-color: var(--own-line); }
+.own .kpi .v { color: var(--own); }
+.own tr.pick td { background: var(--own-soft); }
+.verdict { background: var(--paper); border: 2px solid var(--vc, var(--ink)); border-radius: 10px; padding: 16px 18px; display: grid; gap: 6px; }
+.verdict .lbl { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--vc, var(--ink)); }
+.verdict p { font-size: 17px; font-weight: 500; line-height: 1.5; max-width: 72ch; }
+.verdict p + p { font-size: 15px; font-weight: 400; color: var(--muted); }
+.gridsec { --vc: var(--grid); } .ressec { --vc: var(--res); } .pro { --vc: var(--pro); }
+.own { --vc: var(--own); } .api { --vc: var(--api); }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+section[id] { scroll-margin-top: 16px; }
+.toc { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: grid; gap: 10px; }
+.toc ol { margin: 0; padding-left: 22px; columns: 2 280px; column-gap: 32px; }
+.toc li { break-inside: avoid; padding-block: 3px; font-variant-numeric: tabular-nums; }
+.toc li::marker { color: var(--muted); font-size: 14px; }
+.toc a { color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+.toc a i { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.capacity { background: var(--ink); color: var(--bg); border-radius: 10px; padding: 16px 18px; display: grid; gap: 8px; }
+.capacity .lbl { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+.capacity p { font-size: 17px; line-height: 1.5; max-width: 72ch; }
+.capacity b { font-weight: 700; }
+.capacity ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 15px; }
+.five { background: var(--five-soft); border: 1px solid var(--five-line); border-radius: 12px; padding: 24px; --vc: var(--five); }
+.five h2, .five .eyebrow, .five h3 { color: var(--five); }
+.five .tablebox, .five .box, .five .kpi { border-color: var(--five-line); }
+.five .kpi .v { color: var(--five); }
+.five tr.pick td { background: var(--five-soft); }
+.pos { color: var(--buy); font-weight: 600; }
+.neg { color: var(--sell); font-weight: 600; }
+footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 16px; }
 </style>
 </head>
 <body>
 
-<header class="hdr" id="hdr">
-  <div class="wrap">
-    <a class="logo" href="#top" aria-label="Trading Time">
-      <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 28 24"><rect x="0" y="14" width="7" height="10" rx="1.6" fill="#9333EA"/><rect x="10.5" y="7" width="7" height="17" rx="1.6" fill="#C46DF8"/><rect x="21" y="0" width="7" height="24" rx="1.6" fill="#F0ABFC"/></svg></span>
-      <span class="logo-text">Trading Time</span>
-    </a>
+<div class="wrap">
 
-    <nav class="nav" aria-label="Разделы">
-      <a href="#pick" data-i18n="nav.pick">Подбор робота</a>
-      <a href="#how" data-i18n="nav.how">Как это работает</a>
-      <a href="#faq" data-i18n="nav.faq">Вопросы</a>
-    </nav>
-
-    <div class="hdr-right">
-      <div class="lang" role="group" aria-label="Язык / Language">
-        <button type="button" data-lang="ru" aria-pressed="true">RU</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
-      </div>
-      <a class="btn btn-primary btn-sm" href="#" target="_blank" rel="noopener" data-cta="header">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg>
-        <span class="txt-long" data-i18n="cta.header">Открыть бота</span>
-      </a>
-    </div>
+<header>
+  <div class="eyebrow">Стенд роботов NPB · расчёт на 07.10.2026</div>
+  <h1>Тарифы Elirox и сколько клиентов вмещает один сервер</h1>
+  <p class="lead">Сколько берёт конкурент за роботов, сколько ресурсов съедает один наш робот на сервере и во что обойдутся серверы на 100, 500 и 1000 клиентов</p>
+  <div class="legend" aria-label="Откуда взяты цифры">
+    <span><span class="tag t-chk">замер</span> проверили сами на нашем сервере</span>
+    <span><span class="tag t-src">источник</span> сайт или сервер компании</span>
+    <span><span class="tag t-est">оценка</span> расчёт из замера, вживую не проверено</span>
   </div>
 </header>
 
-<main id="top">
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero-text">
-        <h1 data-i18n-html="hero.title">Познакомьтесь с <em>демо-версией нашего алгоритма</em></h1>
-        <p class="lead" data-i18n="hero.lead">Посмотрите, как работает наш демо-алгоритм. Мы бесплатно предоставим доступ к тестовой версии, чтобы вы оценили логику его работы.</p>
+<div class="answer">
+  <div class="eyebrow">Коротко</div>
+  <div class="big">Один сервер как у нас (4 ядра, 8 ГБ) — около 40 клиентов</div>
+  <p>Считаем, что у клиента один торговый счёт и на нём один робот. Тогда сервер обходится примерно в <b>€0,21–0,26 в месяц на клиента</b>, а 1000 клиентов — около <b>€220 в месяц</b> за все серверы. Для сравнения: самый дешёвый тариф Elirox с роботом на реальном счёте стоит $19,99 в месяц. <span class="tag t-est">оценка</span></p>
+</div>
 
-        <div class="cta-row">
-          <a class="btn btn-primary" href="#pick">
-            <span class="roll"><span data-i18n="cta.pick">Подобрать робота</span><span aria-hidden="true" data-i18n="cta.pick">Подобрать робота</span></span>
-          </a>
-          <a class="btn btn-ghost" href="#" target="_blank" rel="noopener" data-cta="hero">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg>
-            <span data-i18n="cta.telegram">Получить робота в Telegram</span>
-          </a>
-        </div>
+<nav class="toc" aria-label="Содержание">
+  <div class="eyebrow">Содержание</div>
+  <ol>
+    <li><a href="#elirox">Тарифы Elirox</a></li>
+    <li><a href="#grid"><i style="background:var(--grid)"></i>Как работает наша сетка</a></li>
+    <li><a href="#results"><i style="background:var(--res)"></i>Как прошли сделки за первые сутки</a></li>
+    <li><a href="#robot">Что ест один наш робот</a></li>
+    <li><a href="#capacity">Сколько роботов помещается на сервер</a></li>
+    <li><a href="#budget">Бюджет на серверы</a></li>
+    <li><a href="#pro"><i style="background:var(--pro)"></i>Если клиент как на тарифе Pro у Elirox</a></li>
+    <li><a href="#own-tariff"><i style="background:var(--own)"></i>Тариф «1 счёт — 10 роботов»</a></li>
+    <li><a href="#five-tariff"><i style="background:var(--five)"></i>Тариф «5 счетов — 5 роботов»</a></li>
+    <li><a href="#check">Что проверить, прежде чем закладывать в бюджет</a></li>
+    <li><a href="#manager-api"><i style="background:var(--api)"></i>Путь без терминалов: Manager API</a></li>
+    <li><a href="#plan">План улучшений сервиса</a></li>
+  </ol>
+</nav>
 
-        <ul class="facts">
-          <li><b data-i18n="fact1.b">Не продаём</b><span data-i18n="fact1.t">Демо-доступ не продаём и не сдаём в аренду</span></li>
-          <li><b data-i18n="fact2.b">Тестовый сервер бесплатно</b><span data-i18n="fact2.t">Сервер, на котором демо-версия работает круглосуточно</span></li>
-        </ul>
-      </div>
-
-      <div class="hero-visual">
-        <div class="robot-stage">
-          <video class="robot-video" muted loop playsinline preload="auto" aria-hidden="true"
-                 width="768" height="1152" src="tt-robots-robot.mp4" data-src="tt-robots-robot.mp4" autoplay
-                 poster="data:image/webp;base64,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"></video>
-          <button class="robot-play" type="button" hidden aria-pressed="false">
-            <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.6-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
-            <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5h3.2v15H7zM13.8 4.5H17v15h-3.2z"/></svg>
-            <span class="sr-only" data-i18n="robot.play">Запустить или остановить анимацию робота</span>
-          </button>
-          <script>
-            /* Выполняется сразу после ролика, до того как браузер начнёт его качать.
-               Если посетитель просил уменьшить движение или экономит трафик —
-               снимаем автозапуск и оставляем заставку с кнопкой. */
-            (function () {
-              var v = document.currentScript.parentNode.querySelector('.robot-video');
-              var conn = navigator.connection || {};
-              /* Раньше здесь отключался автозапуск при «уменьшить движение» в настройках телефона,
-                 из-за этого ролик ждал нажатия. По просьбе владельца сайта остаётся только
-                 экономия трафика; вместо запрета у ролика есть кнопка «пауза». */
-              var stop = conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '');
-              if (!stop) return;
-              v.removeAttribute('autoplay');
-              v.removeAttribute('src');
-              v.preload = 'none';
-              v.load();
-            })();
-          </script>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="pick" id="pick" aria-labelledby="pick-title">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2 id="pick-title" data-i18n="pick.title">Подберите демо-версию за 30 секунд</h2>
-        <p data-i18n="pick.sub">Три вопроса — и мы покажем, какая демо-версия подходит под ваши задачи. Выбор ни к чему не обязывает: менеджер обсудит его с вами перед запуском.</p>
-      </div>
-
-      <div class="pick-grid">
-        <form class="pick-form" id="pickForm" onsubmit="return false">
-          <fieldset class="q">
-            <legend><span class="q-num">01</span><span data-i18n="q1.t">Какой у вас опыт работы с похожими инструментами?</span></legend>
-            <div class="chips">
-              <label class="chip"><input type="radio" name="exp" value="1"><span data-i18n="q1.a1">Только знакомлюсь</span></label>
-              <label class="chip"><input type="radio" name="exp" value="2"><span data-i18n="q1.a2">Есть базовый опыт</span></label>
-              <label class="chip"><input type="radio" name="exp" value="3"><span data-i18n="q1.a3">Уверенно пользуюсь</span></label>
-              <label class="chip"><input type="radio" name="exp" value="4"><span data-i18n="q1.a4">Продвинутый уровень</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset class="q">
-            <legend><span class="q-num">02</span><span data-i18n="q2.t">Насколько для вас важна стабильность работы?</span></legend>
-            <div class="chips chips-wide">
-              <label class="chip"><input type="radio" name="stability" value="max"><span data-i18n="q2.a1">Максимальная стабильность</span></label>
-              <label class="chip"><input type="radio" name="stability" value="moderate"><span data-i18n="q2.a2">Умеренные колебания допустимы</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset class="q">
-            <legend><span class="q-num">03</span><span data-i18n="q3.t">Что для вас важно в работе с алгоритмом?</span></legend>
-            <div class="chips">
-              <label class="chip"><input type="radio" name="goal" value="automation"><span data-i18n="q3.a1">Автоматизация процессов</span></label>
-              <label class="chip"><input type="radio" name="goal" value="logic"><span data-i18n="q3.a2">Понять логику работы</span></label>
-              <label class="chip"><input type="radio" name="goal" value="interface"><span data-i18n="q3.a3">Оценить удобство интерфейса</span></label>
-            </div>
-          </fieldset>
-        </form>
-
-        <div class="result" id="pickResult" aria-live="polite"></div>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="how" id="how" aria-labelledby="how-title">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2 id="how-title" data-i18n="how.title">Как получить доступ к демо-версии</h2>
-        <p data-i18n="how.sub">Четыре шага от кнопки на сайте до запуска демо-версии. Всё общение идёт в Telegram.</p>
-      </div>
-
-      <ol class="steps">
-        <li class="step">
-          <span class="step-num" aria-hidden="true">1</span>
-          <h3 data-i18n="how.s1.t">Ответьте на 6 вопросов в боте</h3>
-          <p data-i18n="how.s1.p">Кнопка откроет Telegram. Бот спросит о целях и опыте, чтобы подобрать демо-версию. Это займёт около двух минут.</p>
-        </li>
-        <li class="step">
-          <span class="step-num" aria-hidden="true">2</span>
-          <h3 data-i18n="how.s2.t">Зарегистрируйтесь в тестовой среде</h3>
-          <p data-i18n="how.s2.p">Бот пришлёт ссылку на регистрацию и видеоинструкцию. Реальные деньги для теста не нужны.</p>
-        </li>
-        <li class="step">
-          <span class="step-num" aria-hidden="true">3</span>
-          <h3 data-i18n="how.s3.t">Пришлите номер аккаунта</h3>
-          <p data-i18n="how.s3.p">Отправьте номер тестового аккаунта в чат, цифрами или скриншотом. Менеджер проверит, что аккаунт создан.</p>
-        </li>
-        <li class="step">
-          <span class="step-num" aria-hidden="true">4</span>
-          <h3 data-i18n="how.s4.t">Получите доступ и запустите демо-версию</h3>
-          <p data-i18n="how.s4.p">Менеджер пришлёт файл и пошаговую инструкцию, поможет с установкой и первым запуском.</p>
-        </li>
-      </ol>
-
-      <div class="how-foot">
-
-        <div class="how-cta">
-          <p data-i18n="how.cta.p">Посмотрите, как работает демо-версия, и решите, интересен ли вам наш подход.</p>
-          <div class="how-cta-actions">
-            <a class="btn btn-light" href="#" target="_blank" rel="noopener" data-cta="how"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="how.cta.main">Начать в Telegram</span></a>
-            <a class="btn btn-outline-light" href="#pick" data-i18n="how.cta.pick">Сначала подобрать робота</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="faq" id="faq" aria-labelledby="faq-title">
-    <div class="wrap faq-grid">
-      <div class="faq-side">
-        <div class="sec-head">
-          <h2 id="faq-title" data-i18n="faq.title">Частые вопросы</h2>
-          <p data-i18n="faq.sub">Не нашли ответ? Напишите в бота, менеджер ответит в рабочее время.</p>
-        </div>
-        <a class="btn btn-primary" href="#" target="_blank" rel="noopener" data-cta="faq"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg><span data-i18n="faq.cta">Задать вопрос в Telegram</span></a>
-      </div>
-
-      <div class="faq-list">
-          <details class="qa">
-            <summary><span data-i18n="faq.1.q">Это правда бесплатно?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
-            <div class="qa-body"><p data-i18n="faq.1.a">Да. Демо-доступ и тестовый сервер, на котором он работает, вы получаете бесплатно. Мы не продаём демо-доступ и не сдаём его в аренду.</p></div>
-          </details>
-          <details class="qa">
-            <summary><span data-i18n="faq.2.q">Нужно ли что-то оплачивать, чтобы попробовать?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
-            <div class="qa-body"><p data-i18n="faq.2.a">Нет. Демо-версия запускается в тестовой среде. Решение о дальнейших шагах вы принимаете сами, когда посмотрите на результаты.</p></div>
-          </details>
-          <details class="qa">
-            <summary><span data-i18n="faq.3.q">Зачем присылать номер аккаунта?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
-            <div class="qa-body"><p data-i18n="faq.3.a">По номеру менеджер проверяет, что тестовый аккаунт действительно создан. После этого он присылает файл и пошаговую инструкцию по установке, настройке и запуску.</p></div>
-          </details>
-          <details class="qa">
-            <summary><span data-i18n="faq.4.q">Нужен ли компьютер?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
-            <div class="qa-body"><p data-i18n="faq.4.a">Демо-версия работает на тестовом сервере, который мы предоставляем бесплатно, так что держать свой компьютер включённым не нужно. В квизе бот спросит, есть ли у вас компьютер или только телефон, и менеджер подскажет, как всё настроить в вашем случае.</p></div>
-          </details>
-          <details class="qa">
-            <summary><span data-i18n="faq.7.q">Когда ответит менеджер?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
-            <div class="qa-body"><p data-i18n="faq.7.a">Менеджеры на связи по будням с 10:00 до 19:00 по Москве. Если вы напишете боту вечером или в выходной, он всё равно примет ваши ответы и пришлёт ссылку на регистрацию, а менеджер свяжется с вами в рабочее время.</p></div>
-          </details>
-          <details class="qa">
-            <summary><span data-i18n="faq.8.q">Кто стоит за проектом?</span><span class="qa-icon" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg></span></summary>
-            <div class="qa-body"><p data-i18n-html="faq.8.a">Команда разработчиков и аналитиков с опытом работы больше 10 лет. Мы публикуем новости и обновления в <a href="https://t.me/TTinvestment" target="_blank" rel="noopener">Telegram-канале</a>.</p></div>
-          </details>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="ftr">
-  <div class="wrap">
-    <div class="ftr-top">
-      <div class="ftr-brand">
-        <a class="logo" href="#top" aria-label="Trading Time"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 28 24"><rect x="0" y="14" width="7" height="10" rx="1.6" fill="#9333EA"/><rect x="10.5" y="7" width="7" height="17" rx="1.6" fill="#C46DF8"/><rect x="21" y="0" width="7" height="24" rx="1.6" fill="#F0ABFC"/></svg></span><span>Trading Time</span></a>
-        <p class="ftr-about" data-i18n="ftr.about">Торговые роботы. Бесплатно ставим робота на ваш демо-счёт и даём VPS, чтобы он торговал круглосуточно.</p>
-      </div>
-      <div>
-        <h3 data-i18n="ftr.nav">Разделы</h3>
-        <ul>
-          <li><a href="#pick" data-i18n="nav.pick">Подбор робота</a></li>
-          <li><a href="#how" data-i18n="nav.how">Как это работает</a></li>
-          <li><a href="#faq" data-i18n="nav.faq">Вопросы</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 data-i18n="ftr.contacts">Где мы есть</h3>
-        <ul>
-          <li><a href="#" target="_blank" rel="noopener" data-cta="footer" data-i18n="ftr.bot">Бот в Telegram</a></li>
-          <li><a href="https://t.me/TTinvestment" target="_blank" rel="noopener" data-i18n="ftr.channel">Telegram-канал</a></li>
-          <li><a href="https://www.myfxbook.com/members/Trading_Time" target="_blank" rel="noopener" data-i18n="ftr.myfxbook">Статистика на Myfxbook</a></li>
-          <li><a href="mailto:robots@tradingtime.io">robots@tradingtime.io</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="ftr-risk">
-      <p data-i18n="ftr.risk1">Услуги на данном сайте оказывает компания TradingTime Limited. Компания не осуществляет брокерскую деятельность и не оказывает услуги дилинга. Компания осуществляет деятельность только по предоставлению консультационных услуг по вопросам финансового посредничества.</p>
-      <p data-i18n="ftr.risk2">Все материалы на сайте носят исключительно информационный характер и не являются указанием к действию. Представленные данные — это только предположения, основанные на нашем опыте. Публикуемые результаты торговли добавляются исключительно с целью демонстрации эффективности и не являются заявлением доходности. Прошлые результаты не гарантируют конкретных результатов в будущем. Проведение торговых операций на финансовых рынках с маржинальными финансовыми инструментами имеет высокий уровень риска, поэтому подходит не всем инвесторам. Вы несёте полную ответственность за принятые торговые решения и результат, полученный в ходе работы.</p>
-    </div>
-    <p class="ftr-copy">© 2026 Trading Time, All Rights Reserved.
-      <a href="https://goldbot.cc/privacy-policy" target="_blank" rel="noopener" data-i18n="ftr.privacy">Политика конфиденциальности</a>
-    </p>
+<section id="elirox">
+  <h2>Тарифы Elirox</h2>
+  <p>Цены со страницы тарифов Elirox и из ответа их сервера в нашем тестовом аккаунте, сентябрь 2026. <span class="tag t-src">источник</span></p>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Тариф</th><th class="n">В месяц</th><th class="n">При оплате за год</th><th class="n">Счетов</th><th class="n">Роботов на реальных счетах</th><th>Сетка (GRID)</th><th>Любой брокер</th></tr></thead>
+      <tbody>
+        <tr><td>FREE</td><td class="n">$0</td><td class="n no">—</td><td class="n">2</td><td class="n">0</td><td class="no">нет</td><td class="no">нет</td></tr>
+        <tr><td>Basic</td><td class="n">$19,99</td><td class="n">$15,99</td><td class="n">2</td><td class="n">2</td><td class="no">нет*</td><td class="no">нет</td></tr>
+        <tr><td>Advanced</td><td class="n">$39,99</td><td class="n">$31,99</td><td class="n">5</td><td class="n">5</td><td>да</td><td class="no">нет</td></tr>
+        <tr><td>Pro</td><td class="n">$99,99</td><td class="n">$79,99</td><td class="n">10</td><td class="n">25</td><td>да</td><td>да</td></tr>
+      </tbody>
+    </table>
   </div>
+  <ul class="notes">
+    <li>На всех тарифах можно держать до 10 роботов на демо-счетах. На FREE реальной торговли нет, только демо с виртуальными $10 000. <span class="tag t-src">источник</span></li>
+    <li>* На странице тарифов у Basic написано «Создание GRID ботов», а сервер Elirox отдаёт <span class="mono">isGridAvailable: false</span>, и экран оплаты тоже показывает «✗ Создание GRID ботов». Реально сетка доступна с Advanced. <span class="tag t-chk">замер</span></li>
+    <li>На Basic и Advanced подключаются только брокеры-партнёры Elirox. Из ЕС нам был доступен только Exness. Остальные ~100 брокеров и ручное подключение счёта — только на Pro. Поэтому демо-счёт MT5 мы подключали через Pro-аккаунт коллеги. <span class="tag t-chk">замер</span></li>
+    <li>Первый месяц Basic бесплатно, если открыть счёт у брокера-партнёра через Elirox и внести от $100. Скидка за год 20%, оплата через Stripe. <span class="tag t-src">источник</span></li>
+    <li>ИИ-помощник Elirox Agent ограничен по запросам в день: 200 на FREE, 500 на Basic, 1000 на Advanced, 4000 на Pro. <span class="tag t-src">источник</span></li>
+  </ul>
+
+  <div class="verdict"><div class="lbl">Вывод</div><p>Робот на реальном счёте у Elirox стоит от $19,99 в месяц (Basic, 2 робота), но сетка там доступна только с $39,99 (Advanced, 5 роботов), а подключить любого брокера — только за $99,99 (Pro).</p><p>Для клиента NPB это значит: чтобы запустить сетку у Elirox, он заплатит минимум $39,99 в месяц, а если NPB нет среди партнёров Elirox — $99,99.</p></div>
+</section>
+
+<section class="gridsec" id="grid">
+  <div class="eyebrow">Наш робот</div>
+  <h2>Как работает наша сетка</h2>
+  <p>В момент запуска робот берёт текущую цену за центр и расставляет вокруг неё лимитные ордера через равный шаг: ниже центра — на покупку, выше — на продажу. У каждого ордера тейк-профит ровно на один шаг ближе к центру. Стоп-лосса нет. <span class="tag t-chk">замер</span></p>
+  <div class="diagram" role="img" aria-label="Схема сетки робота №1: 5 ордеров на продажу выше центра 1.11865 и 5 на покупку ниже, шаг 30 пунктов">
+    <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg">
+      <text x="20" y="18" class="mut">Робот №1, EURUSD, шаг 30 пунктов (3 пипса), 5 + 5 уровней</text>
+      <line x1="150" y1="34" x2="430" y2="34" class="ls"/><text x="78" y="38">1.12015</text><text x="440" y="38" class="ts">SELL LIMIT · уровень 5</text>
+      <line x1="150" y1="58" x2="430" y2="58" class="ls"/><text x="78" y="62">1.11985</text><text x="440" y="62" class="ts">SELL LIMIT · уровень 4</text>
+      <line x1="150" y1="82" x2="430" y2="82" class="ls"/><text x="78" y="86">1.11955</text><text x="440" y="86" class="ts">SELL LIMIT · уровень 3</text>
+      <line x1="150" y1="106" x2="430" y2="106" class="ls"/><text x="78" y="110">1.11925</text><text x="440" y="110" class="ts">SELL LIMIT · уровень 2</text>
+      <line x1="150" y1="130" x2="430" y2="130" class="ls"/><text x="78" y="134">1.11895</text><text x="440" y="134" class="ts">SELL LIMIT · уровень 1</text>
+      <line x1="150" y1="154" x2="430" y2="154" class="lc"/><text x="78" y="158">1.11865</text><text x="440" y="158" class="mut">центр = цена запуска</text>
+      <line x1="150" y1="178" x2="430" y2="178" class="lb"/><text x="78" y="182">1.11835</text><text x="440" y="182" class="tb">BUY LIMIT · уровень −1</text>
+      <line x1="150" y1="202" x2="430" y2="202" class="lb"/><text x="78" y="206">1.11805</text><text x="440" y="206" class="tb">BUY LIMIT · уровень −2</text>
+      <line x1="150" y1="226" x2="430" y2="226" class="lb"/><text x="78" y="230">1.11775</text><text x="440" y="230" class="tb">BUY LIMIT · уровень −3</text>
+      <line x1="150" y1="250" x2="430" y2="250" class="lb"/><text x="78" y="254">1.11745</text><text x="440" y="254" class="tb">BUY LIMIT · уровень −4</text>
+      <line x1="150" y1="274" x2="430" y2="274" class="lb"/><text x="78" y="278">1.11715</text><text x="440" y="278" class="tb">BUY LIMIT · уровень −5</text>
+      <path d="M250 106 C 228 112, 228 124, 250 128" class="arr"/><polygon points="244,124 252,130 254,121" class="arrh"/>
+      <text x="166" y="121" class="mut" style="font-size:11px">TP</text>
+      <path d="M330 178 C 352 172, 352 160, 330 156" class="arr"/><polygon points="336,160 328,154 326,163" class="arrh"/>
+      <text x="358" y="170" class="mut" style="font-size:11px">TP</text>
+    </svg>
+  </div>
+  <ol class="steps">
+    <li><b>Цена опускается и задевает уровень покупки.</b> BUY LIMIT превращается в открытую покупку. Её тейк-профит — уровень выше, на шаг ближе к центру.</li>
+    <li><b>Цена возвращается на шаг вверх.</b> Покупка закрывается по тейку с прибылью в один шаг. Робот тут же ставит на освободившийся уровень такой же BUY LIMIT.</li>
+    <li><b>Выше центра всё зеркально:</b> продажа открывается при росте цены и закрывается, когда цена откатывает на шаг вниз.</li>
+    <li><b>Пока цена ходит туда-обратно внутри сетки,</b> робот снова и снова зарабатывает по одному шагу на каждом уровне.</li>
+  </ol>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Робот</th><th class="n">Шаг</th><th class="n">Лот</th><th class="n">Прибыль одной сделки</th><th class="n">Ширина сетки от центра</th></tr></thead>
+      <tbody>
+        <tr><td>№1, EURUSD</td><td class="n">30 п. = 3 пипса</td><td class="n">0,01</td><td class="n">$0,30</td><td class="n">±15 пипсов</td></tr>
+        <tr><td>№2, XAUUSD</td><td class="n">3000 п. = $3</td><td class="n">0,01</td><td class="n">≈ $3,00</td><td class="n">±$15</td></tr>
+        <tr><td>№3, EURUSD</td><td class="n">1000 п. = 100 пипсов</td><td class="n">0,01</td><td class="n">$10,00</td><td class="n">±500 пипсов</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="notes">
+    <li><b>Главный риск — тренд.</b> Если цена уходит в одну сторону и не возвращается, робот набирает позиции против движения: до 5 по 0,01 лота. Они висят с плавающим минусом, пока цена не вернётся. Стоп-лосса нет, а сетка за ценой не сдвигается. <span class="tag t-chk">замер</span></li>
+    <li><b>Шаг подбирают под инструмент.</b> Меньше спреда нельзя: сделки не окупят спред. Слишком широкий шаг — сделок не будет вовсе, как у робота №3 ниже.</li>
+    <li><b>«Остановить»</b> снимает все отложенные ордера робота и закрывает его позиции по рынку. Плавающий результат в этот момент становится реальным.</li>
+    <li>У Elirox сетка умнее: она сама перестраивается вокруг новой цены и умеет вставать на паузу по фильтрам, например по торговой сессии. У нас этого пока нет. <span class="tag t-chk">замер</span></li>
+  </ul>
+
+  <div class="verdict"><div class="lbl">Итого</div><p>Сетка зарабатывает по одному шагу каждый раз, когда цена задевает уровень и возвращается. Прибыль сделки = шаг × лот: у наших роботов $0,30 на EURUSD, около $3 на золоте и $10 на шаге 100 пипсов.</p><p>Убыток сетка получает при сильном движении в одну сторону: позиции копятся против цены, стоп-лосса нет. Шаг — главный параметр: он должен быть больше спреда и меньше обычного движения цены за час-два.</p></div>
+</section>
+
+<section class="ressec" id="results">
+  <div class="eyebrow">Тест на демо-счетах NPB</div>
+  <h2>Как прошли сделки за первые сутки</h2>
+  <p>С 07.10 15:49 до 08.10 13:54 по времени сервера (UTC), около 22 часов. Три робота на трёх демо-счетах NPB, лот 0,01. Данные — отчёты роботов из терминалов на 13:54, сверены с балансами счетов. <span class="tag t-chk">замер</span></p>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Робот</th><th class="n">Закрыто сделок</th><th class="n">Прибыль закрытых</th><th class="n">Баланс: старт → сейчас</th><th class="n">Открыто сейчас</th></tr></thead>
+      <tbody>
+        <tr><td>№1 · EURUSD · шаг 30</td><td class="n">44</td><td class="n pos">+$13,65</td><td class="n">5 002,49 → 5 016,14</td><td class="n">4 продажи, <span class="neg">−$2,51</span></td></tr>
+        <tr class="pick"><td>№2 · XAUUSD · шаг 3000</td><td class="n">80</td><td class="n pos">+$248,63</td><td class="n">10 000,00 → 10 248,63</td><td class="n">4 продажи, <span class="neg">−$13,40</span></td></tr>
+        <tr><td>№3 · EURUSD · шаг 1000 → 30</td><td class="n">14</td><td class="n pos">+$4,31</td><td class="n">5 000,00 → 5 004,31</td><td class="n">3 продажи, <span class="neg">−$1,82</span></td></tr>
+        <tr><td><b>Всего</b></td><td class="n"><b>138</b></td><td class="n pos">+$266,59</td><td class="n no">—</td><td class="n">11 позиций, <span class="neg">−$17,73</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Прибыль закрытых сделок у каждого робота совпадает с ростом баланса его счёта до цента. Убыточных закрытых сделок нет ни у одного: при сетке без стоп-лосса позиции закрываются только по тейку, а риск сидит в открытых позициях. <span class="tag t-chk">замер</span></p>
+
+  <div class="two">
+    <div class="box">
+      <h3>Робот №1: ровно по $0,30 за сделку</h3>
+      <p>44 сделки, каждая $0,30–0,38, то есть ровно один шаг. Вечером и ночью EURUSD стоял почти на месте, а 08.10 ходил туда-обратно: за этот день робот закрыл 36 сделок. Ночью цена уходила выше центра и робот держал 5 продаж в минусе — утром цена вернулась, и все они закрылись по тейкам с прибылью. Сейчас цена снова выше центра (1,11989), открыты 4 продажи на −$2,51. <span class="tag t-chk">замер</span></p>
+      <p>Это и есть работа сетки: позиции в минусе не закрываются, а ждут возврата цены. Эквити счёта ниже баланса больше, чем на эти −$2,51: на том же счёте ещё открыты позиции старого робота №6 с моего компьютера на этом же счёте. На итог робота №1 они не влияют. <span class="tag t-chk">замер</span></p>
+    </div>
+    <div class="box">
+      <h3>Робот №2: золото ходило внутри сетки</h3>
+      <p>Золото почти всё время гуляло в пределах сетки ±$15, и робот 80 раз открыл и закрыл сделку, в основном по $3–3,7 — 66 из них за 08.10. Пик — около полуночи и с 5 утра по UTC, по 6–8 сделок в час. Три сделки дали меньше ($1,79, $0,74 и $0,64): это позиции, которые держались в момент ночного переноса, с них списался своп. <span class="tag t-est">оценка</span> Сейчас цена 4130,58 — выше центра почти на $11, открыты 4 продажи на −$13,40: это самая просевшая позиция из трёх роботов, она ждёт отката цены. <span class="tag t-chk">замер</span></p>
+      <p>Это лучший результат из трёх: шаг $3 соразмерен тому, как золото ходит за час.</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>Почему робот №3 сначала не сделал ни одной сделки</h3>
+    <p>Шаг 1000 пунктов на EURUSD — это 100 пипсов. Робот стартовал около цены 1,11981, и ближайшие ордера стояли на 1,10981 и 1,12981, в 100 пипсах от неё. Чтобы открылась первая сделка, EURUSD должен был пройти 100 пипсов в одну сторону. За 16 часов он ходил в коридоре примерно 1,1181–1,1207, то есть около 26 пипсов: это видно по сделкам робота №1 на том же инструменте. <span class="tag t-chk">замер</span></p>
+    <p>08.10 в 09:26 робота запустили заново с шагом 30 пунктов, как у робота №1. Первая сделка закрылась через 12 минут, к 13:54 — 14 сделок на +$4,31. Это подтверждает причину: робот был исправен, мешал только слишком широкий шаг. <span class="tag t-chk">замер</span></p>
+  </div>
+
+  <ul class="notes">
+    <li><b>Найдена и исправлена ошибка стенда.</b> Робот показывает в отчёте только последние 60 закрытых сделок, а стенд дописывал их в свой журнал, только когда кто-то открывал страницу робота. Ночью страницу никто не открывал, и журнал отставал: в нём было 18 сделок робота №2 вместо 42. С 08.10 стенд пополняет журнал сам каждые 15 секунд — это уже важно: у робота №2 за 19 часов 59 сделок, почти предел отчёта. Сделки не терялись, итоги выше взяты из отчётов роботов. <span class="tag t-chk">замер</span></li>
+    <li><b>Вторая ошибка журнала, тоже исправлена.</b> В 22:01 две позиции робота №2 с разных уровней закрылись в одну секунду по одной цене (4114,94), и журнал стенда принял их за одну сделку. Теперь стенд различает сделки и по метке уровня. После перезапуска стенда 08.10 в 10:41 журнал сам добавил пропущенную сделку: у всех трёх роботов журнал стенда совпадает с отчётом робота (30, 59 и 2 сделки). <span class="tag t-chk">замер</span></li>
+    <li><b>Демо-биржа без брокера.</b> 08.10 в 13:30 на стенде запущен первый робот на демо-бирже (№4, EURUSD, шаг 30, виртуальные $10 000): цены настоящие, от NPB, сделки исполняет сам стенд. К 13:54 — 1 закрытая сделка (+$0,02 после ручной остановки и перезапуска) и 2 открытые продажи (−$0,58). В итоги таблицы он не входит: другой способ исполнения. <span class="tag t-chk">замер</span></li>
+    <li>Это меньше суток на демо-счетах с минимальным лотом. По ним видно, что механика работает: ордера ставятся, сделки закрываются по тейкам, уровни восстанавливаются. О доходности по таким данным судить нельзя.</li>
+    <li>Самое наглядное для показа — сетка, у которой шаг соразмерен обычному движению цены за день: как у робота №2 на золоте.</li>
+  </ul>
+
+  <div class="verdict"><div class="lbl">Итого</div><p>За 22 часа три робота закрыли 138 сделок на +$266,59, ни одной убыточной. Почти весь результат дал робот на золоте (+$248,63), робот №1 заработал +$13,65, робот №3 после смены шага — +$4,31. Открытые позиции сейчас в минусе на $17,73: цена ушла вверх, и сетки держат продажи до отката.</p><p>Механика стенда работает: ордера ставятся, закрываются по тейкам и восстанавливаются, цифры сходятся с балансами счетов до цента. О доходности стратегии по одним суткам на демо судить нельзя.</p></div>
+</section>
+
+<section id="robot">
+  <h2>Что ест один наш робот</h2>
+  <p>Замер на сервере коллеги, где сейчас работает стенд: Windows 10, процессор AMD EPYC, 4 ядра, 8 ГБ памяти, хостинг Contabo. Робот №1 — советник MQL4, сетка 5+5 ордеров на EURUSD, счёт NPB. Мерили 60 секунд в торговые часы. <span class="tag t-chk">замер</span></p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">~100 МБ</div><div class="k">памяти на один терминал MT4 с роботом (65 МБ личной)</div></div>
+    <div class="kpi"><div class="v">5,7%</div><div class="k">одного ядра в среднем на терминал</div></div>
+    <div class="kpi"><div class="v">64 МБ</div><div class="k">диска на копию терминала для счёта</div></div>
+    <div class="kpi"><div class="v">1,7% · 54 МБ</div><div class="k">сам сайт стенда (Python), общий на всех клиентов</div></div>
+  </div>
+  <p>Больше всего процессора робот тратит на отчёт для страницы: раз в секунду он записывает баланс, ордера и 150 последних свечей для графика. Если писать отчёт раз в 3–5 секунд, на сервер поместится в 2–3 раза больше роботов. <span class="tag t-est">оценка</span></p>
+
+  <div class="verdict"><div class="lbl">Итого</div><p>Один робот занимает примерно 1,5% тестового сервера: 1,4% процессора, 1,2% памяти и меньше 0,1% диска. Сервер такого размера у Contabo стоит около €10,49 в месяц, значит, в чистом виде робот «съедает» около €0,16 в месяц.</p><p>С запасом на Windows, сайт стенда и всплески нагрузки на сервер помещается около 40 роботов, поэтому в расчётах ниже берём €0,26 на робота в месяц. Сколько платит за этот сервер коллега, мы не знаем: €10,49 — цена такого же тарифа на сайте Contabo.</p></div>
+</section>
+
+<section id="capacity">
+  <h2>Сколько роботов помещается на сервер</h2>
+  <p>Каждому счёту клиента нужен свой работающий терминал MT4. Поэтому ёмкость сервера определяют память и процессор. Считаем с запасом:</p>
+  <div class="formula">
+    память: (память сервера − 2,5 ГБ на Windows и стенд) ÷ 120 МБ на робота<br>
+    процессор: ядра × 60% средней загрузки ÷ 6% на робота = ядра × 10<br>
+    вмещает = меньшее из двух
+  </div>
+  <p>60% вместо 100% оставлено на всплески: новости, открытие рынка, обновления Windows, вход по удалённому столу. Цены Contabo с их сайта на октябрь 2026, это ставка при договоре на 24 месяца с налогами. Лицензия Windows стоит отдельно, от €4,99 в месяц. <span class="tag t-src">источник</span></p>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Сервер Contabo</th><th class="n">Ядер / память</th><th class="n">По памяти</th><th class="n">По процессору</th><th class="n">Вмещает</th><th class="n">€ в месяц</th><th class="n">€ на робота</th></tr></thead>
+      <tbody>
+        <tr><td>Cloud VPS 4 — по размеру как у нас</td><td class="n">4 / 8 ГБ</td><td class="n">45</td><td class="n">40</td><td class="n"><b>40</b></td><td class="n">10,49</td><td class="n">0,26</td></tr>
+        <tr class="pick"><td>Cloud VPS 6</td><td class="n">6 / 12 ГБ</td><td class="n">79</td><td class="n">60</td><td class="n"><b>60</b></td><td class="n">12,49</td><td class="n">0,21</td></tr>
+        <tr><td>Cloud VPS 8</td><td class="n">8 / 24 ГБ</td><td class="n">179</td><td class="n">80</td><td class="n"><b>80</b></td><td class="n">18,99</td><td class="n">0,24</td></tr>
+        <tr><td>Cloud VPS 12</td><td class="n">12 / 48 ГБ</td><td class="n">379</td><td class="n">120</td><td class="n"><b>120</b></td><td class="n">29,99</td><td class="n">0,25</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="notes">
+    <li>«€ в месяц» = цена сервера + Windows €4,99. Растёт ли цена Windows вместе с числом ядер, на сайте Contabo не сказано. Это надо уточнить, на больших серверах сумма может выйти выше. <span class="tag t-est">оценка</span></li>
+    <li>Везде упираемся в процессор, памяти хватает с избытком. Выгоднее всего Cloud VPS 6: больше ядер на евро. <span class="tag t-est">оценка</span></li>
+    <li>Числа «вмещает» — расчёт из замера одного робота. Пока на сервере не работали 20–40 роботов одновременно, это прогноз. <span class="tag t-est">оценка</span></li>
+  </ul>
+
+  <div class="verdict"><div class="lbl">Вывод</div><p>На тестовый сервер (4 ядра, 8 ГБ, около €10,49 в месяц с Windows) поместится примерно 40 роботов. Упираемся в процессор, памяти хватило бы на 45.</p><p>Выгоднее всего сервер на 6 ядер и 12 ГБ: около 60 роботов за €12,49 в месяц, то есть €0,21 на робота. Это прогноз по замеру одного робота, пока не проверенный нагрузочным тестом.</p></div>
+</section>
+
+<section id="budget">
+  <h2>Бюджет на серверы</h2>
+  <p>Рабочие серверы — Cloud VPS 6 по 60 роботов. Плюс один центральный сервер для сайта, базы и учётных записей, ему Windows не нужна (Cloud VPS 4 на Linux, €5,50). Клиент = один счёт = один робот. <span class="tag t-est">оценка</span></p>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Клиентов</th><th class="n">Рабочих серверов</th><th class="n">€ в месяц всего</th><th class="n">€ на клиента</th><th class="n">€ в год</th></tr></thead>
+      <tbody>
+        <tr><td>40 (сегодняшний сервер коллеги)</td><td class="n">1</td><td class="n">≈ 10</td><td class="n">0,26</td><td class="n">≈ 125</td></tr>
+        <tr><td>100</td><td class="n">2</td><td class="n">30,48</td><td class="n">0,30</td><td class="n">≈ 366</td></tr>
+        <tr><td>500</td><td class="n">9</td><td class="n">117,91</td><td class="n">0,24</td><td class="n">≈ 1 415</td></tr>
+        <tr class="pick"><td>1000</td><td class="n">17</td><td class="n">217,83</td><td class="n">0,22</td><td class="n">≈ 2 614</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="notes">
+    <li>Если у клиента 2–3 счёта с роботами, серверов нужно во столько же раз больше: считать надо не клиентов, а работающих роботов.</li>
+    <li>Стоит заложить +1 запасной сервер на каждые 10: переносить роботов при сбое или обслуживании. На 1000 клиентов это ещё ≈ €25 в месяц. <span class="tag t-est">оценка</span></li>
+    <li>Раньше, без замера, мы оценивали серверы в $0,6–1,5 на клиента. Замер показал, что робот легче, чем мы закладывали.</li>
+    <li>В расчёт не входят разработка, поддержка, платёжная система, уведомления и время людей на сопровождение. Это только аренда серверов.</li>
+  </ul>
+
+  <div class="verdict"><div class="lbl">Итого</div><p>Если у клиента один робот, серверы на 1000 клиентов обойдутся примерно в €218 в месяц, или около €2 600 в год — €0,22 на клиента в месяц.</p><p>На 100 клиентов — около €30 в месяц, на 500 — около €118. Сюда входит только аренда серверов, без разработки и поддержки.</p></div>
+</section>
+
+<section class="pro" id="pro">
+  <div class="eyebrow">Отдельный расчёт</div>
+  <h2>Если клиент как на тарифе Pro у Elirox</h2>
+  <p>На Pro клиенту доступны 10 торговых счетов и 25 роботов на реальных счетах за $99,99 в месяц. <span class="tag t-src">источник</span> Каждому счёту нужен свой терминал MT4, а несколько роботов на одном счёте работают в одном терминале на разных графиках. Ресурсы считаем по роботам: по замеру около 6% ядра и 120 МБ памяти с запасом на каждого. Серверы — Cloud VPS 6 по 60 роботов, плюс один центральный. <span class="tag t-est">оценка</span></p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">≈ €5,2</div><div class="k">серверы в месяц на клиента, который включил все 25 роботов</div></div>
+    <div class="kpi"><div class="v">≈ €2,1</div><div class="k">если включил 10 роботов, по одному на каждый счёт</div></div>
+    <div class="kpi"><div class="v">2–6</div><div class="k">таких клиентов на одном сервере Cloud VPS 6</div></div>
+    <div class="kpi"><div class="v">≈ 6%</div><div class="k">доля серверов в цене Pro при полной загрузке (если 1 € ≈ 1,15 $)</div></div>
+  </div>
+  <div class="capacity">
+    <div class="lbl">Сколько клиентов на один VPS</div>
+    <p>Тестовый сервер (4 ядра, 8 ГБ, ≈ €10,49 в месяц) вмещает <b>1 клиента</b> с 25 роботами или <b>4 клиентов</b> с 10 роботами. Сервер на 6 ядер (≈ €12,49) — <b>2 клиентов</b> с 25 роботами или <b>6 клиентов</b> с 10 роботами.</p>
+    <ul><li>Считаем 40 роботов на тестовый сервер и 60 на сервер на 6 ядер, с запасом на Windows и всплески. <span class="tag t-est">оценка</span></li></ul>
+  </div>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Клиентов на Pro</th><th class="n">Роботов</th><th class="n">Рабочих серверов</th><th class="n">€ в месяц</th><th class="n">€ на клиента</th><th class="n">Выручка по цене Pro, $ в месяц</th></tr></thead>
+      <tbody>
+        <tr><td>100, все 25 роботов</td><td class="n">2 500</td><td class="n">42</td><td class="n">530,08</td><td class="n">5,30</td><td class="n">9 999</td></tr>
+        <tr><td>100, по 10 роботов</td><td class="n">1 000</td><td class="n">17</td><td class="n">217,83</td><td class="n">2,18</td><td class="n">9 999</td></tr>
+        <tr class="pick"><td>1000, все 25 роботов</td><td class="n">25 000</td><td class="n">417</td><td class="n">5 213,83</td><td class="n">5,21</td><td class="n">99 990</td></tr>
+        <tr><td>1000, по 10 роботов</td><td class="n">10 000</td><td class="n">167</td><td class="n">2 091,33</td><td class="n">2,09</td><td class="n">99 990</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="notes">
+    <li>Даже при полной загрузке серверы съедают около 6% цены тарифа. Основные расходы будут не на серверы, а на разработку, поддержку и привлечение клиентов. <span class="tag t-est">оценка</span></li>
+    <li>Сколько роботов реально включают клиенты Pro, мы не знаем. Elirox эту статистику не показывает, поэтому в таблице два крайних случая: 25 и 10 роботов. <span class="tag t-est">оценка</span></li>
+    <li>Сейчас стенд позволяет один робот на счёт. Для модели Pro нужно научить его запускать несколько роботов на одном счёте, на разных инструментах в одном терминале. Как это повлияет на нагрузку, не проверено.</li>
+    <li>417 серверов на 1000 клиентов уже много: их надо где-то разворачивать, обновлять и следить за ними. На таком масштабе выгоднее серверы покрупнее и путь через Manager API брокера (см. ниже).</li>
+  </ul>
+
+  <div class="verdict"><div class="lbl">Вывод</div><p>Клиент с возможностями Pro (10 счетов, 25 роботов) обойдётся нам в €2,1–5,2 серверов в месяц, в зависимости от того, сколько роботов он реально включит. Это 2–6% от цены Pro у Elirox ($99,99).</p><p>На 1000 таких клиентов — от €2 100 до €5 200 в месяц и от 167 до 417 серверов. На таком масштабе нужны серверы крупнее или путь через Manager API.</p></div>
+</section>
+
+<section class="own" id="own-tariff">
+  <div class="eyebrow">Наш возможный тариф</div>
+  <h2>Тариф «1 счёт — 10 роботов»</h2>
+  <p>Пример тарифа: клиент подключает один брокерский счёт NPB и запускает на нём до 10 роботов, например на разных инструментах. Для сравнения, у Elirox Basic — 2 счёта и 2 робота за $19,99, Advanced — 5 счетов и 5 роботов за $39,99. <span class="tag t-src">источник</span></p>
+  <p>Счёт один, значит, и терминал MT4 на клиента один: все 10 роботов работают в нём на разных графиках. Память на клиента выходит небольшой, а процессор растёт с числом роботов: каждый раз в секунду пишет свой отчёт. Считаем около 6% ядра на робота, как в замере, и около 100 МБ на терминал плюс примерно 20 МБ на каждый следующий график. <span class="tag t-est">оценка</span></p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">≈ 0,6 ядра</div><div class="k">и ≈ 0,3 ГБ памяти на клиента с 10 роботами</div></div>
+    <div class="kpi"><div class="v">6</div><div class="k">таких клиентов на Cloud VPS 6 (6 ядер, 12 ГБ)</div></div>
+    <div class="kpi"><div class="v">≈ €2,1</div><div class="k">серверы в месяц на клиента, если включены все 10 роботов</div></div>
+    <div class="kpi"><div class="v">≈ €0,6</div><div class="k">если в среднем включено 3 робота из 10</div></div>
+  </div>
+  <div class="capacity">
+    <div class="lbl">Сколько клиентов на один VPS</div>
+    <p>Тестовый сервер (4 ядра, 8 ГБ, ≈ €10,49 в месяц) вмещает <b>4 клиента</b>, если у всех включены 10 роботов, или <b>13 клиентов</b>, если в среднем по 3 робота. Сервер на 6 ядер (≈ €12,49) — <b>6</b> и <b>20 клиентов</b>.</p>
+    <ul><li>Считаем 40 роботов на тестовый сервер и 60 на сервер на 6 ядер, с запасом на Windows и всплески. <span class="tag t-est">оценка</span></li></ul>
+  </div>
+
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Клиентов</th><th class="n">Роботов</th><th class="n">Рабочих серверов</th><th class="n">€ в месяц</th><th class="n">€ на клиента</th></tr></thead>
+      <tbody>
+        <tr><td>100, у всех 10 роботов</td><td class="n">1 000</td><td class="n">17</td><td class="n">217,83</td><td class="n">2,18</td></tr>
+        <tr><td>100, в среднем 3 робота</td><td class="n">300</td><td class="n">5</td><td class="n">67,95</td><td class="n">0,68</td></tr>
+        <tr><td>500, у всех 10 роботов</td><td class="n">5 000</td><td class="n">84</td><td class="n">1 054,66</td><td class="n">2,11</td></tr>
+        <tr><td>500, в среднем 3 робота</td><td class="n">1 500</td><td class="n">25</td><td class="n">317,75</td><td class="n">0,64</td></tr>
+        <tr class="pick"><td>1000, у всех 10 роботов</td><td class="n">10 000</td><td class="n">167</td><td class="n">2 091,33</td><td class="n">2,09</td></tr>
+        <tr><td>1000, в среднем 3 робота</td><td class="n">3 000</td><td class="n">50</td><td class="n">630,00</td><td class="n">0,63</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Серверы — Cloud VPS 6 по 60 роботов плюс один центральный, как в расчётах выше. <span class="tag t-est">оценка</span></p>
+
+  <ul class="notes">
+    <li><b>Сколько это от цены.</b> Если поставить цену как у Elirox Basic, $19,99, серверы займут около 12% при полной загрузке и около 4% при трёх роботах (если 1 € ≈ 1,15 $). <span class="tag t-est">оценка</span></li>
+    <li><b>Что нужно доделать в стенде.</b> Сейчас на счёте может работать только один робот. Для этого тарифа стенд должен запускать несколько роботов в одном терминале, на разных графиках, у каждого — свой номер-метка. Сейчас этого нет.</li>
+    <li><b>Риск для депозита клиента.</b> 10 сеток по 5 уровней на одном счёте — это до 50 позиций по 0,01 лота одновременно. На небольшом депозите нужна проверка маржи перед запуском каждого следующего робота и ограничение суммарного объёма.</li>
+    <li><b>Как сделать дешевле.</b> Если 10 сеток ведёт один советник в одном графике и пишет один общий отчёт, процессора на клиента уйдёт в разы меньше, чем у 10 отдельных роботов. Тогда на сервер поместится не 6, а несколько десятков таких клиентов. Не проверено. <span class="tag t-est">оценка</span></li>
+    <li>Расчёт памяти на дополнительный график мы не замеряли: 20 МБ — предположение. По процессору у нас есть только замер одного робота.</li>
+  </ul>
+
+  <div class="verdict"><div class="lbl">Вывод</div><p>При тарифе «1 счёт — 10 роботов» один клиент обходится в €0,6–2,1 серверов в месяц: €0,6, если он в среднем держит 3 робота, и €2,1, если все 10. На тестовый сервер поместится 4 таких клиента при полной загрузке, на сервер на 6 ядер — 6.</p><p>При цене как у Elirox Basic ($19,99) на серверы уйдёт 4–12% выручки. Чтобы тариф заработал, стенд нужно доработать: сейчас на счёте может работать только один робот.</p></div>
+</section>
+
+<section class="five" id="five-tariff">
+  <div class="eyebrow">Наш возможный тариф</div>
+  <h2>Тариф «5 счетов — 5 роботов»</h2>
+  <p>Пример тарифа: клиент подключает до 5 брокерских счетов NPB и запускает до 5 роботов, по одному на счёт. Это как Advanced у Elirox: 5 счетов и 5 роботов за $39,99 в месяц. <span class="tag t-src">источник</span></p>
+  <p>У каждого счёта свой терминал MT4, поэтому клиент с 5 роботами — это ровно 5 таких роботов, как в нашем замере: около 6% ядра и 120 МБ памяти с запасом на каждого. Ресурсы на клиента — в 5 раз больше, чем на одного робота. <span class="tag t-est">оценка</span></p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">≈ 0,3 ядра</div><div class="k">и ≈ 0,6 ГБ памяти на клиента с 5 роботами</div></div>
+    <div class="kpi"><div class="v">8 / 12</div><div class="k">таких клиентов на тестовый сервер / на Cloud VPS 6</div></div>
+    <div class="kpi"><div class="v">≈ €1,05</div><div class="k">серверы в месяц на клиента, если включены все 5 роботов</div></div>
+    <div class="kpi"><div class="v">≈ €0,43</div><div class="k">если в среднем включено 2 робота из 5</div></div>
+  </div>
+  <div class="capacity">
+    <div class="lbl">Сколько клиентов на один VPS</div>
+    <p>Тестовый сервер (4 ядра, 8 ГБ, ≈ €10,49 в месяц) вмещает <b>8 клиентов</b>, если у всех включены 5 роботов, или <b>20 клиентов</b>, если в среднем по 2 робота. Сервер на 6 ядер (≈ €12,49) — <b>12</b> и <b>30 клиентов</b>.</p>
+    <ul><li>Считаем 40 роботов на тестовый сервер и 60 на сервер на 6 ядер, с запасом на Windows и всплески. <span class="tag t-est">оценка</span></li></ul>
+  </div>
+
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Клиентов</th><th class="n">Роботов</th><th class="n">Рабочих серверов</th><th class="n">€ в месяц</th><th class="n">€ на клиента</th></tr></thead>
+      <tbody>
+        <tr><td>100, у всех 5 роботов</td><td class="n">500</td><td class="n">9</td><td class="n">117,91</td><td class="n">1,18</td></tr>
+        <tr><td>100, в среднем 2 робота</td><td class="n">200</td><td class="n">4</td><td class="n">55,46</td><td class="n">0,55</td></tr>
+        <tr><td>500, у всех 5 роботов</td><td class="n">2 500</td><td class="n">42</td><td class="n">530,08</td><td class="n">1,06</td></tr>
+        <tr><td>500, в среднем 2 робота</td><td class="n">1 000</td><td class="n">17</td><td class="n">217,83</td><td class="n">0,44</td></tr>
+        <tr class="pick"><td>1000, у всех 5 роботов</td><td class="n">5 000</td><td class="n">84</td><td class="n">1 054,66</td><td class="n">1,05</td></tr>
+        <tr><td>1000, в среднем 2 робота</td><td class="n">2 000</td><td class="n">34</td><td class="n">430,16</td><td class="n">0,43</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Серверы — Cloud VPS 6 по 60 роботов плюс один центральный, как в расчётах выше. <span class="tag t-est">оценка</span></p>
+
+  <ul class="notes">
+    <li><b>Сколько это от цены.</b> При цене как у Elirox Advanced, $39,99, серверы займут около 3% выручки при полной загрузке и около 1% при двух роботах. При цене $19,99 — около 6% и 2,5% (если 1 € ≈ 1,15 $). <span class="tag t-est">оценка</span></li>
+    <li><b>Стенд к такому тарифу почти готов.</b> Сейчас клиент уже может подключить несколько счетов и запустить по роботу на каждом. Доделать нужно только сам тариф: лимит в 5 счетов и 5 роботов и оплату.</li>
+    <li><b>Сравнение с тарифом «1 счёт — 10 роботов».</b> Там 10 роботов в одном терминале, здесь 5 роботов в 5 терминалах. По процессору на робота выходит одинаково, по памяти этот тариф тяжелее, но память у нас не узкое место.</li>
+    <li>5 счетов — это 5 разных депозитов, поэтому риск сетки на каждом счёте тот же, что у одного робота: до 5 позиций по 0,01 лота.</li>
+  </ul>
+
+  <div class="verdict"><div class="lbl">Вывод</div><p>При тарифе «5 счетов — 5 роботов» один клиент обходится в €0,43–1,05 серверов в месяц: €0,43, если он в среднем держит 2 робота, и €1,05, если все 5. На тестовый сервер поместится 8 таких клиентов при полной загрузке, на сервер на 6 ядер — 12.</p><p>При цене как у Elirox Advanced ($39,99) на серверы уйдёт 1–3% выручки. Это самый простой для запуска тариф: стенд уже умеет работать с несколькими счетами одного клиента.</p></div>
+</section>
+
+<section id="check">
+  <h2>Что проверить, прежде чем закладывать в бюджет</h2>
+  <div class="two">
+    <div class="box"><h3>Нагрузочный тест</h3><p>Запустить на одном сервере 20, потом 40 роботов на демо-счетах и замерить процессор в часы новостей. Это превратит прогноз «40 на сервер» в проверенную цифру.</p></div>
+    <div class="box"><h3>Реже писать отчёт</h3><p>Перевести отчёт робота с раза в секунду на раз в 3–5 секунд и сравнить нагрузку. Если подтвердится, ёмкость сервера вырастет в 2–3 раза.</p></div>
+    <div class="box"><h3>Цена Windows у Contabo</h3><p>Уточнить у Contabo цену лицензии Windows Server для серверов на 6, 8 и 12 ядер и цену без договора на 24 месяца.</p></div>
+    <div class="box"><h3>Путь без терминалов</h3><p>Если брокер NPB даст доступ к Manager API, роботы смогут торговать без отдельного терминала на каждый счёт, и серверов понадобится в разы меньше. Подробно — в разделе ниже.</p></div>
+  </div>
+
+  <div class="verdict"><div class="lbl">Вывод</div><p>Все цифры ёмкости и бюджета выше — прогноз по замеру одного робота. Чтобы закладывать их в бюджет, нужен нагрузочный тест: 20, затем 40 роботов на одном сервере.</p><p>Тест займёт 1–2 дня. Если вдобавок перевести отчёт робота на раз в 3–5 секунд, серверов может понадобиться в 2–3 раза меньше.</p></div>
+</section>
+
+<section class="api" id="manager-api">
+  <div class="eyebrow">Разбор варианта</div>
+  <h2>Путь без терминалов: Manager API брокера NPB</h2>
+  <p>Manager API — это программный доступ к серверу MetaTrader со стороны брокера. Через него работают CRM брокеров, системы контроля рисков и сервисы копирования сделок. Доступ выдаёт сам брокер: создаёт логин менеджера с нужными правами и разрешает подключение с наших IP-адресов. <span class="tag t-src">источник</span></p>
+
+  <div class="vs">
+    <div class="box"><h3>Сейчас: терминал на каждый счёт</h3><p>Для каждого счёта клиента на нашем сервере работает отдельная копия MT4 с советником. Терминал входит в счёт по паролю клиента, робот торгует изнутри терминала. Так же устроен Elirox. <span class="tag t-chk">замер</span></p></div>
+    <div class="box"><h3>С Manager API: одно подключение</h3><p>Наш сервис один раз подключается к серверу NPB как менеджер и видит все счета, которые клиенты к нему привязали. Робот — программа на нашем сервере — сам ставит и снимает ордера на этих счетах. Терминалы не нужны. <span class="tag t-est">оценка</span></p></div>
+  </div>
+
+  <h3>Как это будет выглядеть</h3>
+  <ol class="steps">
+    <li>NPB создаёт для нас логин менеджера на демо-сервере NMarkets-Demo, с правом торговать только по счетам отдельной группы, и разрешает доступ с IP нашего сервера.</li>
+    <li>Клиент в нашем кабинете привязывает счёт NPB и подтверждает согласие на торговлю роботом. Торговый пароль от счёта ему вводить не нужно.</li>
+    <li>Брокер переводит этот счёт в группу, где наш менеджер может торговать.</li>
+    <li>Наш сервис через одно подключение получает котировки, ордера и сделки всех привязанных счетов в реальном времени.</li>
+    <li>Робот по каждому счёту ставит сетку лимитных ордеров и следит за исполнением, как сейчас это делает советник внутри терминала.</li>
+  </ol>
+
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Что сравниваем</th><th>Терминалы (как сейчас)</th><th>Manager API</th></tr></thead>
+      <tbody>
+        <tr><td>Серверов на 1000 клиентов</td><td>17 + центральный, ≈ €218 в месяц <span class="tag t-est">оценка</span></td><td>1–2 сервера, ≈ €15–30 в месяц <span class="tag t-est">оценка</span></td></tr>
+        <tr><td>Пароль от счёта клиента</td><td>Храним у себя зашифрованным</td><td>Не нужен</td></tr>
+        <tr><td>Подключение счёта</td><td>30–120 секунд: копия терминала входит в счёт <span class="tag t-chk">замер</span></td><td>Сразу после того, как брокер перевёл счёт в группу <span class="tag t-est">оценка</span></td></tr>
+        <tr><td>Обновления MT4</td><td>Каждая копия обновляется сама, отсюда сегодняшняя ошибка при первом подключении <span class="tag t-chk">замер</span></td><td>Терминалов нет, обновлять нечего</td></tr>
+        <tr><td>Брокеры</td><td>Любой брокер MT4, нужен только его терминал</td><td>Только NPB</td></tr>
+        <tr><td>Зависимость от брокера</td><td>Никакой: работаем как обычный клиент</td><td>Полная: без согласия и прав от NPB не работает</td></tr>
+        <tr><td>Готовность</td><td>Работает на стенде</td><td>Робота нужно переписать: из советника MQL4 в программу на сервере</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ul class="notes">
+    <li><b>Почему у Elirox терминалы, а у нас может быть иначе.</b> Elirox подключает около 100 брокеров, и вряд ли каждый из них даёт стороннему сервису менеджерский доступ. Поэтому у них ферма терминалов. Мы работаем с одним брокером, NPB, и можем договориться о том, что конкуренту недоступно. <span class="tag t-est">оценка</span></li>
+    <li><b>Ответственность.</b> Менеджерский доступ даёт торговать по многим счетам сразу. Права нужно ограничить одной группой счетов и только торговлей, без вывода денег и смены паролей, а сервер с этим доступом защищать строже, чем сейчас.</li>
+    <li><b>Согласие клиента.</b> Торговля по счёту клиента со стороны брокера, скорее всего, требует отдельного согласия или договора. Как это оформить у NPB, мы не изучали.</li>
+    <li><b>Как сделки будут видны клиенту.</b> Сейчас сделки помечены как сделанные советником, с меткой нашего робота. Какую пометку получат сделки через Manager API, нужно уточнить у NPB. <span class="tag t-est">оценка</span></li>
+    <li><b>MT4 и MT5.</b> Официальной открытой документации по Manager API для MT4 мы не нашли: библиотеку и описание получает брокер. <span class="tag t-est">оценка</span> Для MT5 есть пакет <span class="mono">MT5Manager</span> для Python и Web API по HTTP с описанием на сайте MetaQuotes — с MT5 такой путь проще. <span class="tag t-src">источник</span></li>
+    <li>Есть и готовые облачные посредники с Manager API (например, MetaApi), но им тоже нужен менеджерский доступ от брокера, и данные клиентов пойдут через третью сторону. <span class="tag t-src">источник</span></li>
+  </ul>
+
+  <h3>Что спросить у NPB</h3>
+  <ol class="steps">
+    <li>Готовы ли выдать логин менеджера на демо-сервере NMarkets-Demo для пробы, с правом торговать только по счетам тестовой группы?</li>
+    <li>Какая версия сервера MT4 и Manager API, и дадут ли библиотеку с документацией?</li>
+    <li>С каких IP можно подключаться и есть ли ограничения по числу запросов?</li>
+    <li>Как будут помечены сделки, открытые менеджером, в истории клиента?</li>
+    <li>Как оформить согласие клиента на торговлю роботом по его счёту?</li>
+    <li>Есть ли у NPB сервер MT5 и можно ли сразу делать на нём: там готовый пакет для Python.</li>
+  </ol>
+  <p>Если NPB согласится, следующий шаг — сделать на демо-доступе одного робота-сетку через Manager API и сравнить его со стендом по нагрузке и скорости. <span class="tag t-est">оценка</span></p>
+
+  <div class="verdict"><div class="lbl">Вывод</div><p>Если NPB даст менеджерский доступ, серверы на 1000 клиентов подешевеют примерно в 10 раз (с €218 до €15–30 в месяц), а хранить пароли клиентов станет не нужно. Это преимущество, которого нет у Elirox.</p><p>Цена: полная зависимость от NPB и переписанный робот. Первый шаг — спросить у NPB демо-доступ менеджера на NMarkets-Demo, вопросы перечислены выше.</p></div>
+</section>
+
+<section id="plan">
+  <h2>План улучшений сервиса</h2>
+  <p>Как я вижу следующие шаги после стенда. Сверху в каждом списке — самое важное.</p>
+  <div class="two">
+    <div class="box">
+      <h3>Техническая часть</h3>
+      <ol class="steps">
+        <li>Нагрузочный тест: 20, потом 40 роботов на одном сервере, чтобы подтвердить ёмкость и бюджет.</li>
+        <li>Защита депозита: ограничение плавающего убытка, после которого робот закрывает сетку; проверка маржи перед запуском.</li>
+        <li>Умная сетка, как у Elirox: сдвиг за ценой после выхода из коридора, пауза на время новостей и ночного перерыва.</li>
+        <li>Подсказка шага под инструмент и запрет шага меньше спреда.</li>
+        <li>Несколько роботов на одном счёте — нужно для тарифа «1 счёт — 10 роботов».</li>
+        <li>Тарифы с лимитами и настоящая оплата вместо тестовой.</li>
+        <li>Реже писать отчёт робота (раз в 3–5 секунд) — в 2–3 раза больше роботов на сервер.</li>
+        <li>Слежение за сервисом: сообщение в Telegram, если робот или терминал остановился; проверка автозапуска после перезагрузки.</li>
+        <li>Свой сервер компании вместо сервера коллеги, резервные копии базы.</li>
+        <li>Подтверждение почты и восстановление пароля для клиентов.</li>
+        <li>Переговоры с NPB о Manager API — путь без терминалов.</li>
+      </ol>
+    </div>
+    <div class="box">
+      <h3>Визуальная часть</h3>
+      <ol class="steps">
+        <li>Готовые режимы вместо пунктов: «Осторожная», «Оптимальная», «Агрессивная» сетка, как пресеты у Elirox.</li>
+        <li>Перед запуском показывать понятными словами: шаг в пипсах и долларах, прибыль одной сделки, сколько денег может быть в позициях в худшем случае.</li>
+        <li>Подсказка, почему робот не торгует: «до ближайшего ордера 100 пипсов, цена за день проходит около 25».</li>
+        <li>Общая панель клиента: итог по всем роботам, график баланса и эквити за весь период.</li>
+        <li>График цены за весь срок работы робота, а не только за последние 2,5 часа.</li>
+        <li>Уведомления о сделках в Telegram или на телефон.</li>
+        <li>Мобильная версия, которую можно добавить на экран телефона как приложение.</li>
+        <li>Оформление в стиле NPB, русский и английский языки.</li>
+        <li>Подсказка для нового клиента: как открыть демо-счёт NPB и подключить его за пару минут.</li>
+        <li>Страница тарифов и оплаты.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="verdict"><div class="lbl">Вывод</div><p>Первые три шага: нагрузочный тест, защита депозита (ограничение убытка и проверка маржи) и готовые режимы сетки с понятным расчётом перед запуском. Тест даёт точный бюджет, а два других пункта — то, без чего сервис нельзя давать клиентам на реальные деньги.</p><p>Тарифы, оплату и Manager API имеет смысл делать после этого, когда понятно, какую модель выбираем.</p></div>
+</section>
+
+<footer>
+  <div>Источники: страница тарифов <a href="https://elirox.com/pricing/" target="_blank" rel="noopener">elirox.com/pricing</a>; ответ сервера Elirox <span class="mono">/api/v3/subscriptions/config</span> в нашем тестовом аккаунте (24.09.2026); цены серверов <a href="https://contabo.com/en/vps/" target="_blank" rel="noopener">contabo.com/en/vps</a> и лицензии Windows <a href="https://contabo.com/en/windows-licenses/" target="_blank" rel="noopener">contabo.com/en/windows-licenses</a> (07.10.2026); замер на сервере стенда 07.10.2026. Manager API: <a href="https://support.metaquotes.net/en/docs/mt5/api/webapi_main" target="_blank" rel="noopener">MetaTrader 5 Web API</a>, <a href="https://pypi.org/project/MT5Manager/" target="_blank" rel="noopener">пакет MT5Manager</a>, <a href="https://metaapi.cloud/docs/manager/" target="_blank" rel="noopener">MetaApi Manager API</a>.</div>
+  <div>Работаем только на демо-счетах.</div>
 </footer>
 
-<script>
-(function () {
-  /* ---------- Переводы ---------- */
-  var I18N = {
-    en: {
-      'nav.pick': 'Find a robot',
-      'nav.how': 'How it works',
-      'nav.faq': 'Questions',
-      'cta.header': 'Open the bot',
-      'hero.title': 'Meet <em>the demo version of our algorithm</em>',
-      'robot.play': 'Play or pause the robot animation',
-      'hero.lead': 'See how our demo algorithm works. We provide free access to the test version so you can evaluate the logic behind it.',
-      'cta.pick': 'Find a robot',
-      'cta.telegram': 'Get a robot in Telegram',
-      'fact1.b': 'We don’t sell it',
-      'fact1.t': 'We don’t sell or rent out demo access',
-      'fact2.b': 'Test server for free',
-      'fact2.t': 'A server where the demo version runs around the clock',
-      'pick.title': 'Pick a demo version in 30 seconds',
-      'pick.sub': 'Three questions, and we’ll show which demo version fits your goals. Your choice doesn’t commit you to anything: a manager will discuss it with you before launch.',
-      'q1.t': 'What is your experience with similar tools?',
-      'q1.a1': 'Just getting familiar', 'q1.a2': 'I have basic experience', 'q1.a3': 'I use them confidently', 'q1.a4': 'Advanced level',
-      'q2.t': 'How important is stable operation to you?',
-      'q2.a1': 'Maximum stability',
-      'q2.a2': 'Moderate fluctuations are acceptable',
-      'q3.t': 'What is important to you when working with the algorithm?',
-      'q3.a1': 'Process automation', 'q3.a2': 'Understand the logic behind it', 'q3.a3': 'Evaluate how user-friendly the interface is',
-      'how.title': 'How to get access to the demo version',
-      'how.sub': 'Four steps from the button on the website to launching the demo version. All communication happens in Telegram.',
-      'how.s1.t': 'Answer 6 questions in the bot',
-      'how.s1.p': 'The button will open Telegram. The bot will ask about your goals and experience to pick a demo version. It will take about two minutes.',
-      'how.s2.t': 'Sign up in the test environment',
-      'how.s2.p': 'The bot will send you a sign-up link and a video guide. No real money is needed for the test.',
-      'how.s3.t': 'Send your account number',
-      'how.s3.p': 'Send your test account number to the chat, as digits or a screenshot. A manager will check that the account has been created.',
-      'how.s4.t': 'Get access and launch the demo version',
-      'how.s4.p': 'A manager will send you the file and step-by-step instructions and help with installation and the first launch.',
-      'how.cta.p': 'See how the demo version works and decide whether our approach interests you.',
-      'how.cta.main': 'Start in Telegram',
-      'how.cta.pick': 'Find a robot first',
-      'faq.title': 'Frequently asked questions',
-      'faq.sub': 'Didn’t find an answer? Message the bot and a manager will reply during business hours.',
-      'faq.cta': 'Ask a question in Telegram',
-      'faq.1.q': 'Is it really free?',
-      'faq.1.a': 'Yes. You get demo access and the test server it runs on for free. We don’t sell or rent out demo access.',
-      'faq.2.q': 'Do I need to pay anything to try it?',
-      'faq.2.a': 'No. The demo version runs in a test environment. You make the decision about next steps yourself once you’ve looked at the results.',
-      'faq.3.q': 'Why send my account number?',
-      'faq.3.a': 'The manager uses it to check that your test account has actually been created. Then they send you the file and step-by-step instructions for installation, setup and launch.',
-      'faq.4.q': 'Do I need a computer?',
-      'faq.4.a': 'The demo version runs on a test server we provide for free, so you don’t need to keep your own computer on. In the quiz the bot will ask whether you have a computer or only a phone, and the manager will explain how to set everything up in your case.',
-      'faq.7.q': 'When will a manager reply?',
-      'faq.7.a': 'Managers are available on weekdays from 10:00 to 19:00 Moscow time. If you message the bot in the evening or on a weekend, it will still take your answers and send a sign-up link, and a manager will contact you during business hours.',
-      'faq.8.q': 'Who is behind the project?',
-      'faq.8.a': 'A team of developers and analysts with over 10 years of experience. We post news and updates in our <a href="https://t.me/TTinvestment" target="_blank" rel="noopener">Telegram channel</a>.',
-      'ftr.about': 'Trading robots. We set up a robot on your demo account for free and provide a VPS so it can trade around the clock.',
-      'ftr.nav': 'Sections',
-      'ftr.contacts': 'Where to find us',
-      'ftr.bot': 'Telegram bot',
-      'ftr.channel': 'Telegram channel',
-      'ftr.myfxbook': 'Statistics on Myfxbook',
-      'ftr.risk1': 'Services on this website are provided by TradingTime Limited. The company does not carry out brokerage activities and does not provide dealing services. The company only provides consulting services on matters of financial intermediation.',
-      'ftr.risk2': 'All materials on this website are for information purposes only and are not a call to action. The data presented are only assumptions based on our experience. Published trading results are added solely to demonstrate effectiveness and are not a statement of profitability. Past results do not guarantee specific results in the future. Trading margin financial instruments on financial markets carries a high level of risk and is therefore not suitable for every investor. You bear full responsibility for the trading decisions you make and for the results obtained in the course of trading.',
-      'ftr.privacy': 'Privacy policy',
-    }
-  };
-  var META = {
-    ru: { title: document.title, htmlLang: 'ru' },
-    en: { title: 'Trading Time — algorithm demo', htmlLang: 'en' }
-  };
+</div>
 
-  /* Русский текст берём прямо из разметки, чтобы не держать его в двух местах */
-  var RU = {};
-  document.querySelectorAll('[data-i18n]').forEach(function (el) { RU[el.dataset.i18n] = el.textContent; });
-  document.querySelectorAll('[data-i18n-html]').forEach(function (el) { RU[el.dataset.i18nHtml] = el.innerHTML; });
-  I18N.ru = RU;
-
-  var current = 'ru';
-
-  function applyLang(lang) {
-    if (!I18N[lang]) lang = 'ru';
-    current = lang;
-    var dict = I18N[lang];
-    document.querySelectorAll('[data-i18n]').forEach(function (el) {
-      var v = dict[el.dataset.i18n]; if (v != null) el.textContent = v;
-    });
-    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
-      var v = dict[el.dataset.i18nHtml]; if (v != null) el.innerHTML = v;
-    });
-    document.documentElement.lang = META[lang].htmlLang;
-    document.title = META[lang].title;
-    document.querySelectorAll('.lang button').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
-    });
-    try { localStorage.setItem('tt_lang', lang); } catch (e) {}
-    renderPick(false);
-    updateCtaLinks();
-    glueHyphens(document.body);
-  }
-
-  /* ---------- Ссылки в бота через прокси Salebot ----------
-     Прокси-ссылка записывает все параметры в переменные клиента.
-     Пробрасываем рекламные метки, с которыми человек пришёл на сайт,
-     и добавляем, с какой кнопки он ушёл и на каком языке читал сайт. */
-  var PROXY = 'https://s.salebot.pro/cbce8ee271ee445a4f09cee0573b5e05_1';
-  var PASS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','yclid'];
-  var incoming = new URLSearchParams(location.search);
-
-  function buildBotLink(place, robot) {
-    var p = new URLSearchParams();
-    PASS.forEach(function (k) { var v = incoming.get(k); if (v) p.set(k, v); });
-    if (!p.has('utm_source')) p.set('utm_source', 'site');
-    if (!p.has('utm_medium')) p.set('utm_medium', 'landing');
-    p.set('site_button', place);
-    p.set('site_lang', current);
-    if (robot) p.set('site_robot', robot);
-    if (place === 'pick') {
-      if (ANS.exp) p.set('site_experience', ANS.exp);
-      if (ANS.stability) p.set('site_stability', ANS.stability);
-      if (ANS.goal) p.set('site_goal', ANS.goal);
-    }
-    return PROXY + '?' + p.toString();
-  }
-
-  function updateCtaLinks() {
-    document.querySelectorAll('[data-cta]').forEach(function (a) {
-      a.href = buildBotLink(a.dataset.cta, a.dataset.robot);
-      a.target = '_blank'; a.rel = 'noopener';
-    });
-  }
-
-  /* ---------- Слова через дефис не рвём ----------
-     Браузер переносит слова по дефису: «демо-» на одной строке, «счёт» на другой,
-     «брокера-» / «партнёра», «step-» / «by-step».
-     Неразрывного дефиса в кириллических наборах шрифта нет, поэтому оборачиваем
-     слово в span с запретом переноса. Вызывается после каждой смены текста. */
-  var GLUE = /[A-Za-zА-Яа-яЁё0-9]+(?:-[A-Za-zА-Яа-яЁё0-9]+)+/g;
-  function glueHyphens(root) {
-    if (!root) return;
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (n) {
-        var p = n.parentNode;
-        if (!p || /^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName) || (p.classList && p.classList.contains('nw'))) return NodeFilter.FILTER_REJECT;
-        GLUE.lastIndex = 0;
-        return GLUE.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
-      }
-    });
-    var nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(function (node) {
-      var text = node.nodeValue, frag = document.createDocumentFragment(), last = 0, m;
-      GLUE.lastIndex = 0;
-      while ((m = GLUE.exec(text))) {
-        if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
-        var span = document.createElement('span');
-        span.className = 'nw';
-        span.textContent = m[0];
-        frag.appendChild(span);
-        last = m.index + m[0].length;
-      }
-      if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
-      node.parentNode.replaceChild(frag, node);
-    });
-  }
-
-  /* ---------- Подбор демо-версии ----------
-     После трёх ответов карточка не называет конкретных роботов и не показывает цифр:
-     повторяет выбранные ответы и ведёт в бота, где менеджер подберёт демо-версию.
-     Ответы уходят в бота переменными site_experience, site_stability, site_goal. */
-  var ANS = { exp: null, stability: null, goal: null };
-
-  var TXT = {
-    ru: {
-      emptyText: 'Ответьте на три вопроса — и здесь появится подходящая демо-версия.',
-      left: function (n) { return n === 1 ? 'Остался 1 вопрос' : 'Осталось ' + n + ' вопроса'; },
-      kicker: 'Готово',
-      title: 'Демо-версия под ваши задачи',
-      desc: 'Менеджер поможет подобрать подходящую под ваши задачи демо-версию и покажет, как она работает.',
-      labels: { exp: 'Опыт', stability: 'Стабильность', goal: 'Важно' },
-      cta: 'Получить доступ в Telegram',
-      note: 'Выбор ни к чему не обязывает: менеджер обсудит его с вами перед запуском.'
-    },
-    en: {
-      emptyText: 'Answer three questions and the right demo version will appear here.',
-      left: function (n) { return n === 1 ? '1 question left' : n + ' questions left'; },
-      kicker: 'All set',
-      title: 'A demo version for your goals',
-      desc: 'A manager will help you pick the demo version that fits your goals and show you how it works.',
-      labels: { exp: 'Experience', stability: 'Stability', goal: 'What matters' },
-      cta: 'Get access in Telegram',
-      note: 'No commitment: a manager will discuss the choice with you before launch.'
-    }
-  };
-
-  var CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg>';
-  var TG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3L18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.7.2 1.4 1.6z"/></svg>';
-
-  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-
-  /* подпись выбранного варианта берём прямо со страницы — она уже на нужном языке */
-  function chosenLabel(name) {
-    var inp = document.querySelector('#pickForm input[name="' + name + '"]:checked');
-    return inp ? inp.nextElementSibling.textContent : '';
-  }
-
-  var resultEl = document.getElementById('pickResult');
-
-  function renderPick(animate) {
-    if (!resultEl) return;
-    var t = TXT[current];
-    var keys = ['exp', 'stability', 'goal'];
-    var answered = keys.filter(function (k) { return ANS[k]; }).length;
-
-    if (answered < 3) {
-      var bars = '';
-      for (var i = 0; i < 3; i++) bars += '<i' + (i < answered ? ' class="on"' : '') + '></i>';
-      resultEl.innerHTML = '<div class="res-empty"><p>' + esc(t.emptyText) + '</p>' +
-        '<div class="progress" aria-hidden="true">' + bars + '</div>' +
-        '<span class="progress-label">' + esc(t.left(3 - answered)) + '</span></div>';
-      glueHyphens(resultEl);
-      return;
-    }
-
-    resultEl.innerHTML =
-      '<div class="' + (animate ? 'res-fade' : '') + '">' +
-        '<p class="res-kicker">' + esc(t.kicker) + '</p>' +
-        '<h3 class="res-name">' + esc(t.title) + '</h3>' +
-        '<p class="res-desc res-desc-top">' + esc(t.desc) + '</p>' +
-        '<ul class="reasons">' + keys.map(function (k) {
-          return '<li>' + CHECK + '<span><b>' + esc(t.labels[k]) + ':</b> ' + esc(chosenLabel(k)) + '</span></li>';
-        }).join('') + '</ul>' +
-        '<div class="res-actions">' +
-          '<a class="btn btn-primary" href="#" target="_blank" rel="noopener" data-cta="pick">' + TG + '<span>' + esc(t.cta) + '</span></a>' +
-        '</div>' +
-        '<p class="res-disc">' + esc(t.note) + '</p>' +
-      '</div>';
-    updateCtaLinks();
-    glueHyphens(resultEl);
-  }
-
-  document.querySelectorAll('#pickForm input[type="radio"]').forEach(function (inp) {
-    inp.addEventListener('change', function () {
-      var wasComplete = ANS.exp && ANS.stability && ANS.goal;
-      ANS[inp.name] = inp.value;
-      renderPick(true);
-      /* На телефоне результат ниже вопросов — после последнего ответа показываем его */
-      if (!wasComplete && ANS.exp && ANS.stability && ANS.goal && window.matchMedia('(max-width:1024px)').matches) {
-        var rect = resultEl.getBoundingClientRect();
-        if (rect.top > window.innerHeight - 120) resultEl.scrollIntoView({ block: 'start' });
-      }
-    });
-  });
-
-  /* ---------- Переключатель языка ---------- */
-  document.querySelectorAll('.lang button').forEach(function (b) {
-    b.addEventListener('click', function () { applyLang(b.dataset.lang); });
-  });
-
-  var saved = null;
-  try { saved = localStorage.getItem('tt_lang'); } catch (e) {}
-  var fromUrl = incoming.get('lang');
-  /* По умолчанию русский: основная аудитория читает по-русски даже с узбекским
-     или казахским языком браузера. Английский — только для англоязычного браузера. */
-  applyLang(fromUrl || saved || ((navigator.language || '').toLowerCase().indexOf('en') === 0 ? 'en' : 'ru'));
-
-  /* ---------- Ролик робота ----------
-     Ролик запускается сам: команда «играть» стоит прямо в разметке. Скрипт — подстраховка:
-     повторяет попытку, показывает кнопку, если браузер отказал (энергосбережение на iPhone,
-     браузер внутри Telegram), даёт поставить ролик на паузу и останавливает его за пределами экрана.
-     Диагностика: открыть адрес сайта с #videodebug в конце — покажет, что мешает запуску. */
-  (function () {
-    var v = document.querySelector('.robot-video');
-    var btn = document.querySelector('.robot-play');
-    if (!v) return;
-    var conn = navigator.connection || {};
-    var saveData = !!(conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''));
-    var inView = true, gestureArmed = false, failed = false, byUser = false;
-
-    function setBtn(state) {         /* 'hidden' | 'play' | 'pause' */
-      if (!btn || failed) return;
-      btn.hidden = state === 'hidden';
-      btn.classList.toggle('is-playing', state === 'pause');
-      btn.setAttribute('aria-pressed', String(state === 'pause'));
-    }
-    function onGesture() {
-      ['touchend', 'click', 'keydown'].forEach(function (e) { document.removeEventListener(e, onGesture, true); });
-      if (!byUser) tryPlay();
-    }
-    function blocked() {
-      setBtn('play');
-      if (gestureArmed) return;
-      gestureArmed = true;
-      ['touchend', 'click', 'keydown'].forEach(function (e) { document.addEventListener(e, onGesture, true); });
-    }
-    function tryPlay() {
-      if (failed) return;
-      if (!v.getAttribute('src')) { v.src = v.dataset.src; v.preload = 'auto'; }
-      v.muted = true;
-      var p;
-      try { p = v.play(); } catch (e) { blocked(); return; }
-      if (p && p.then) p.then(null, blocked);
-      setTimeout(function () { if (inView && v.paused && !byUser && !failed) blocked(); }, 2500);
-    }
-
-    v.addEventListener('playing', function () { setBtn('pause'); });
-    v.addEventListener('error', function () { failed = true; if (btn) btn.hidden = true; });
-    if (btn) btn.addEventListener('click', function () {
-      if (v.paused) { byUser = false; tryPlay(); }
-      else { byUser = true; v.pause(); setBtn('play'); }
-    });
-
-    if (saveData) blocked();
-    else if (v.paused) tryPlay();
-    else setBtn('pause');
-
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          inView = e.isIntersecting;
-          if (inView) { if (v.paused && !byUser && !saveData) tryPlay(); }
-          else if (!v.paused) v.pause();
-        });
-      }, { threshold: 0.15 }).observe(v);
-    }
-
-    /* ---- диагностика по #videodebug ---- */
-    if (location.hash === '#videodebug') {
-      var box = document.createElement('div');
-      box.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:99;padding:10px 12px;border-radius:12px;'
-        + 'background:rgba(6,4,13,.92);border:1px solid rgba(196,109,248,.5);color:#F5F3FA;font:12px/1.45 monospace;white-space:pre-wrap';
-      document.body.appendChild(box);
-      setInterval(function () {
-        box.textContent = [
-          'уменьшить движение: ' + (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches),
-          'экономия трафика: ' + saveData + ' (' + (conn.effectiveType || '—') + ')',
-          'автозапуск в разметке: ' + v.hasAttribute('autoplay'),
-          'файл: ' + (v.currentSrc || v.getAttribute('src') || 'нет'),
-          'готовность: ' + v.readyState + ', сеть: ' + v.networkState + ', ошибка: ' + (v.error ? v.error.code : 'нет'),
-          'на паузе: ' + v.paused + ', время: ' + v.currentTime.toFixed(1) + ' с',
-          'кнопка видна: ' + (btn ? !btn.hidden : '—') + ', остановлено вручную: ' + byUser
-        ].join('\n');
-      }, 400);
-    }
-  })();
-
-  /* ---------- Тонкая линия под шапкой после прокрутки ---------- */
-  var hdr = document.getElementById('hdr');
-  function onScroll() { hdr.classList.toggle('scrolled', window.scrollY > 4); }
-  function setHdrH() { document.documentElement.style.setProperty('--hdr-h', hdr.offsetHeight + 'px'); }
-  window.addEventListener('resize', setHdrH);
-  setHdrH();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-</script>
 </body>
 </html>
